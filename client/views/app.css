@@ -1,8 +1,13 @@
 .app-container {
-    position: relative;
-  }
-  
-  .page-container {
-    display: flex;
-    justify-content: center;
-  }
+  display: grid;
+  grid-template-columns: 320px auto;
+  grid-template-rows: auto;
+  grid-template-areas: "sidebar main" "footer footer";
+  height: 100%;
+}
+
+.page-container {
+  grid-area: main;
+  background-color: rgb(91, 165, 42);
+  height: 100%;
+}

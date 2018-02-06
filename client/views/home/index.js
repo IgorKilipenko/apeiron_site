@@ -1,0 +1,1 @@
+import log from '../../public/logo.svg';
