@@ -1,13 +1,31 @@
 import React from 'react';
-import cn from 'classnames';
+import Drawer from 'material-ui/Drawer';
+import List from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
+import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
+import { mailFolderListItems, otherMailFolderListItems } from './tileData'
 
-import styles from './style.css';
 
-const Menu = props => (
-  <nav className={cn(styles.menu, { [styles.active]: props.isOpenLeftPanel })}>
-    <div onClick={props.toggleMenu}
-         className={styles['toggle-btn']}>&#9776;</div>
-  </nav>
+export default ({classes}) => (
+  <Drawer
+    variant="persistent"
+    classes={{
+      paper: classes.drawerPaper,
+    }}
+    anchor={anchor}
+    open={open}
+  >
+    <div className={classes.drawerInner}>
+      <div className={classes.drawerHeader}>
+        <IconButton onClick={this.handleDrawerClose}>
+          {<ChevronLeftIcon />}
+        </IconButton>
+      </div>
+      <Divider />
+      <List>{mailFolderListItems}</List>
+      <Divider />
+      <List>{otherMailFolderListItems}</List>
+    </div>
+  </Drawer>
 );
-
-export default Menu;

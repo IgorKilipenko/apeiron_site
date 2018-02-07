@@ -14,6 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
+import { mailFolderListItems, otherMailFolderListItems } from '../components/menu/tileData'
 
 import { withRouter } from 'react-router';
 
@@ -132,7 +133,6 @@ class App extends React.Component {
   };
 
   render() {
-    const {match} = this.props;
 
     const { classes, theme } = this.props;
     const { anchor, open } = this.state;
@@ -149,9 +149,13 @@ class App extends React.Component {
         <div className={classes.drawerInner}>
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              {<ChevronLeftIcon />}
             </IconButton>
           </div>
+          <Divider />
+          <List>{mailFolderListItems}</List>
+          <Divider />
+          <List>{otherMailFolderListItems}</List>
         </div>
       </Drawer>
     );
@@ -159,7 +163,6 @@ class App extends React.Component {
 
     return (
       <div className={classes.root}>
-      <div className='match'>{match}</div>
         <div className={classes.appFrame}>
           <AppBar
             className={classNames(classes.appBar, {
