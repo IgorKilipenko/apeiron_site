@@ -14,9 +14,9 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
-import { mailFolderListItems, otherMailFolderListItems } from '../components/menu/tileData'
+import Menu from '../components/menu/menu';
 
-import { withRouter } from 'react-router';
+import logo from '../public/logo.svg';
 
 import './global.css';
 
@@ -109,6 +109,10 @@ const styles = theme => ({
   'contentShift-left': {
     marginLeft: 0,
   },
+  'imgLogo': {
+    maxHeight: 50,
+    margin: 6,
+  }
 });
 
 class App extends React.Component {
@@ -137,30 +141,6 @@ class App extends React.Component {
     const { classes, theme } = this.props;
     const { anchor, open } = this.state;
 
-    const drawer = (
-      <Drawer
-        variant="persistent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor={anchor}
-        open={open}
-      >
-        <div className={classes.drawerInner}>
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {<ChevronLeftIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>{mailFolderListItems}</List>
-          <Divider />
-          <List>{otherMailFolderListItems}</List>
-        </div>
-      </Drawer>
-    );
-
-
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -179,12 +159,13 @@ class App extends React.Component {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" noWrap>
+              {/*<Typography variant="title" color="inherit" noWrap>
                 Persistent drawer
-              </Typography>
+          </Typography>*/}
+          <img className={classNames(classes.imgLogo)} src={logo} alt='Апейрион' />
             </Toolbar>
           </AppBar>
-          {drawer}
+          <Menu anchor={anchor} open={open} onClick={this.handleDrawerClose}/>
           <main
             className={classNames(classes.content, classes[`content-${anchor}`], {
               [classes.contentShift]: open,
