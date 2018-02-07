@@ -13,7 +13,7 @@ export default new Config().merge({
     './client/index.js',
   ],
   output: {
-    path: __dirname + '/../client/index.js',
+    path: __dirname + '/../public',
     publicPath: '/',
   },
   
