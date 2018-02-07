@@ -38,6 +38,7 @@ jspm_packages/
 client/semantic/*
 client/build/*
 client2/*
+public/*
 
 # Typescript v1 declaration files
 typings/
