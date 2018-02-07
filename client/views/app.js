@@ -156,15 +156,6 @@ class App extends React.Component {
       </Drawer>
     );
 
-    let before = null;
-    let after = null;
-
-    if (anchor === 'left') {
-      before = drawer;
-    } else {
-      after = drawer;
-    }
-
 
     return (
       <div className={classes.root}>
@@ -190,7 +181,7 @@ class App extends React.Component {
               </Typography>
             </Toolbar>
           </AppBar>
-          {before}
+          {drawer}
           <main
             className={classNames(classes.content, classes[`content-${anchor}`], {
               [classes.contentShift]: open,
@@ -200,7 +191,6 @@ class App extends React.Component {
           {this.props.children}
             <Typography>{'You think water moves fast? You should see ice.'}</Typography>
           </main>
-          {after}
         </div>
       </div>
     );
