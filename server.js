@@ -20,9 +20,12 @@ if (isDevelopment) {
     hot: true,
     stats: {
       colors: true
-    }
+    },
+    publicPath: webpackConfig.output.publicPath,
   }));
-  app.use(require('webpack-hot-middleware')(compiler));
+  app.use(require('webpack-hot-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+  }));
 } else {
   app.use(express.static(PUBLIC_PATH));
 }
