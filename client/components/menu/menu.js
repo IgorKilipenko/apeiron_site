@@ -6,10 +6,12 @@ import IconButton from 'material-ui/IconButton';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
-import doorIcon from '../../public/icons/4hz79g8msi.gif';
+import door_icon from '../../public/icons/4hz79g8msi.gif';
+import window_icon from '../../public/icons/q6s54q48gu.png';
 
 const styles = theme => ({
 
@@ -25,7 +27,23 @@ const styles = theme => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
   },
+  active: {
+    textDecoration: 'none',
+    backgroundColor: theme.palette.action.hover,
+    // Reset on mouse devices
+    '@media (hover: none)': {
+      backgroundColor: 'transparent',
+    },
+  }
 });
+
+// Решение времменое! надо исправить - выделение активного элемнта!!
+export const menuUrls = {
+  products: {
+    for_windows: '/Фурнитура-системы-Provedal',
+    for_doors: '/Фурнитура-входых-групп'
+  }
+}
 
 const drawerWidth = 240;
 
@@ -44,11 +62,17 @@ const Menu = ({ classes, anchor, open, onClick }) => (
       </div>
       <Divider />
       <List>
-        <ListItem button component={Link} to='/test'> 
+        <ListItem button component={props => <NavLink to={menuUrls.products.for_doors} activeClassName={classes.active} {...props}/>}>
           <ListItemIcon>
-            <img src={doorIcon}/>
+            <img src={door_icon} />
           </ListItemIcon>
-          <ListItemText primary="Фурнитура для входных групп" />
+          <ListItemText primary='Фурнитура для входных групп' />
+        </ListItem>
+        <ListItem button component={props => <NavLink to={menuUrls.products.for_windows} activeClassName={classes.active} {...props}/>}>
+          <ListItemIcon>
+            <img src={window_icon} />
+          </ListItemIcon>
+          <ListItemText primary='Фурнитура для системы Provedal' />
         </ListItem>
       </List>
       <Divider />

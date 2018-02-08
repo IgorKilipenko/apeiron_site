@@ -6,37 +6,29 @@ import {
   Switch, 
   NavLink
 } from 'react-router-dom';
+import {menuUrls} from './components/menu/menu';
+
 import logo from './public/logo.svg'
 
 import App from './views/app';
-const Home = () => (
-  <div>
-    HOME
-  </div>
-);
 
-const Roster = () => (
-  <div>
-    Roster
-  </div>
-);
+const WindowsProducts = () => (
+  <section>
+    Продукция Provedal
+  </section>
+)
+
+const DoorsProducts = () => (
+  <section>
+    Продукция для входных групп
+  </section>
+)
 
 export default () => (
     <div style={{'height': '100%'}}>
-      <header>
-        <img src={logo} className="AppLogo" alt="apeiron"/>
-      </header>
-      <ul>
-        <li>
-          <NavLink to='/home'>Home</NavLink>
-        </li>
-        <li>
-          <NavLink to='/roster'>Roster</NavLink>
-        </li>
-      </ul>
       <Switch>
-        <Route path='/home' component={Home}/>
-        <Route path='/roster' component={Roster} />
+        <Route path={menuUrls.products.for_windows} component={DoorsProducts}/>
+        <Route path={menuUrls.products.for_doors} component={WindowsProducts} />
       </Switch>
     </div>
 );

@@ -43,6 +43,7 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: '#000000',         //Надо настроит в теме на черный цвет!!
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -116,6 +117,10 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
+  constructor (props){
+    super(props);
+    console.log(props);
+  }
 
   state = {
     open: true,
@@ -173,7 +178,6 @@ class App extends React.Component {
             })}
           >
           {this.props.children}
-            <Typography>{'You think water moves fast? You should see ice.'}</Typography>
           </main>
         </div>
       </div>
