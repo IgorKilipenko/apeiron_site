@@ -120,6 +120,10 @@ const styles = theme => ({
     flexDirection:'row',
     justifyContent: 'space-around',
     alignItems: 'stretch',
+    /*flexWrap: 'wrap',*/
+    [theme.breakpoints.down("sm")]: {
+      flexDirection:'column',
+      },
   }
 });
 
@@ -130,7 +134,7 @@ class App extends React.Component {
   }
 
   state = {
-    open: true,
+    open: this.props.orientation !== 'responsive',
     anchor: "left"
   };
 

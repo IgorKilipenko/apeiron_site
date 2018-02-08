@@ -12,39 +12,49 @@ import doorImg from '../../public/imgs/doors.jpg';
 const styles = theme => ({
   card: {
     //maxWidth: '100%',
-    width: `calc(50% - ${theme.spacing.unit*3}px)`,
-    position: 'relative',
-    '&:hover': {
-      zIndex: 1,
+    width: `calc(50% - ${theme.spacing.unit * 3}px)`,
+    minWidth: 200,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      margin: 3
     },
-    '&:hover $imageBackdrop': {
-      opacity: 0.00,
+    position: "relative",
+    "&:hover": {
+      zIndex: 1
     },
+    "&:hover $imageBackdrop": {
+      opacity: 0.0
+    }
   },
   media: {
     height: 400,
+    [theme.breakpoints.down("sm")]: {
+      height: 200
+    }
   },
   imageBackdrop: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
     backgroundColor: theme.palette.common.black,
-    opacity: 0.10,
-    transition: theme.transitions.create('opacity'),
-    height:400,
+    opacity: 0.1,
+    transition: theme.transitions.create("opacity"),
+    [theme.breakpoints.down("sm")]: {
+        height: 200
+      }
   },
   active: {
-      width: '100%',
-      height:'100%',
-      position: 'absolute',
-      zIndex: 999,
-      '& $imageBackdrop': {
-        opacity: 0.00,
-        height:0,
-        width:0,
-      },
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    zIndex: 999,
+    "& $imageBackdrop": {
+      opacity: 0.0,
+      height: 0,
+      width: 0
+    }
   }
 });
 
