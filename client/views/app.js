@@ -1,130 +1,136 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import classNames from 'classnames';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import List from 'material-ui/List';
-import { MenuItem } from 'material-ui/Menu';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
-import ChevronRightIcon from 'material-ui-icons/ChevronRight';
-import Menu from '../components/menu/menu';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "material-ui/styles";
+import classNames from "classnames";
+import Drawer from "material-ui/Drawer";
+import AppBar from "material-ui/AppBar";
+import Toolbar from "material-ui/Toolbar";
+import List from "material-ui/List";
+import { MenuItem } from "material-ui/Menu";
+import Typography from "material-ui/Typography";
+import TextField from "material-ui/TextField";
+import Divider from "material-ui/Divider";
+import IconButton from "material-ui/IconButton";
+import MenuIcon from "material-ui-icons/Menu";
+import ChevronLeftIcon from "material-ui-icons/ChevronLeft";
+import ChevronRightIcon from "material-ui-icons/ChevronRight";
 
-import logo from '../public/logo.svg';
+import Menu from "../components/menu/menu";
+import ProductGroup from "../components/products/product-group";
 
-import './global.css';
+import logo from "../public/logo.svg";
+import "./global.css";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
-
   root: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     marginTop: 0,
     zIndex: 1,
-    overflow: 'hidden',
+    overflow: "hidden"
   },
   appFrame: {
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-    height: '100%',
+    position: "relative",
+    display: "flex",
+    width: "100%",
+    height: "100%"
   },
   appBar: {
-    position: 'absolute',
-    transition: theme.transitions.create(['margin', 'width'], {
+    position: "absolute",
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
-    backgroundColor: '#000000',         //Надо настроит в теме на черный цвет!!
+    backgroundColor: "#000000" //Надо настроит в теме на черный цвет!!
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+      duration: theme.transitions.duration.enteringScreen
+    })
   },
-  'appBarShift-left': {
-    marginLeft: drawerWidth,
+  "appBarShift-left": {
+    marginLeft: drawerWidth
   },
-  'appBarShift-right': {
-    marginRight: drawerWidth,
+  "appBarShift-right": {
+    marginRight: drawerWidth
   },
   menuButton: {
     marginLeft: 12,
-    marginRight: 20,
+    marginRight: 20
   },
   hide: {
-    display: 'none',
+    display: "none"
   },
   drawerPaper: {
-    position: 'relative',
-    height: '100%',
-    width: drawerWidth,
+    position: "relative",
+    height: "100%",
+    width: drawerWidth
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar
   },
   content: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
-    height: 'calc(100% - 56px)',
+    height: "calc(100% - 56px)",
     marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px)',
-      marginTop: 64,
-    },
+    [theme.breakpoints.up("sm")]: {
+      height: "calc(100% - 64px)",
+      marginTop: 64
+    }
   },
-  'content-left': {
+  "content-left": {
     marginLeft: -drawerWidth,
-    height: '100%'
+    height: "100%"
   },
-  'content-right': {
-    marginRight: -drawerWidth,
+  "content-right": {
+    marginRight: -drawerWidth
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+      duration: theme.transitions.duration.enteringScreen
+    })
   },
-  'contentShift-left': {
-    marginLeft: 0,
+  "contentShift-left": {
+    marginLeft: 0
   },
-  'imgLogo': {
+  imgLogo: {
     maxHeight: 50,
-    margin: 6,
+    margin: 6
+  },
+  flexContainer: {
+    display:'flex',
+    flexDirection:'row',
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
   }
 });
 
 class App extends React.Component {
-  constructor (props){
+  constructor(props) {
     super(props);
     console.log(props);
   }
 
   state = {
     open: true,
-    anchor: 'left',
+    anchor: "left"
   };
 
   handleDrawerOpen = () => {
@@ -137,12 +143,11 @@ class App extends React.Component {
 
   handleChangeAnchor = event => {
     this.setState({
-      anchor: event.target.value,
+      anchor: event.target.value
     });
   };
 
   render() {
-
     const { classes, theme } = this.props;
     const { anchor, open } = this.state;
 
@@ -152,7 +157,7 @@ class App extends React.Component {
           <AppBar
             className={classNames(classes.appBar, {
               [classes.appBarShift]: open,
-              [classes[`appBarShift-${anchor}`]]: open,
+              [classes[`appBarShift-${anchor}`]]: open
             })}
           >
             <Toolbar disableGutters={!open}>
@@ -167,17 +172,29 @@ class App extends React.Component {
               {/*<Typography variant="title" color="inherit" noWrap>
                 Persistent drawer
           </Typography>*/}
-          <img className={classNames(classes.imgLogo)} src={logo} alt='Апейрион' />
+              <img
+                className={classNames(classes.imgLogo)}
+                src={logo}
+                alt="Апейрион"
+              />
             </Toolbar>
           </AppBar>
-          <Menu anchor={anchor} open={open} onClick={this.handleDrawerClose}/>
+          <Menu anchor={anchor} open={open} onClick={this.handleDrawerClose} />
           <main
-            className={classNames(classes.content, classes[`content-${anchor}`], {
-              [classes.contentShift]: open,
-              [classes[`contentShift-${anchor}`]]: open,
-            })}
+            className={classNames(
+              classes.content,
+              classes[`content-${anchor}`],
+              {
+                [classes.contentShift]: open,
+                [classes[`contentShift-${anchor}`]]: open
+              }
+            )}
           >
-          {this.props.children}
+            <section className={classNames(classes.flexContainer)}>
+              <ProductGroup />
+              <ProductGroup />
+            </section>
+            {this.props.children}
           </main>
         </div>
       </div>
@@ -187,7 +204,7 @@ class App extends React.Component {
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(App);

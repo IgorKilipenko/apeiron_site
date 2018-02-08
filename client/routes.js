@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom';
 import {menuUrls} from './components/menu/menu';
 
-import logo from './public/logo.svg'
 
 import App from './views/app';
+import ProductGroup from './components/products/product-group';
 
 const WindowsProducts = () => (
   <section>
@@ -20,7 +20,7 @@ const WindowsProducts = () => (
 
 const DoorsProducts = () => (
   <section>
-    Продукция для входных групп
+    Продукция фурнитура для входных групп
   </section>
 )
 
