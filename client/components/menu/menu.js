@@ -5,8 +5,11 @@ import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import { withStyles } from 'material-ui/styles';
-import { mailFolderListItems, otherMailFolderListItems } from './tileData'
+import { Link } from 'react-router-dom';
+import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
+import doorIcon from '../../public/icons/4hz79g8msi.gif';
 
 const styles = theme => ({
 
@@ -26,21 +29,28 @@ const styles = theme => ({
 
 const drawerWidth = 240;
 
-const Menu = ({classes, anchor, open, onClick}) => (
+const Menu = ({ classes, anchor, open, onClick }) => (
   <Drawer
     variant="persistent"
     classes={{
-      paper: classes.drawerPaper,
+      paper: classes.drawerPaper
     }}
     anchor={anchor}
     open={open}
   >
     <div className={classes.drawerInner}>
       <div className={classes.drawerHeader}>
-        <IconButton onClick={onClick}>
-          {<ChevronLeftIcon />}
-        </IconButton>
+        <IconButton onClick={onClick}>{<ChevronLeftIcon />}</IconButton>
       </div>
+      <Divider />
+      <List>
+        <ListItem button component={Link} to='/test'> 
+          <ListItemIcon>
+            <img src={doorIcon}/>
+          </ListItemIcon>
+          <ListItemText primary="Фурнитура для входных групп" />
+        </ListItem>
+      </List>
       <Divider />
       <List>{mailFolderListItems}</List>
       <Divider />

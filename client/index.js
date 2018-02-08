@@ -1,6 +1,14 @@
 
 import React from 'react';
 import ReactDOM  from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch, 
+  NavLink
+} from 'react-router-dom';
+
 
 import App from './views/app';
 import AppRouter from './routes'
@@ -11,6 +19,8 @@ import AppRouter from './routes'
 }*/
 
 ReactDOM.render(
-    <App><AppRouter/></App>,
+    <Router basename='/'>
+      <App><AppRouter/></App>
+    </Router>,
     document.getElementById('app')
   );

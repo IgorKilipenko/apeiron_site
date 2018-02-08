@@ -22,7 +22,6 @@ const Roster = () => (
 );
 
 export default () => (
-  <Router basename='/'>
     <div style={{'height': '100%'}}>
       <header>
         <img src={logo} className="AppLogo" alt="apeiron"/>
@@ -38,7 +37,6 @@ export default () => (
       <Switch>
         <Route path='/home' component={Home}/>
         <Route path='/roster' component={Roster} />
-        </Switch>
+      </Switch>
     </div>
-  </Router>
 );
