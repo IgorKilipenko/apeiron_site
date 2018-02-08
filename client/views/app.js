@@ -20,7 +20,7 @@ import ProductGroup from "../components/products/product-group";
 import ProductGroupWindows from "../components/products/product-group-windows";
 
 import logo from "../public/logo.svg";
-import "./global.css";
+//import "./global.css";
 
 const drawerWidth = 240;
 
