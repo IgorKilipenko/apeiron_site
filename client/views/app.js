@@ -17,6 +17,7 @@ import ChevronRightIcon from "material-ui-icons/ChevronRight";
 
 import Menu from "../components/menu/menu";
 import ProductGroup from "../components/products/product-group";
+import ProductGroupWindows from "../components/products/product-group-windows";
 
 import logo from "../public/logo.svg";
 import "./global.css";
@@ -192,7 +193,7 @@ class App extends React.Component {
           >
             <section className={classNames(classes.flexContainer)}>
               <ProductGroup />
-              <ProductGroup />
+              <ProductGroupWindows />
             </section>
             {this.props.children}
           </main>

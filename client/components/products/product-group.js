@@ -4,6 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import { NavLink } from 'react-router-dom';
+import {menuUrls} from '../menu/menu';
 
 import doorImg from '../../public/imgs/doors.jpg';
 
@@ -11,9 +13,27 @@ const styles = theme => ({
   card: {
     //maxWidth: '100%',
     width: `calc(50% - ${theme.spacing.unit*3}px)`,
+    position: 'relative',
+    '&:hover': {
+      zIndex: 1,
+    },
+    '&:hover $imageBackdrop': {
+      opacity: 0.00,
+    },
   },
   media: {
     height: 400,
+  },
+  imageBackdrop: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: theme.palette.common.black,
+    opacity: 0.10,
+    transition: theme.transitions.create('opacity'),
+    height:400,
   },
 });
 
@@ -21,11 +41,14 @@ function ProductGroup(props) {
   const { classes } = props;
   return (
       <Card className={classes.card}>
+      
         <CardMedia
           className={classes.media}
           image={doorImg}
           title="Contemplative Reptile"
-        />
+        >
+        <span className={classes.imageBackdrop} />
+        </CardMedia>
         <CardContent>
           <Typography variant="headline" component="h2">
             Фурнитура для входных групп 
@@ -40,7 +63,7 @@ function ProductGroup(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button component={props => <NavLink to={menuUrls.products.for_doors} {...props}/>} size="small" color="primary">
             Детали
           </Button>
         </CardActions>
