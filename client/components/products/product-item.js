@@ -20,9 +20,9 @@ const styles = theme => ({
         '&:hover': {
           zIndex: 1,
         },
-        /*'&:hover $imageBackdrop': {
+        '&:hover $imageBackdrop': {
           opacity: 0.15,
-        },*/
+        },
       },
       imageSrc: {
         position: 'absolute',
@@ -33,6 +33,19 @@ const styles = theme => ({
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center 40%',
+      },
+      imageBackdrop: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: "#0366d6",
+        opacity: 0.0,
+        transition: theme.transitions.create("opacity"),
+        [theme.breakpoints.down("sm")]: {
+          height: 200
+        }
       },
 });
 

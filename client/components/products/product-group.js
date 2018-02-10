@@ -13,28 +13,13 @@ import './product-item-animation.css';
 const styles = theme => ({
   card: {
     boxSizing: 'border-box',
-    //maxWidth: '100%',
-    //minWidth: 200,
     width: '50%',
     height: '100%',
-    //[theme.breakpoints.down("sm")]: {
-    //  width: "100%",
-    //  margin: 0,
-    //},
     border: '1px solid #e5e5e5',
     boxShadow: 'none',
     transition: theme.transitions.create('all'),
     position: "relative",
-    "&:hover": {
-      zIndex: 1,
-      boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-      //[theme.breakpoints.up("sm")]: {
-       // transform: 'translate(0,-5px)',
-      //}
-    },
-    "&:hover $imageBackdrop": {
-      opacity: 0.2
-    }
+
   },
   media: {
     height: '70%',
@@ -42,46 +27,6 @@ const styles = theme => ({
     //  height: 200
     //},
     backgroundSize: 'contain'
-  },
-  imageBackdrop: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    backgroundColor: "#0366d6",
-    opacity: 0.0,
-    transition: theme.transitions.create("opacity"),
-    [theme.breakpoints.down("sm")]: {
-      height: 200
-    }
-  },
-  active: {
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    zIndex: 999,
-    "& $imageBackdrop": {
-      opacity: 0.0,
-      height: 0,
-      width: 0
-    }
-  },
-  // Animation
-  enter: {
-    opacity: 0.01,
-    transform: "scaleX(0)",
-    "& enterActive": {
-      opacity: 1,
-      transition: "all 500ms ease-in"
-    }
-  },
-  leave: {
-    opacity: 1,
-    "& leaveActive": {
-      opacity: 0.01,
-      transition: "all 300ms ease-in"
-    }
   },
 });
 
