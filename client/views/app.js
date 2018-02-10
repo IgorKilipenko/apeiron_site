@@ -15,12 +15,17 @@ import MenuIcon from "material-ui-icons/Menu";
 import ChevronLeftIcon from "material-ui-icons/ChevronLeft";
 import ChevronRightIcon from "material-ui-icons/ChevronRight";
 
-import Menu from "../components/menu/menu";
-import ProductGroup from "../components/products/product-group";
-import ProductGroupWindows from "../components/products/product-group-windows";
+import Menu, {menuUrls} from "../components/menu/menu";
 
+import ProductList from "../components/products/product-list";
+import ProductItem from "../components/products/product-item";
+
+import "./global.css";
 import logo from "../public/logo.svg";
-//import "./global.css";
+import doorImg from "../public/imgs/doors.jpg";
+import prodItemImg from "../public/imgs/products/ruch.png";
+
+
 
 const drawerWidth = 240;
 
@@ -83,7 +88,8 @@ const styles = theme => ({
     height: "100%",
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    //padding: theme.spacing.unit * 3,
+    overflowY: 'scroll',
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -115,16 +121,7 @@ const styles = theme => ({
     maxHeight: 50,
     margin: 6
   },
-  flexContainer: {
-    display:'flex',
-    flexDirection:'row',
-    justifyContent: 'space-around',
-    alignItems: 'stretch',
-    /*flexWrap: 'wrap',*/
-    [theme.breakpoints.down("sm")]: {
-      flexDirection:'column',
-      },
-  }
+
 });
 
 class App extends React.Component {
@@ -134,7 +131,7 @@ class App extends React.Component {
   }
 
   state = {
-    open: this.props.orientation !== 'responsive',
+    open: document.body.clientWidth >= 600,
     anchor: "left"
   };
 
@@ -156,54 +153,56 @@ class App extends React.Component {
     const { classes, theme } = this.props;
     const { anchor, open } = this.state;
 
-    return (
-      <div className={classes.root}>
+    return (<div className={classes.root}>
         <div className={classes.appFrame}>
-          <AppBar
-            className={classNames(classes.appBar, {
+          <AppBar className={classNames(classes.appBar, {
               [classes.appBarShift]: open,
               [classes[`appBarShift-${anchor}`]]: open
-            })}
-          >
+            })}>
             <Toolbar disableGutters={!open}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, open && classes.hide)}
-              >
+              <IconButton color="inherit" aria-label="open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.hide)}>
                 <MenuIcon />
               </IconButton>
               {/*<Typography variant="title" color="inherit" noWrap>
                 Persistent drawer
           </Typography>*/}
-              <img
-                className={classNames(classes.imgLogo)}
-                src={logo}
-                alt="Апейрион"
-              />
+              <img className={classNames(classes.imgLogo)} src={logo} alt="Апейрион" />
             </Toolbar>
           </AppBar>
           <Menu anchor={anchor} open={open} onClick={this.handleDrawerClose} />
-          <main
-            className={classNames(
+          <main className={classNames(
               classes.content,
               classes[`content-${anchor}`],
               {
                 [classes.contentShift]: open,
                 [classes[`contentShift-${anchor}`]]: open
               }
-            )}
-          >
-            <section className={classNames(classes.flexContainer)}>
-              <ProductGroup />
-              <ProductGroupWindows />
-            </section>
+            )}>
+
+            {/*<ProductList>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+              <ProductItem imgUrl={prodItemImg}/>
+            </ProductList>*/}
+            
+
             {this.props.children}
           </main>
         </div>
-      </div>
-    );
+      </div>);
   }
 }
 

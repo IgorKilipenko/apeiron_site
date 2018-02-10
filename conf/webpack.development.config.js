@@ -23,7 +23,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
           options: {
             modules: true,
             importLoaders: 1,
-            localIdentName: "[local]__[hash:base64:5]",
+            localIdentName: "[hash:base64:5]__[local]",
             minimize: false
           }
         },

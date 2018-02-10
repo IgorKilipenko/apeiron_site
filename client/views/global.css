@@ -1,12 +1,16 @@
-:global {
-    body {
-      margin: 0px !important;
-      height: 100%;
-      width: 100%;
-    }
-    html {
-        margin: 0px !important;
-        height: 100%;
-        width: 100%;
-      }
-  }
+:global html {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin: 0px !important;
+}
+:global body {
+  position: inherit;
+  height: 100%;
+  width: 100%;
+  margin: 0px !important;
+}
+:global #app {
+    height: inherit;
+    width: inherit;
+}
