@@ -13,10 +13,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import App from './views/app';
 import AppRouter from './routes'
 
-/*const Wrapper = props => {
-  console.log(props);
-  return <App>{props.children}</App>
-}*/
 
 const theme = createMuiTheme({
   palette: {
@@ -33,6 +29,9 @@ const theme = createMuiTheme({
       contrastText: '#000',
     },
   },
+  custValues: {           // Пользовательские свойства компонентов
+    initWidth: 240,
+  }
 });
 
 ReactDOM.render(

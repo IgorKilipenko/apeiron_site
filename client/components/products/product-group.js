@@ -12,31 +12,36 @@ import './product-item-animation.css';
 
 const styles = theme => ({
   card: {
+    boxSizing: 'border-box',
     //maxWidth: '100%',
-    width: `calc(50% - ${theme.spacing.unit * 3}px)`,
-    minWidth: 200,
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      margin: 0,
-    },
+    //minWidth: 200,
+    width: '50%',
+    height: '100%',
+    //[theme.breakpoints.down("sm")]: {
+    //  width: "100%",
+    //  margin: 0,
+    //},
+    border: '1px solid #e5e5e5',
+    boxShadow: 'none',
     transition: theme.transitions.create('all'),
     position: "relative",
     "&:hover": {
       zIndex: 1,
       boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-      [theme.breakpoints.up("sm")]: {
-        transform: 'translate(0,-5px)',
-      }
+      //[theme.breakpoints.up("sm")]: {
+       // transform: 'translate(0,-5px)',
+      //}
     },
     "&:hover $imageBackdrop": {
       opacity: 0.2
     }
   },
   media: {
-    height: 400,
-    [theme.breakpoints.down("sm")]: {
-      height: 200
-    }
+    height: '70%',
+    //[theme.breakpoints.down("sm")]: {
+    //  height: 200
+    //},
+    backgroundSize: 'contain'
   },
   imageBackdrop: {
     position: "absolute",
@@ -81,7 +86,7 @@ const styles = theme => ({
 });
 
 
-class ProductGroupWindows extends React.Component {
+class ProductGroup extends React.Component {
   state = { active: false};
   render() {
     const { classes, to, imgSrc } = this.props;
@@ -93,7 +98,7 @@ class ProductGroupWindows extends React.Component {
           image={imgSrc}
           title="Фурнитура для входных групп"
         >
-          <span className={classes.imageBackdrop} />
+          {/*<span className={classes.imageBackdrop} />*/}
         </CardMedia>
         <CardContent>{this.props.children}</CardContent>
         <CardActions>
@@ -110,10 +115,10 @@ class ProductGroupWindows extends React.Component {
   }
 }
 
-ProductGroupWindows.propTypes = {
+ProductGroup.propTypes = {
   classes: PropTypes.object.isRequired,
   to: PropTypes.string.isRequired,
   imgSrc: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(ProductGroupWindows);
+export default withStyles(styles)(ProductGroup);

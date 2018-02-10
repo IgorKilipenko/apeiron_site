@@ -47,13 +47,12 @@ export const menuUrls = {
 
 const drawerWidth = 240;
 
-const Menu = ({ classes, anchor, open, onClick }) => (
+const Menu = ({ classes, open, onClick }) => (
   <Drawer
     variant="persistent"
     classes={{
       paper: classes.drawerPaper
     }}
-    anchor={anchor}
     open={open}
   >
     <div className={classes.drawerInner}>

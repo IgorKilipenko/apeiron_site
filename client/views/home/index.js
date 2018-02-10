@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
+
 import ProductGroup from "../../components/products/product-group";
 import {menuUrls} from "../../components/menu/menu";
 
@@ -15,9 +16,10 @@ const styles = theme => ({
         justifyContent: 'space-around',
         alignItems: 'stretch',
         /*flexWrap: 'wrap',*/
-        [theme.breakpoints.down("sm")]: {
-          flexDirection:'column',
-          },
+        //[theme.breakpoints.down("sm")]: {
+        //  flexDirection:'column',
+        //  },
+        height:'100%',
       }
 })
 
