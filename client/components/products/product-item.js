@@ -11,20 +11,20 @@ const styles = theme => ({
         borderBottom: '1px solid #e5e5e5',
         boxSizing: 'border-box',
         position: 'relative',
-        height: `calc(${100/4}% - 0px)`,
-        width: `calc(${100/4}% - 0px)`,
+        height: `calc(${100 / 4}% - 0px)`,
+        width: `calc(${100 / 4}% - 0px)`,
         [theme.breakpoints.down('xs')]: {
-          width: '50%',
-          height: '50%',
+            width: '50%',
+            height: '50%'
         },
         '&:hover': {
-          zIndex: 1,
+            zIndex: 1
         },
         '&:hover $imageBackdrop': {
-          opacity: 0.15,
-        },
-      },
-      imageSrc: {
+            opacity: 0.15
+        }
+    },
+    imageSrc: {
         position: 'absolute',
         left: 0,
         right: 0,
@@ -32,38 +32,41 @@ const styles = theme => ({
         bottom: 0,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center 40%',
-      },
-      imageBackdrop: {
-        position: "absolute",
+        backgroundPosition: 'center 40%'
+    },
+    imageBackdrop: {
+        position: 'absolute',
         left: 0,
         right: 0,
         top: 0,
         bottom: 0,
-        backgroundColor: "#0366d6",
+        backgroundColor: '#0366d6',
         opacity: 0.0,
-        transition: theme.transitions.create("opacity"),
-        [theme.breakpoints.down("sm")]: {
-          height: 200
+        transition: theme.transitions.create('opacity'),
+        [theme.breakpoints.down('sm')]: {
+            height: 200
         }
-      },
+    }
 });
 
-const ProductItem = ({to: toComponent, classes, imgUrl }) => (
-    <ButtonBase focusRipple className={classes.image}
-    component={props => <NavLink to={toComponent ? toComponent : ''} {...props} />}>
-      <span
-        className={classes.imageSrc}
-        style={{
-          backgroundImage: `url(${imgUrl})`
-        }}
-      />
-      <span className={classes.imageBackdrop} />
+const ProductItem = ({ to: toComponent, classes, imgUrl }) => (
+    <ButtonBase
+        focusRipple
+        className={classes.image}
+        component={props => <NavLink to={toComponent ? toComponent : ''} {...props} />}
+    >
+        <span
+            className={classes.imageSrc}
+            style={{
+                backgroundImage: `url(${imgUrl})`
+            }}
+        />
+        <span className={classes.imageBackdrop} />
     </ButtonBase>
 );
 
 ProductItem.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-  
+    classes: PropTypes.object.isRequired
+};
+
 export default withStyles(styles)(ProductItem);
