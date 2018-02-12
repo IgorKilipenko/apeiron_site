@@ -19,18 +19,13 @@ import doorIcon from '../../public/imgs/doors.jpg';
 const styles = theme => ({
     root: {
         display: 'flex',
-        'flexDirection': 'column',
+        flexDirection: 'column',
         boxSizing: 'border-box',
         width: '50%',
         height: '100%',
         boxShadow: 'none',
         transition: theme.transitions.create('all'),
-        position: 'relative',
-        '&:nth-child(even)': {
-            backgroundColor: 'rgb(234, 200, 83)',
-            borderLeft: '1px solid #d6cf30',
-        },
-
+        position: 'relative'
     },
     content: {
         height: '100%',
@@ -40,14 +35,14 @@ const styles = theme => ({
         position: 'relative',
         minHeight: '20%',
         width: '100%',
-        display:'flex',
-        flexDirection: 'row',
+        display: 'flex',
+        flexDirection: 'row'
     },
     reversColumn: {
-        flexDirection: 'column-reverse',
+        flexDirection: 'column-reverse'
     },
     reversRow: {
-        flexDirection: 'row-reverse',
+        flexDirection: 'row-reverse'
     },
     imageTitle: {
         position: 'relative',
@@ -61,33 +56,43 @@ const styles = theme => ({
         backgroundRepeat: 'no-repeat',
         height: '50px',
         width: '50px',
-        top:0,
-        left:0,
+        top: 0,
+        left: 0
+    },
+    coloredRoot: {
+        backgroundColor: 'rgb(234, 200, 83)',
+        borderLeft: '1px solid #d6cf30'
     }
 });
 
 class ProductGroup extends React.Component {
     render() {
-        const { classes, revers = false, imageTitle } = this.props;
+        const { classes, revers = false, colored = false, imageTitle } = this.props;
         return (
-            <section className={classNames(classes.root, revers ? classes.reversColumn : '')}>
-                <article className={classNames(classes.header, revers ? '' : classes.reversRow )}>
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                                backgroundImage: `url(${doorIcon})`
-                            }}
-                        />
-                        <Typography
-                            component="span"
-                            variant="headline"
-                            color="inherit"
-                            className={classes.imageTitle}
-                        >
-                            Входные группы
-                            {imageTitle}
-                            <span className={classes.imageMarked} />
-                        </Typography>
+            <section
+                className={classNames(
+                    classes.root,
+                    { [classes.reversColumn]: revers },
+                    { [classes.coloredRoot]: colored }
+                )}
+            >
+                <article className={classNames(classes.header, revers ? '' : classes.reversRow)}>
+                    <span
+                        className={classes.imageSrc}
+                        style={{
+                            backgroundImage: `url(${doorIcon})`
+                        }}
+                    />
+                    <Typography
+                        component="span"
+                        variant="headline"
+                        color="inherit"
+                        className={classes.imageTitle}
+                    >
+                        Входные группы
+                        {imageTitle}
+                        <span className={classes.imageMarked} />
+                    </Typography>
                 </article>
                 <section className={classNames(classes.content)}>{this.props.children}</section>
             </section>
@@ -97,8 +102,9 @@ class ProductGroup extends React.Component {
 
 ProductGroup.propTypes = {
     classes: PropTypes.object.isRequired,
-    to: PropTypes.string.isRequired,
-    imgSrc: PropTypes.string.isRequired
+    theme: PropTypes.object.isRequired,
+    rvers: PropTypes.bool,
+    colored: PropTypes.bool
 };
 
-export default withStyles(styles)(ProductGroup);
+export default withStyles(styles, { withTheme: true })(ProductGroup);

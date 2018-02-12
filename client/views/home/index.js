@@ -52,7 +52,7 @@ export const DoorsProducts = () => (
 
 const Index = props => (
     <section className={props.classes.flexContainer} >
-        <ProductGroup to={menuUrls.products.for_doors} imgSrc={doorImg} revers={true}>
+        <ProductGroup revers={true}>
             <ProductItem imgUrl={prodItemImg} />
             <ProductItem imgUrl={prodItemImg} />
             <ProductItem imgUrl={prodItemImg} />
@@ -64,7 +64,7 @@ const Index = props => (
             <ProductItem imgUrl={prodItemImg} />
             <ProductItem imgUrl={prodItemImg} />
         </ProductGroup>
-        <ProductGroup to={menuUrls.products.for_windows} imgSrc={doorImg}>
+        <ProductGroup colored={true}>
             <ProductItem imgUrl={prodItemImg} />
             <ProductItem imgUrl={prodItemImg} />
             <ProductItem imgUrl={prodItemImg} />
