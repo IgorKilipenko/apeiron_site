@@ -6,10 +6,11 @@ import Typography from 'material-ui/Typography';
 import ProductGroup from '../../components/products/product-group';
 import ProductList from '../../components/products/product-list';
 import ProductItem from '../../components/products/product-item';
-import { menuUrls } from '../../components/menu/menu';
+import { productListDoors, productListWindows } from '../../stores/products-store';
 
-import doorImg from '../../public/imgs/doors.jpg';
+import doorImg from '../../public/imgs/doors.png';
 import prodItemImg from '../../public/imgs/products/ruch.png';
+import { isArray } from 'util';
 
 const styles = theme => ({
     flexContainer: {
@@ -19,7 +20,7 @@ const styles = theme => ({
         //[theme.breakpoints.down("sm")]: {
         //  flexDirection:'column',
         //  },
-        height: '100%',
+        height: '100%'
     }
 });
 
@@ -51,30 +52,26 @@ export const DoorsProducts = () => (
 );
 
 const Index = props => (
-    <section className={props.classes.flexContainer} >
+    <section className={props.classes.flexContainer}>
         <ProductGroup revers={true}>
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
+            {productListDoors.map(
+                product =>
+                    isArray(product) ? (
+                        <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]} />
+                    ) : (
+                        <ProductItem key={product.id} imgUrl={product.img} product={product}/>
+                    )
+            )}
         </ProductGroup>
         <ProductGroup colored={true}>
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
-            <ProductItem imgUrl={prodItemImg} />
+            {productListWindows.map(
+                product =>
+                    isArray(product) ? (
+                        <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]}/>
+                    ) : (
+                        <ProductItem key={product.id} imgUrl={product.img} product={product}/>
+                    )
+            )}
         </ProductGroup>
     </section>
 );

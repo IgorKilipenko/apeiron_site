@@ -29,6 +29,14 @@ export default new Config().merge({
                     /*limit: 1000000,*/
                     name: '[name].[hash:8].[ext]'
                 }
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: require.resolve('file-loader'),
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: __dirname + 'fonts/'
+                }
             }
         ]
     },

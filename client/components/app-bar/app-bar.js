@@ -10,7 +10,6 @@ import AppBar from 'material-ui/AppBar';
 
 import logo from '../../public/logo.svg';
 
-const drawerWidth = 240;
 const appBarHeight = '64px';
 const styles = theme => ({
     appBar: {
@@ -22,14 +21,14 @@ const styles = theme => ({
         backgroundColor: '#000000' //Надо настроит в теме на черный цвет!!
     },
     appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: `calc(100% - ${theme.customValues.drawerWidth}px)`,
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen
         })
     },
     'appBarShift-left': {
-        marginLeft: drawerWidth
+        marginLeft: theme.customValues.drawerWidth
     },
     menuButton: {
         marginLeft: 12,

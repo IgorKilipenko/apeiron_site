@@ -1,8 +1,12 @@
+//@ts-check --jsx
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import Reboot from 'material-ui/Reboot';
 
+//import 'typeface-roboto';
 import App from './views/app';
 import AppRouter from './routes';
 
@@ -21,15 +25,16 @@ const theme = createMuiTheme({
             contrastText: '#000'
         }
     },
-    custValues: {
-        // Пользовательские свойства компонентов
-        initWidth: 240
+    customValues: {
+        drawerWidth: 240,
+        borderColor: '#e5e5e5'
     }
 });
 
 ReactDOM.render(
     <Router basename="/">
         <MuiThemeProvider theme={theme}>
+            <Reboot />
             <App>
                 <AppRouter />
             </App>

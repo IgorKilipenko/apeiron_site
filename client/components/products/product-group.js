@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
@@ -14,7 +15,10 @@ import IconButton from 'material-ui/IconButton';
 import classNames from 'classnames';
 
 //import './product-item-animation.css';
-import doorIcon from '../../public/imgs/doors.jpg';
+import doorIcon from '../../public/imgs/doors.png';
+
+const headerBlockHeght = 10,
+    maxVisibleItems = 5;
 
 const styles = theme => ({
     root: {
@@ -22,21 +26,26 @@ const styles = theme => ({
         flexDirection: 'column',
         boxSizing: 'border-box',
         width: '50%',
-        height: '100%',
         boxShadow: 'none',
-        transition: theme.transitions.create('all'),
+        //transition: theme.transitions.create('all'),
         position: 'relative'
     },
     content: {
-        height: '100%',
-        width: '100%'
+        //height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignContent: 'flex-start',
+        height: `calc(100% - ${headerBlockHeght}%)`,
     },
     header: {
         position: 'relative',
-        minHeight: '20%',
+        minHeight: `${headerBlockHeght}%`,
         width: '100%',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+//        border: '1px solid #e5e5e5',
+        borderBottom: `1px solid ${theme.customValues.borderColor}`,
     },
     reversColumn: {
         flexDirection: 'column-reverse'
@@ -62,6 +71,16 @@ const styles = theme => ({
     coloredRoot: {
         backgroundColor: 'rgb(234, 200, 83)',
         borderLeft: '1px solid #d6cf30'
+    },
+    groupItemOverride: {
+        height: `${100/maxVisibleItems}%`,
+        width: `${100/maxVisibleItems}%`,
+        borderRight: `1px solid ${theme.customValues.borderColor}`,
+        borderBottom: `1px solid ${theme.customValues.borderColor}`,
+        /*[theme.breakpoints.down('xs')]: {
+            width: '50%',
+            height: '50%'
+        },*/
     }
 });
 
@@ -79,9 +98,9 @@ class ProductGroup extends React.Component {
                 <article className={classNames(classes.header, revers ? '' : classes.reversRow)}>
                     <span
                         className={classes.imageSrc}
-                        style={{
-                            backgroundImage: `url(${doorIcon})`
-                        }}
+//                        style={{
+//                            backgroundImage: `url(${doorIcon})`
+//                        }}
                     />
                     <Typography
                         component="span"
@@ -94,7 +113,13 @@ class ProductGroup extends React.Component {
                         <span className={classes.imageMarked} />
                     </Typography>
                 </article>
-                <section className={classNames(classes.content)}>{this.props.children}</section>
+                <section className={classNames(classes.content)}>
+                    {this.props.children.map((item, index) => (
+                        <article key={index} className={classes.groupItemOverride}>
+                            {item}
+                        </article>
+                    ))}
+                </section>
             </section>
         );
     }

@@ -18,7 +18,7 @@ const styles = theme => ({
   drawerPaper: {
     position: 'relative',
     height: '100%',
-    width: drawerWidth,
+    width: theme.customValues.drawerWidth,
   },
   drawerHeader: {
     display: 'flex',
@@ -45,13 +45,11 @@ export const menuUrls = {
   }
 }
 
-const drawerWidth = 240;
-
 const Menu = ({ classes, open, onClick }) => (
   <Drawer
     variant="persistent"
     classes={{
-      paper: classes.drawerPaper
+      paper: classes.drawerPaper,
     }}
     open={open}
   >

@@ -13,7 +13,6 @@ import ProductList from '../components/products/product-list';
 import ProductItem from '../components/products/product-item';
 
 import './global.css';
-import doorImg from '../public/imgs/doors.jpg';
 import prodItemImg from '../public/imgs/products/ruch.png';
 
 const drawerWidth = 240;
@@ -76,12 +75,27 @@ const styles = theme => ({
 class App extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
     }
 
     state = {
-        open: document.body.clientWidth >= 600
+        open: document.body.clientWidth >= 600,
+        windowHeight: 0,
     };
+
+    handleResize() {
+        this.setState({
+            windowHeight: window.innerHeight
+        });
+    }
+
+    componentDidMount() {
+        this.handleResize();
+        window.addEventListener('resize', () => this.handleResize());
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', () => this.handleResize());
+    }
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -97,6 +111,10 @@ class App extends React.Component {
         });
     };
 
+    hanglerMouseWhell = event => {
+
+    }
+
     render() {
         const { classes, theme } = this.props;
         const { open } = this.state;
@@ -105,7 +123,7 @@ class App extends React.Component {
             <div className={classes.appFrame}>
                 <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
                 <Menu open={open} onClick={this.handleDrawerClose} />
-                <main
+                <main onWheel={event => {console.log(`wellY=${event.deltaY}`)}}
                     className={classNames(classes.content, classes[`content-left`], {
                         [classes.contentShift]: open,
                         [classes[`contentShift-left`]]: open

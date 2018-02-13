@@ -4,19 +4,22 @@ import { withStyles } from 'material-ui/styles';
 import ButtonBase from 'material-ui/ButtonBase';
 import Typography from 'material-ui/Typography';
 import { NavLink } from 'react-router-dom';
+import Divider from 'material-ui/Divider';
 
 const styles = theme => ({
     image: {
-        border: '1px solid #e5e5e5',
-        borderBottom: '1px solid #e5e5e5',
         boxSizing: 'border-box',
         position: 'relative',
-        height: `calc(${100 / 4}% - 0px)`,
-        width: `calc(${100 / 4}% - 0px)`,
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexFlow: 'column',
+        /*height: `calc(${100 / 3}% - 0px)`,
+        width: `calc(${100 / 3}% - 0px)`,
         [theme.breakpoints.down('xs')]: {
             width: '50%',
             height: '50%'
-        },
+        },*/
         '&:hover': {
             zIndex: 1
         },
@@ -25,11 +28,13 @@ const styles = theme => ({
         }
     },
     imageSrc: {
-        position: 'absolute',
+        position: 'relative',
         left: 0,
         right: 0,
         top: 0,
-        bottom: 0,
+        height:'100%',
+        width: '100%',
+        //bottom: '20%',
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center 40%'
@@ -46,10 +51,17 @@ const styles = theme => ({
         [theme.breakpoints.down('sm')]: {
             height: 200
         }
+    },
+    productTitle: {
+        position: 'relative',
+        bottom: 0,
+        //left: '50%',
+        lineHeight: 1,
+        
     }
 });
 
-const ProductItem = ({ to: toComponent, classes, imgUrl }) => (
+const ProductItem = ({ to: toComponent, classes, imgUrl, product }) => (
     <ButtonBase
         focusRipple
         className={classes.image}
@@ -62,6 +74,10 @@ const ProductItem = ({ to: toComponent, classes, imgUrl }) => (
             }}
         />
         <span className={classes.imageBackdrop} />
+        <Divider />
+        <Typography className={classes.productTitle} variant="body2" gutterBottom align="center">
+            <span>{product.title}</span>
+        </Typography>
     </ButtonBase>
 );
 
