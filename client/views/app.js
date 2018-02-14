@@ -42,6 +42,7 @@ class App extends React.Component {
         this.setState({
             windowHeight: window.innerHeight
         });
+        console.log({'window': window, routing: this.props.routing})
     }
 
     componentDidMount() {
