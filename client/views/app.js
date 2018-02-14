@@ -10,7 +10,7 @@ import TextField from 'material-ui/TextField';
 
 import Menu, { menuUrls } from '../components/menu/menu';
 import TopBar from '../components/app-bar/app-bar';
-import FullpageWrapper from '../components/content-wrapper/fullpage-wrapper';
+import ScrollContainer from '../components/scroll-container/scroll-container';
 import ProductList from '../components/products/product-list';
 import ProductItem from '../components/products/product-item';
 
@@ -71,9 +71,9 @@ class App extends React.Component {
             <div className={classes.appFrame}>
                 <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
                 <Menu open={open} onClick={this.handleDrawerClose} />
-                <FullpageWrapper open={open}>
+                <ScrollContainer open={open}>
                     {this.props.children}
-                </FullpageWrapper>
+                </ScrollContainer>
             </div>
         );
     }
