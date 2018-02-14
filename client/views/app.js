@@ -9,13 +9,13 @@ import TextField from 'material-ui/TextField';
 
 import Menu, { menuUrls } from '../components/menu/menu';
 import TopBar from '../components/app-bar/app-bar';
+import FullpageWrapper from '../components/content-wrapper/fullpage-wrapper';
 import ProductList from '../components/products/product-list';
 import ProductItem from '../components/products/product-item';
 
 import './global.css';
 import prodItemImg from '../public/imgs/products/ruch.png';
 
-const drawerWidth = 240;
 const styles = theme => ({
     appFrame: {
         position: 'relative',
@@ -23,53 +23,6 @@ const styles = theme => ({
         width: '100%',
         height: '100%'
     },
-    drawerPaper: {
-        position: 'relative',
-        height: '100%',
-        width: drawerWidth
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar
-    },
-    content: {
-        width: '100%',
-        position: 'relative',
-        boxSizing: 'border-box',
-        /*flexGrow: 1,*/
-        backgroundColor: theme.palette.background.default,
-        //padding: theme.spacing.unit * 3,
-        //overflowY: 'scroll',
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        }),
-        height: 'calc(100% - 56px)',
-        paddingTop: 56,
-        /*[`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {   // Добавил
-      minHeight: 48,
-    },*/
-        [theme.breakpoints.up('sm')]: {
-            height: 'calc(100% - 64px)',
-            paddingTop: 64
-        }
-    },
-    'content-left': {
-        marginLeft: -drawerWidth,
-        height: '100%'
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen
-        })
-    },
-    'contentShift-left': {
-        marginLeft: 0
-    }
 });
 
 class App extends React.Component {
@@ -123,14 +76,9 @@ class App extends React.Component {
             <div className={classes.appFrame}>
                 <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
                 <Menu open={open} onClick={this.handleDrawerClose} />
-                <main onWheel={event => {console.log(`wellY=${event.deltaY}`)}}
-                    className={classNames(classes.content, classes[`content-left`], {
-                        [classes.contentShift]: open,
-                        [classes[`contentShift-left`]]: open
-                    })}
-                >
+                <FullpageWrapper open={open}>
                     {this.props.children}
-                </main>
+                </FullpageWrapper>
             </div>
         );
     }
