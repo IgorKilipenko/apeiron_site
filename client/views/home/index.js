@@ -31,7 +31,7 @@ export const WindowsProducts = () => (
                 isArray(product) ? (
                     <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]} />
                 ) : (
-                    <ProductItem key={product.id} imgUrl={product.img} product={product}/>
+                    <ProductItem key={product.id} imgUrl={product.img} product={product} />
                 )
         )}
     </ProductList>
@@ -42,37 +42,61 @@ export const DoorsProducts = () => (
         {productListWindows.map(
             product =>
                 isArray(product) ? (
-                    <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]}/>
+                    <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]} />
                 ) : (
-                    <ProductItem key={product.id} imgUrl={product.img} product={product}/>
+                    <ProductItem key={product.id} imgUrl={product.img} product={product} />
                 )
         )}
     </ProductList>
 );
 
-const Index = props => (
-    <section className={props.classes.flexContainer}>
-        <ProductGroup revers={true}>
-            {productListDoors.map(
-                product =>
-                    isArray(product) ? (
-                        <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]} />
-                    ) : (
-                        <ProductItem key={product.id} imgUrl={product.img} product={product}/>
-                    )
-            )}
-        </ProductGroup>
-        <ProductGroup colored={true}>
-            {productListWindows.map(
-                product =>
-                    isArray(product) ? (
-                        <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]}/>
-                    ) : (
-                        <ProductItem key={product.id} imgUrl={product.img} product={product}/>
-                    )
-            )}
-        </ProductGroup>
-    </section>
-);
+class Index extends React.Component {
+    constructor(props){
+        super(props);
+    }
+    url = 'test';
+    render() {
+        return (
+            <section className={this.props.classes.flexContainer}>
+                <ProductGroup revers={true}>
+                    {productListDoors.map(
+                        product =>
+                            isArray(product) ? (
+                                <ProductItem
+                                    key={product[0].id}
+                                    imgUrl={product[0].img}
+                                    product={product[0]}
+                                />
+                            ) : (
+                                <ProductItem
+                                    key={product.id}
+                                    imgUrl={product.img}
+                                    product={product}
+                                />
+                            )
+                    )}
+                </ProductGroup>
+                <ProductGroup colored={true}>
+                    {productListWindows.map(
+                        product =>
+                            isArray(product) ? (
+                                <ProductItem
+                                    key={product[0].id}
+                                    imgUrl={product[0].img}
+                                    product={product[0]}
+                                />
+                            ) : (
+                                <ProductItem
+                                    key={product.id}
+                                    imgUrl={product.img}
+                                    product={product}
+                                />
+                            )
+                    )}
+                </ProductGroup>
+            </section>
+        );
+    }
+}
 
 export default withStyles(styles, { withTheme: true })(Index);

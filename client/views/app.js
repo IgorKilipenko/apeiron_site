@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
@@ -27,6 +28,7 @@ const styles = theme => ({
 });
 
 @inject('routing')
+@withRouter
 @observer
 class App extends React.Component {
     constructor(props) {
@@ -65,13 +67,13 @@ class App extends React.Component {
     render() {
         const { classes, theme } = this.props;
         const { open } = this.state;
-        const { location, push, goBack } = this.props.routing;
+        //const { location, push, goBack } = this.props.routing;
 
         return (
             <div className={classes.appFrame}>
                 <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
                 <Menu open={open} onClick={this.handleDrawerClose} />
-                <ScrollContainer open={open}>
+                <ScrollContainer open={open} routing={this.props.routing}>
                     {this.props.children}
                 </ScrollContainer>
             </div>

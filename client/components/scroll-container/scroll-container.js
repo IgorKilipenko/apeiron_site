@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
@@ -41,13 +43,16 @@ const styles = theme => ({
     }
 });
 
+//@inject('routing')
+//@observer
 class ScrollContainer extends React.Component {
     constructor(props) {
         super(props);
     }
 
     state = {
-        windowHeight: 0
+        windowHeight: 0,
+        mouseWheel: 0
     };
 
     handleResize() {
@@ -65,19 +70,32 @@ class ScrollContainer extends React.Component {
         window.removeEventListener('resize', () => this.handleResize());
     }
 
+    handleMouseWheel(event, props) {
+        const {routing } = props;
+        console.log(this.childSection)
+        if (event.deltaY > 0){
+            props.routing.push(this.childSection.url)
+        }
+
+    }
+
+
     render() {
-        const {classes, open} = this.props;
+        const {classes, open, routing} = this.props;
+        /*var childrenWithProps = React.Children.map(this.props.children, child =>
+            React.cloneElement(child, { ref: (n) => this.childSection}));*/
+        //var childrenWithProps = React.Children.map(this.props.children, child =>
+           // React.cloneElement(child, { ref: (n) => this.childSection}));
         return (
             <main
-                onWheel={event => {
-                    console.log(`wellY=${event.deltaY}`);
-                }}
+                onWheel={event => {this.handleMouseWheel(event, this.props)}}
                 className={classNames(classes.content, classes[`content-left`], {
                     [classes.contentShift]: open,
                     [classes.contentShiftLeft]: open
                 })}
             >
-                {this.props.children}
+                {React.cloneElement(this.props.children, {ref: (n) => this.childSection = n})}
+
             </main>
         );
     }

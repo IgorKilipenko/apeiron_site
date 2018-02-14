@@ -6,13 +6,14 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { Provider } from 'mobx-react';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { Router } from 'react-router';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
 
 //import 'typeface-roboto';
 import App from './views/app';
 import AppRouter from './routes';
+import withTheme from 'material-ui';
 
 const theme = createMuiTheme({
     palette: {
@@ -46,13 +47,15 @@ const stores = {
 
 const history = syncHistoryWithStore(browserHistory, routingStore);
 
+let childProp = null;
+
 ReactDOM.render(
     <Provider {...stores}>
         <Router history={history}>
             <MuiThemeProvider theme={theme}>
                 <Reboot />
                 <App>
-                    <AppRouter />
+                    <AppRouter ref={item => childProp = item}/>
                 </App>
             </MuiThemeProvider>
         </Router>
