@@ -26,28 +26,27 @@ const styles = theme => ({
 
 export const WindowsProducts = () => (
     <ProductList>
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
+        {productListDoors.map(
+            product =>
+                isArray(product) ? (
+                    <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]} />
+                ) : (
+                    <ProductItem key={product.id} imgUrl={product.img} product={product}/>
+                )
+        )}
     </ProductList>
 );
 
 export const DoorsProducts = () => (
     <ProductList>
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
-        <ProductItem imgUrl={prodItemImg} />
+        {productListWindows.map(
+            product =>
+                isArray(product) ? (
+                    <ProductItem key={product[0].id} imgUrl={product[0].img} product={product[0]}/>
+                ) : (
+                    <ProductItem key={product.id} imgUrl={product.img} product={product}/>
+                )
+        )}
     </ProductList>
 );
 

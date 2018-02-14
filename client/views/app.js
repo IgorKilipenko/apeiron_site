@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { inject, observer } from 'mobx-react';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 import List from 'material-ui/List';
@@ -25,6 +26,8 @@ const styles = theme => ({
     },
 });
 
+@inject('routing')
+@observer
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -58,19 +61,10 @@ class App extends React.Component {
         this.setState({ open: false });
     };
 
-    handleChangeAnchor = event => {
-        this.setState({
-            anchor: event.target.value
-        });
-    };
-
-    hanglerMouseWhell = event => {
-
-    }
-
     render() {
         const { classes, theme } = this.props;
         const { open } = this.state;
+        const { location, push, goBack } = this.props.routing;
 
         return (
             <div className={classes.appFrame}>

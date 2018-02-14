@@ -2,7 +2,10 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
+import { Provider } from 'mobx-react';
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
+import { Router, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
 
@@ -31,14 +34,27 @@ const theme = createMuiTheme({
     }
 });
 
+const browserHistory = createBrowserHistory();
+const routingStore = new RouterStore();
+
+const stores = {
+  // Key can be whatever you want
+  routing: routingStore,
+  // ...other stores
+};
+
+const history = syncHistoryWithStore(browserHistory, routingStore);
+
 ReactDOM.render(
-    <Router basename="/">
-        <MuiThemeProvider theme={theme}>
-            <Reboot />
-            <App>
-                <AppRouter />
-            </App>
-        </MuiThemeProvider>
-    </Router>,
+    <Provider {...stores}>
+        <Router history={history}>
+            <MuiThemeProvider theme={theme}>
+                <Reboot />
+                <App>
+                    <AppRouter />
+                </App>
+            </MuiThemeProvider>
+        </Router>
+    </Provider>,
     document.getElementById('app')
 );
