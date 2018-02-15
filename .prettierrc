@@ -1,6 +1,6 @@
 {
-  "printWidth": 100,
-  "parser": "flow",
+  "printWidth": 80,
+  "parser": "babylon",
   "tabWidth": 4,
   "singleQuote": true
 }

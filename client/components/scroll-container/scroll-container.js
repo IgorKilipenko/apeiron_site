@@ -1,9 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { inject, observer } from 'mobx-react';
+import {
+    inject,
+    observer
+} from 'mobx-react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import {
+    withStyles
+} from 'material-ui/styles';
 import classNames from 'classnames';
+import {
+    withRouter
+} from 'react-router';
+
 
 const styles = theme => ({
     content: {
@@ -43,8 +52,9 @@ const styles = theme => ({
     }
 });
 
-//@inject('routing')
-//@observer
+@inject('routing')
+@withRouter
+@observer
 class ScrollContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -71,31 +81,43 @@ class ScrollContainer extends React.Component {
     }
 
     handleMouseWheel(event, props) {
-        const {routing } = props;
-        console.log(this.childSection)
-        if (event.deltaY > 0){
-            props.routing.push(this.childSection.url)
+        const {
+            routing
+        } = props;
+        console.log(this.props.match)
+        if (event.deltaY > 0) {
+            props.routing.push('newPage')
+        } else if (event.deltaY < 0) {
+            props.routing.goBack();
         }
 
     }
 
 
     render() {
-        const {classes, open, routing} = this.props;
-        /*var childrenWithProps = React.Children.map(this.props.children, child =>
-            React.cloneElement(child, { ref: (n) => this.childSection}));*/
-        //var childrenWithProps = React.Children.map(this.props.children, child =>
-           // React.cloneElement(child, { ref: (n) => this.childSection}));
+        const {
+            classes,
+            open,
+            routing
+        } = this.props;
+
         return (
             <main
-                onWheel={event => {this.handleMouseWheel(event, this.props)}}
-                className={classNames(classes.content, classes[`content-left`], {
-                    [classes.contentShift]: open,
-                    [classes.contentShiftLeft]: open
-                })}
-            >
-                {React.cloneElement(this.props.children, {ref: (n) => this.childSection = n})}
-
+                onWheel={ event => {
+                        this.handleMouseWheel(event, this.props)
+                    }
+                }
+                className={
+                    classNames(classes.content, classes[`content-left`], {
+                        [classes.contentShift]: open,
+                        [classes.contentShiftLeft]: open
+                    })
+                } >
+                {
+                    React.cloneElement(this.props.children, {
+                        ref: (n) => this.childSection = n
+                    })
+                }
             </main>
         );
     }
@@ -106,4 +128,6 @@ ScrollContainer.propTypes = {
     theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(ScrollContainer);
+export default withStyles(styles, {
+    withTheme: true
+})(ScrollContainer);
