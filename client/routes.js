@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
 import { menuUrls } from './components/menu/menu';
 
 import App from './views/app';
@@ -14,7 +14,7 @@ export default (props) => {
     } */
     return (
     <Switch>
-        <Route exact path="/" component={Index} />
+        <Route exact path="/" component={Index} ref={(item) => testProps.item1 = item}/>
         <Route path={menuUrls.products.for_doors} component={DoorsProducts} />
         <Route path={menuUrls.products.for_windows} component={WindowsProducts} />
         <Route path='/nextPage' component={() => <div>Next PAGE</div>} />
