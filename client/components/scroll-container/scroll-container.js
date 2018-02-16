@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 
@@ -38,13 +39,14 @@ const styles = theme => ({
             duration: theme.transitions.duration.enteringScreen
         })
     },
-    'contentShiftLeft': {
+    contentShiftLeft: {
         marginLeft: 0
     }
 });
 
-//@inject('routing')
-//@observer
+@inject('routing')
+@withRouter
+@observer
 class ScrollContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -71,31 +73,38 @@ class ScrollContainer extends React.Component {
     }
 
     handleMouseWheel(event, props) {
-        const {routing } = props;
-        console.log(this.childSection)
-        if (event.deltaY > 0){
-            props.routing.push(this.childSection.url)
+        const { routing } = props;
+        console.log(this.childSection);
+        if (event.deltaY > 0) {
+            props.routing.push('netPage');
+        } else if (event.deltaY < 0) {
+            props.routing.go(-1);
         }
-
     }
 
-
     render() {
-        const {classes, open, routing} = this.props;
+        const { classes, open, routing } = this.props;
         /*var childrenWithProps = React.Children.map(this.props.children, child =>
             React.cloneElement(child, { ref: (n) => this.childSection}));*/
         //var childrenWithProps = React.Children.map(this.props.children, child =>
-           // React.cloneElement(child, { ref: (n) => this.childSection}));
+        // React.cloneElement(child, { ref: (n) => this.childSection}));
         return (
             <main
-                onWheel={event => {this.handleMouseWheel(event, this.props)}}
-                className={classNames(classes.content, classes[`content-left`], {
-                    [classes.contentShift]: open,
-                    [classes.contentShiftLeft]: open
-                })}
+                onWheel={event => {
+                    this.handleMouseWheel(event, this.props);
+                }}
+                className={classNames(
+                    classes.content,
+                    classes[`content-left`],
+                    {
+                        [classes.contentShift]: open,
+                        [classes.contentShiftLeft]: open
+                    }
+                )}
             >
-                {React.cloneElement(this.props.children, {ref: (n) => this.childSection = n})}
-
+                {React.cloneElement(this.props.children, {
+                    ref: n => (this.childSection = n)
+                })}
             </main>
         );
     }
