@@ -47,15 +47,13 @@ const stores = {
 
 const history = syncHistoryWithStore(browserHistory, routingStore);
 
-let childProp = null;
-
 ReactDOM.render(
     <Provider {...stores}>
         <Router history={history}>
             <MuiThemeProvider theme={theme}>
                 <Reboot />
                 <App>
-                    <AppRouter ref={item => childProp = item}/>
+                    <AppRouter/>
                 </App>
             </MuiThemeProvider>
         </Router>

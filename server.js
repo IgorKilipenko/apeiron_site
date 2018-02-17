@@ -34,8 +34,19 @@ app.get("/users", function(req, res) {
   res.send(USERS);
 });
 
-app.all("*", function(req, res) {
-  res.sendFile(path.resolve(PUBLIC_PATH, 'index.html'));
+app.all('*', function(req, res) {
+    res.sendFile(path.resolve(PUBLIC_PATH, 'index.html'));
+    /*const page = `<!doctype html>
+      <html lang="utf-8">
+        <head>
+        </head>
+        <body>
+          <div id="app"></div>
+          <script src="/bundle.js"></script>
+        </body>
+      </html>`;
+
+      res.status(200).send(page);*/
 });
 
 app.listen(PORT, function() {

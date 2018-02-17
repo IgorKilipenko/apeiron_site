@@ -8,6 +8,7 @@ import List from 'material-ui/List';
 import { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
+import { Helmet } from 'react-helmet';
 
 import Menu, { menuUrls } from '../components/menu/menu';
 import TopBar from '../components/app-bar/app-bar';
@@ -24,7 +25,7 @@ const styles = theme => ({
         display: 'flex',
         width: '100%',
         height: '100%'
-    },
+    }
 });
 
 @inject('routing')
@@ -37,14 +38,14 @@ class App extends React.Component {
 
     state = {
         open: document.body.clientWidth >= 600,
-        windowHeight: 0,
+        windowHeight: 0
     };
 
     handleResize() {
         this.setState({
             windowHeight: window.innerHeight
         });
-        console.log({'window': window, routing: this.props.routing})
+        console.log({ window: window, routing: this.props.routing });
     }
 
     componentDidMount() {
@@ -71,6 +72,18 @@ class App extends React.Component {
 
         return (
             <div className={classes.appFrame}>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Апейрон</title>
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1.0"
+                    />
+                    <link
+                        rel="stylesheet"
+                        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+                    />
+                </Helmet>
                 <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
                 <Menu open={open} onClick={this.handleDrawerClose} />
                 <ScrollContainer open={open} routing={this.props.routing}>

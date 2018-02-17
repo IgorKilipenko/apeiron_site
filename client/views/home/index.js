@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+import {Route, Switch, withRouter} from 'react-router-dom';
 
 import ProductGroup from '../../components/products/product-group';
 import ProductList from '../../components/products/product-list';
@@ -54,7 +55,11 @@ class Index extends React.Component {
     constructor(props){
         super(props);
     }
-    url = 'test';
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', () => this.handleResize());
+    }
+
     render() {
         return (
             <section className={this.props.classes.flexContainer}>

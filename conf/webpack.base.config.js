@@ -20,7 +20,7 @@ export default new Config().merge({
             {
                 test: /.jsx?$/,
                 loader: 'babel-loader',
-                exclude: [/node_modules/, path.resolve(__dirname, 'client2')]
+                exclude: [/node_modules/]
             },
             {
                 test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
@@ -43,6 +43,7 @@ export default new Config().merge({
     plugins: [
         new HtmlWebpackPlugin({
             template: 'client/index.html',
+            //filename: 'index.html',
             inject: 'body'
         }),
         new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } })

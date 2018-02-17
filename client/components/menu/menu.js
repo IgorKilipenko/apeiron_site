@@ -63,7 +63,7 @@ const Menu = ({ classes, open, onClick }) => (
                     button
                     component={props => (
                         <NavLink
-                            to={menuUrls.products.for_doors}
+                            to={'/Продукция/Фурнитура-входных-групп'}
                             activeClassName={classes.active}
                             {...props}
                         />
@@ -78,7 +78,7 @@ const Menu = ({ classes, open, onClick }) => (
                     button
                     component={props => (
                         <NavLink
-                            to={menuUrls.products.for_windows}
+                            to={'/Продукция/Фурнитура-для-окон'}
                             activeClassName={classes.active}
                             {...props}
                         />

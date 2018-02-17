@@ -44,9 +44,9 @@ const styles = theme => ({
     }
 });
 
-@inject('routing')
-@withRouter
-@observer
+//@inject('routing')
+//@withRouter
+//@observer
 class ScrollContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -75,11 +75,15 @@ class ScrollContainer extends React.Component {
     handleMouseWheel(event, props) {
         const { routing } = props;
         console.log(this.childSection);
+        console.log(routing)
         if (event.deltaY > 0) {
-            props.routing.push('netPage');
+            props.routing.push('/page2');
         } else if (event.deltaY < 0) {
             props.routing.go(-1);
         }
+    }
+
+    getNextPage(routes) {
     }
 
     render() {
