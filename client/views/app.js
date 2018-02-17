@@ -29,6 +29,7 @@ const styles = theme => ({
 });
 
 @inject('routing')
+@inject('scrollRouting')
 @withRouter
 @observer
 class App extends React.Component {
@@ -86,7 +87,7 @@ class App extends React.Component {
                 </Helmet>
                 <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
                 <Menu open={open} onClick={this.handleDrawerClose} />
-                <ScrollContainer open={open} routing={this.props.routing}>
+                <ScrollContainer open={open} routing={this.props.routing} scrollRouteStore={this.props.scrollRouting}>
                     {this.props.children}
                 </ScrollContainer>
             </div>

@@ -14,6 +14,7 @@ import Reboot from 'material-ui/Reboot';
 import App from './views/app';
 import AppRouter from './routes';
 import withTheme from 'material-ui';
+import scrollRouterStore from './stores/scroll-router-store'
 
 const theme = createMuiTheme({
     palette: {
@@ -42,6 +43,7 @@ const routingStore = new RouterStore();
 const stores = {
   // Key can be whatever you want
   routing: routingStore,
+  scrollRouting : scrollRouterStore
   // ...other stores
 };
 

@@ -73,17 +73,17 @@ class ScrollContainer extends React.Component {
     }
 
     handleMouseWheel(event, props) {
-        const { routing } = props;
-        console.log(this.childSection);
+        const { routing,  scrollRouteStore } = props;
+        const route = scrollRouteStore.getRoute;
+        console.log(scrollRouteStore);
         console.log(routing)
-        if (event.deltaY > 0) {
-            props.routing.push('/page2');
-        } else if (event.deltaY < 0) {
-            props.routing.go(-1);
+        if (event.deltaY > 0 && route.next) {
+            props.routing.push(route.next.path);
+            scrollRouteStore.goNext();
+        } else if (event.deltaY < 0 && route.prev) {
+            props.routing.push(route.prev.path);
+            scrollRouteStore.goPrev();
         }
-    }
-
-    getNextPage(routes) {
     }
 
     render() {
