@@ -12,9 +12,10 @@ import Reboot from 'material-ui/Reboot';
 
 //import 'typeface-roboto';
 import App from './views/app';
+import Index from './views/home/index';
 import AppRouter from './routes';
 import withTheme from 'material-ui';
-import scrollRouterStore from './stores/scroll-router-store'
+import ScrollRouterStore from './stores/scroll-router-store'
 
 const theme = createMuiTheme({
     palette: {
@@ -39,6 +40,7 @@ const theme = createMuiTheme({
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
+const scrollRouterStore = new ScrollRouterStore(Index, browserHistory)
 
 const stores = {
   // Key can be whatever you want

@@ -5,8 +5,9 @@ import Index from '../views/home/index';
 class ScrollRouterStore {
     @observable route;
 
-    constructor(component) {
+    constructor(component, history) {
         this.routes = undefined;
+        this.history = history;
         const routeNames = Object.keys(routesConfig);
         if (routeNames.length == 1) {
             this.routes = [{
@@ -43,17 +44,19 @@ class ScrollRouterStore {
     @action
     goNext() {
         if (this.getRoute && this.getRoute.next) {
+            this.history.push(this.route.next.path)
             this.setCurrentRoute(this.route.next.component);
         }
     }
     @action
     goPrev() {
         if (this.getRoute && this.getRoute.prev) {
+            this.history.push(this.route.prev.path)
             this.setCurrentRoute(this.getRoute.prev.component);
         }
     }
 }
 
-const scrollRouterStore = new ScrollRouterStore(Index);
-export default scrollRouterStore;
-export { ScrollRouterStore };
+//const scrollRouterStore = new ScrollRouterStore(Index);
+//export default scrollRouterStore;
+export default ScrollRouterStore ;

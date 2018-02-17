@@ -72,31 +72,15 @@ class ScrollContainer extends React.Component {
         window.removeEventListener('resize', () => this.handleResize());
     }
 
-    handleMouseWheel(event, props) {
-        const { routing,  scrollRouteStore } = props;
-        const route = scrollRouteStore.getRoute;
-        console.log(scrollRouteStore);
-        console.log(routing)
-        if (event.deltaY > 0 && route.next) {
-            props.routing.push(route.next.path);
-            scrollRouteStore.goNext();
-        } else if (event.deltaY < 0 && route.prev) {
-            props.routing.push(route.prev.path);
-            scrollRouteStore.goPrev();
-        }
-    }
-
     render() {
-        const { classes, open, routing } = this.props;
+        const { classes, open, handleMouseWheel} = this.props;
         /*var childrenWithProps = React.Children.map(this.props.children, child =>
             React.cloneElement(child, { ref: (n) => this.childSection}));*/
         //var childrenWithProps = React.Children.map(this.props.children, child =>
         // React.cloneElement(child, { ref: (n) => this.childSection}));
         return (
             <main
-                onWheel={event => {
-                    this.handleMouseWheel(event, this.props);
-                }}
+                onWheel={(event) => {this.props.handleMouseWheel(event)}}
                 className={classNames(
                     classes.content,
                     classes[`content-left`],

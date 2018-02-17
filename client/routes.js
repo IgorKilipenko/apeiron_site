@@ -52,6 +52,7 @@ export default class Routes extends React.Component {
                                 {route.routes
                                     ? route.routes.map((r, i) => (
                                           <Route
+                                            key= {i}
                                               path={route.path + r.path}
                                               exact={r.exact}
                                               component={r.component}

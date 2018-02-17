@@ -66,6 +66,17 @@ class App extends React.Component {
         this.setState({ open: false });
     };
 
+    handleMouseWhell = (event) => {
+        const { routing,  scrollRouting } = this.props;
+        if (event.deltaY > 0 &&  scrollRouting.getRoute.next) {
+            //props.routing.push(route.next.path);
+            scrollRouting.goNext();
+        } else if (event.deltaY < 0 && scrollRouting.getRoute.prev) {
+            //props.routing.push(route.prev.path);
+            scrollRouting.goPrev();
+        }
+    }
+
     render() {
         const { classes, theme } = this.props;
         const { open } = this.state;
@@ -87,7 +98,7 @@ class App extends React.Component {
                 </Helmet>
                 <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
                 <Menu open={open} onClick={this.handleDrawerClose} />
-                <ScrollContainer open={open} routing={this.props.routing} scrollRouteStore={this.props.scrollRouting}>
+                <ScrollContainer open={open} routing={this.props.routing} handleMouseWheel={this.handleMouseWhell}>
                     {this.props.children}
                 </ScrollContainer>
             </div>
