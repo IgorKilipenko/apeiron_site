@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import doorIcon from '../../public/imgs/doors.png';
 
 const headerBlockHeght = 10,
-    maxVisibleItems = 5;
+    maxVisibleItems = 4;
 
 const styles = theme => ({
     root: {
@@ -28,7 +28,9 @@ const styles = theme => ({
         width: '50%',
         boxShadow: 'none',
         //transition: theme.transitions.create('all'),
-        position: 'relative'
+        position: 'relative',
+        //backgroundColor: theme.palette.primary.dark, //'#16151b',
+        color: 'white'
     },
     content: {
         //height: '100%',
@@ -45,7 +47,7 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'row',
 //        border: '1px solid #e5e5e5',
-        borderBottom: `1px solid ${theme.customValues.borderColor}`,
+        //borderBottom: `1px solid ${theme.customValues.borderColor}`,
     },
     reversColumn: {
         flexDirection: 'column-reverse'
@@ -69,14 +71,14 @@ const styles = theme => ({
         left: 0
     },
     coloredRoot: {
-        backgroundColor: 'rgb(234, 200, 83)',
-        borderLeft: '1px solid #d6cf30'
+        backgroundColor: '#ff7f00',
+        borderLeft: '1px solid #ff7f00'
     },
     groupItemOverride: {
         height: `${100/maxVisibleItems}%`,
         width: `${100/maxVisibleItems}%`,
-        borderRight: `1px solid ${theme.customValues.borderColor}`,
-        borderBottom: `1px solid ${theme.customValues.borderColor}`,
+        //borderRight: `1px solid ${theme.palette.divider}`,
+        //borderBottom: `1px solid ${theme.palette.divider}`,
         /*[theme.breakpoints.down('xs')]: {
             width: '50%',
             height: '50%'

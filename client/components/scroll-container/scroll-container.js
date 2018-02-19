@@ -6,13 +6,15 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 
+import s from './scroll-container.css';
+
 const styles = theme => ({
     content: {
         width: '100%',
         position: 'relative',
         boxSizing: 'border-box',
         /*flexGrow: 1,*/
-        backgroundColor: theme.palette.background.default,
+        //backgroundColor: theme.palette.background.default,
         //padding: theme.spacing.unit * 3,
         //overflowY: 'scroll',
         transition: theme.transitions.create('margin', {
@@ -29,8 +31,8 @@ const styles = theme => ({
             paddingTop: 64
         }
     },
-    'content-left': {
-        marginLeft: -theme.customValues.drawerWidth,
+    contentLeft: {
+        marginLeft: -theme.customValues.drawerWidth + 50,
         height: '100%'
     },
     contentShift: {
@@ -83,11 +85,12 @@ class ScrollContainer extends React.Component {
                 onWheel={(event) => {this.props.handleMouseWheel(event)}}
                 className={classNames(
                     classes.content,
-                    classes[`content-left`],
+                    classes.contentLeft,
                     {
                         [classes.contentShift]: open,
                         [classes.contentShiftLeft]: open
-                    }
+                    },
+                    s['container-background']
                 )}
             >
                 {React.cloneElement(this.props.children, {
@@ -104,3 +107,5 @@ ScrollContainer.propTypes = {
 };
 
 export default withStyles(styles, { withTheme: true })(ScrollContainer);
+
+

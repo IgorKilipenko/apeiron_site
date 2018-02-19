@@ -29,7 +29,7 @@ const styles = theme => ({
 });
 
 @inject('routing')
-@inject('scrollRouting')
+//@inject('scrollRouting')
 @withRouter
 @observer
 class App extends React.Component {
@@ -67,13 +67,13 @@ class App extends React.Component {
     };
 
     handleMouseWhell = (event) => {
-        const { routing,  scrollRouting } = this.props;
-        if (event.deltaY > 0 &&  scrollRouting.getRoute.next) {
+        const { routing } = this.props;
+        if (event.deltaY > 0) {
             //props.routing.push(route.next.path);
-            scrollRouting.goNext();
-        } else if (event.deltaY < 0 && scrollRouting.getRoute.prev) {
+            routing.goNext();
+        } else if (event.deltaY < 0) {
             //props.routing.push(route.prev.path);
-            scrollRouting.goPrev();
+            routing.goPrev();
         }
     }
 

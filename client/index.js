@@ -19,7 +19,7 @@ import ScrollRouterStore from './stores/scroll-router-store'
 
 const theme = createMuiTheme({
     palette: {
-        primary: {
+        /*primary: {
             light: '#757ce8',
             main: '#3f50b5',
             dark: '#002884',
@@ -30,7 +30,11 @@ const theme = createMuiTheme({
             main: '#f44336',
             dark: '#ba000d',
             contrastText: '#000'
-        }
+        },
+        background: {
+            default: 'white'
+        },*/
+        type: 'dark'
     },
     customValues: {
         drawerWidth: 240,
@@ -39,17 +43,17 @@ const theme = createMuiTheme({
 });
 
 const browserHistory = createBrowserHistory();
-const routingStore = new RouterStore();
-const scrollRouterStore = new ScrollRouterStore(Index, browserHistory)
+//const routingStore = new RouterStore();
+const scrollRoutingStore = new ScrollRouterStore(Index)
 
 const stores = {
   // Key can be whatever you want
-  routing: routingStore,
-  scrollRouting : scrollRouterStore
+  routing: scrollRoutingStore,
+  //scrollRouting : scrollRouterStore
   // ...other stores
 };
 
-const history = syncHistoryWithStore(browserHistory, routingStore);
+const history = syncHistoryWithStore(browserHistory, scrollRoutingStore);
 
 ReactDOM.render(
     <Provider {...stores}>

@@ -34,6 +34,7 @@ const styles = theme => ({
         top: 0,
         height:'100%',
         width: '100%',
+        padding: 2,
         //bottom: '20%',
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
@@ -45,11 +46,11 @@ const styles = theme => ({
         right: 0,
         top: 0,
         bottom: 0,
-        backgroundColor: '#0366d6',
+        backgroundColor: 'white', //'#0366d6',
         opacity: 0.0,
         transition: theme.transitions.create('opacity'),
         [theme.breakpoints.down('sm')]: {
-            height: 200
+            //height: 200
         }
     },
     productTitle: {
@@ -57,7 +58,9 @@ const styles = theme => ({
         bottom: 0,
         //left: '50%',
         lineHeight: 1,
-        
+        paddingLeft:2,
+        paddingRight:2,
+        color: '#e5e5e5'
     }
 });
 
