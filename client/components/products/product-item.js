@@ -14,6 +14,7 @@ const styles = theme => ({
         width: '100%',
         display: 'flex',
         flexFlow: 'column',
+        overflow: 'hidden',
         /*height: `calc(${100 / 3}% - 0px)`,
         width: `calc(${100 / 3}% - 0px)`,
         [theme.breakpoints.down('xs')]: {
@@ -24,7 +25,8 @@ const styles = theme => ({
             zIndex: 1
         },
         '&:hover $imageBackdrop': {
-            opacity: 0.15
+            opacity: 0.15,
+            transform: 'translateX(0)'
         }
     },
     imageSrc: {
@@ -48,7 +50,9 @@ const styles = theme => ({
         bottom: 0,
         backgroundColor: 'white', //'#0366d6',
         opacity: 0.0,
-        transition: theme.transitions.create('opacity'),
+        transform: 'translateX(100%)',
+        //transformOrigin: 'bottom center',
+        transition: theme.transitions.create(['opacity', 'transform'], {easing: theme.transitions.easing.easeOut, duration: theme.transitions.duration.standart}),
         [theme.breakpoints.down('sm')]: {
             //height: 200
         }

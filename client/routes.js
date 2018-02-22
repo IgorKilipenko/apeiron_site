@@ -12,11 +12,17 @@ import { menuUrls } from './components/menu/menu';
 import App from './views/app';
 import Index, { WindowsProducts, DoorsProducts } from './views/home/index';
 import ProductGroup from './components/products/product-group';
+import Slider from './components/image-slider/image-slider';
+
 export const routesConfig = {
     index: {
         path: '/',
         component: Index,
         exact: true,
+    },
+    slider: {
+        path: '/Галерея',
+        component: Slider
     },
     doors: {
         path: '/Продукция/Фурнитура-входных-групп',
