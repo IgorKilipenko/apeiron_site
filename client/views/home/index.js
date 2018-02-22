@@ -11,6 +11,7 @@ import { productListDoors, productListWindows } from '../../stores/products-stor
 
 import doorImg from '../../public/imgs/doors.png';
 import prodItemImg from '../../public/imgs/products/ruch.png';
+import Slider from '../../components/image-slider/image-slider';
 import { isArray } from 'util';
 
 const styles = theme => ({
@@ -21,7 +22,7 @@ const styles = theme => ({
         //[theme.breakpoints.down("sm")]: {
         //  flexDirection:'column',
         //  },
-        height: '100%'
+        height: 'calc(100% - 25%)'
     }
 });
 
@@ -62,6 +63,7 @@ class Index extends React.Component {
 
     render() {
         return (
+            <React.Fragment>
             <section className={this.props.classes.flexContainer}>
                 <ProductGroup revers={true}>
                     {productListDoors.map(
@@ -100,6 +102,8 @@ class Index extends React.Component {
                     )}
                 </ProductGroup>
             </section>
+            <Slider/>
+            </React.Fragment>
         );
     }
 }

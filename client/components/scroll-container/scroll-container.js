@@ -32,7 +32,7 @@ const styles = theme => ({
         }
     },
     contentLeft: {
-        marginLeft: -theme.customValues.drawerWidth + 50,
+        marginLeft: -theme.customValues.drawerWidth,
         height: '100%'
     },
     contentShift: {

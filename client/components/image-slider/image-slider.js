@@ -15,7 +15,7 @@ const images = importAll(require.context('../../public/imgs/products', false, /\
 
 export const styles = theme => ({
     root: {
-        height: '300px',
+        height: '25%',
         width: '100%',
         overflow: 'hidden',
         position: 'relative',
@@ -30,7 +30,7 @@ export const styles = theme => ({
         right: 0,
         bottom: 0,
         overflow: 'hidden',
-        backgroundColor: 'black',
+        backgroundColor: '#424242',
         transition:  theme.transitions.create(['transform', 'clip-path'], {easing: 'cubic-bezier(0.8, 0, 0.2, 1)', duration: '1.5s'}) + " , opacity 1.5s ease 167ms",
         transform:'translateX(0)',
         //transition:  theme.transitions.create(['opacity'], {easing: theme.transitions.easing.easeOut, duration: theme.transitions.duration.standart}),
@@ -96,7 +96,7 @@ class ImageSlider extends React.Component {
                 return { current, next: this.getNextIndex(current), previous: this.getPreviousIndex(current) };
             });
             console.log({previous:this.state.previous, current:this.state.current, next: this.state.next})
-        }, 5000);
+        }, 3000);
     }
 
     componentWillUnmount() {

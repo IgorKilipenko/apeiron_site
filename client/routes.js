@@ -17,7 +17,7 @@ import Slider from './components/image-slider/image-slider';
 export const routesConfig = {
     index: {
         path: '/',
-        component: Slider, //Index,
+        component: Index,
         exact: true,
     },
     slider: {
