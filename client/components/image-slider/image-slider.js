@@ -18,13 +18,14 @@ export const styles = theme => ({
         height: '300px',
         width: '100%',
         overflow: 'hidden',
-        position: 'relative'
+        position: 'relative',
     },
     currentSlide: {
         transform: 'translateX(0)',
         opacity: 1,
         clipPath: 'inset(0 0 0 0)',
         //transition:  theme.transitions.create(['transform', 'clip-path', 'opacity'], {easing: 'cubic-bezier(0.8, 0, 0.2, 1)', duration: '1s'}),
+        
     },
     slide: {
         height: '100%',
@@ -45,6 +46,7 @@ export const styles = theme => ({
         opacity: 0,
     },
     prevSlide: {
+        composes: '$nextSlide',
         clipPath: 'inset(0 0 0 100%)',
         opacity: 0
     },
@@ -57,6 +59,10 @@ export const styles = theme => ({
         backgroundRepeat: 'no-repeat',
         top: 0,
         left:0
+    },
+    transitionOff:{
+        transitionProperty: 'none !important',
+        opacity: 0
     }
 
 });
@@ -66,7 +72,7 @@ class ImageSlider extends React.Component {
         super(props);
         this.timer = null;
         this.images = importAll(require.context('../../public/imgs/products', false, /\.(png|jpe?g|svg)$/));
-        this.imageCount = Object.values(this.images).length;
+        this.imageCount = 5// Object.values(this.images).length;
     }
 
     state = {
@@ -77,34 +83,60 @@ class ImageSlider extends React.Component {
 
 
     componentDidMount() {
-        //this.setState({current:0})
+        this.setState({current:0})
         this.timer = setInterval(() => {
             this.setState((prev, props) => {
                 const current =
-                    prev.current < this.imageCount ? prev.current +1 : 0;
-                return { current };
+                    prev.current < this.imageCount -1 ? prev.current +1 : 0;
+                return { current, next: this.getNextIndex(current), previous: this.getPreviousIndex(current) };
             });
-            console.log({current:this.state.current})
-        }, 3000);
+            console.log({previous:this.state.previous, current:this.state.current, next: this.state.next})
+        }, 5000);
     }
 
     componentWillUnmount() {
         clearInterval(this.timer);
     }
 
+    componentWillUpdate(nextProps, nextState) {
+    }
+
+    getNextIndex(current){
+        //current = current + 1;
+        return ++current % this.imageCount;
+    }
+    getPreviousIndex(current) {
+        if (current === 0){
+            current = this.imageCount;
+        }
+        return --current;
+    }
+    iter = 0;
     render() {
         const { classes, children } = this.props;
-        const images = Object.values(this.images);
+        const images = Object.values(this.images).filter((img, i) => i >= 0 && i < this.imageCount);
+        
         return (
             <div className={classes.root}>
-                {images.map((image, i) => (
+                {images.map((image, i, arr) => {
+                    console.log({index:i, current:this.state.current, count:arr.length})
+                    const cn = {
+                        [classes.currentSlide]: this.state.current === i,
+                        [classes.prevSlide]: i === this.state.previous,
+                        [classes.nextSlide]: i !== this.state.current && i != this.state.previous
+                    }
+                    //if (this.state.next === 0 && this.state.current != this.state.next && i === 0){
+                    if (false && this.state.current === 1 && i === 0 ){
+                        console.log('true')
+                        cn[classes.prevSlide]= false
+                        cn[classes.nextSlide]= true
+                        cn[classes.currentSlide]=false
+                        cn[classes.transitionOff]=true
+                    }
+                return(
                     <div
                         key={i}
-                        className={classNames(classes.slide, {
-                            [classes.currentSlide]: this.state.current == i,
-                            [classes.prevSlide]: this.state.current > i,
-                            [classes.nextSlide]: this.state.current < i
-                        })}
+                        className={classNames(classes.slide, cn)}
                     >
                         
                         <span
@@ -114,7 +146,7 @@ class ImageSlider extends React.Component {
                             }}
                         />
                     </div>
-                ))}
+                )})}
             </div>
         );
     }
