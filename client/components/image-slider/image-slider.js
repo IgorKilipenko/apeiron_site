@@ -20,13 +20,7 @@ export const styles = theme => ({
         overflow: 'hidden',
         position: 'relative',
     },
-    currentSlide: {
-        transform: 'translateX(0)',
-        opacity: 1,
-        clipPath: 'inset(0 0 0 0)',
-        //transition:  theme.transitions.create(['transform', 'clip-path', 'opacity'], {easing: 'cubic-bezier(0.8, 0, 0.2, 1)', duration: '1s'}),
-        
-    },
+
     slide: {
         height: '100%',
         width: '100%',
@@ -35,20 +29,30 @@ export const styles = theme => ({
         left: 0,
         right: 0,
         bottom: 0,
+        overflow: 'hidden',
         backgroundColor: 'black',
-        transition:  theme.transitions.create(['transform', 'clip-path'], {easing: 'cubic-bezier(0.8, 0, 0.2, 1)', duration: '1.5s'}) + " , opacity 1.5s ease 167ms"
+        transition:  theme.transitions.create(['transform', 'clip-path'], {easing: 'cubic-bezier(0.8, 0, 0.2, 1)', duration: '1.5s'}) + " , opacity 1.5s ease 167ms",
+        transform:'translateX(0)',
         //transition:  theme.transitions.create(['opacity'], {easing: theme.transitions.easing.easeOut, duration: theme.transitions.duration.standart}),
         //transition: 'clip-path 1.1s cubic-bezier(.19,1,.22,1), opacity 1.1s ease 167ms',
-        
+    },
+    currentSlide: {
+        opacity: 1,
+        clipPath: 'inset(0 0 0 0)',
+        //transition:  theme.transitions.create(['transform', 'clip-path', 'opacity'], {easing: 'cubic-bezier(0.8, 0, 0.2, 1)', duration: '1s'}),
     },
     nextSlide: {
         clipPath: 'inset(0 100% 0 0)',
         opacity: 0,
+        '& $imageSrc': {
+            left:'-55%',
+            
+        }
     },
     prevSlide: {
         composes: '$nextSlide',
         clipPath: 'inset(0 0 0 100%)',
-        opacity: 0
+        opacity: 0,
     },
     imageSrc: {
         height:'100%',
@@ -58,7 +62,8 @@ export const styles = theme => ({
         backgroundPosition:'center',
         backgroundRepeat: 'no-repeat',
         top: 0,
-        left:0
+        left:0,
+        transition:  theme.transitions.create('left', {easing: 'cubic-bezier(0.8, 0, 0.2, 1)', duration: '1.8s'}),
     },
     transitionOff:{
         transitionProperty: 'none !important',
@@ -124,14 +129,6 @@ class ImageSlider extends React.Component {
                         [classes.currentSlide]: this.state.current === i,
                         [classes.prevSlide]: i === this.state.previous,
                         [classes.nextSlide]: i !== this.state.current && i != this.state.previous
-                    }
-                    //if (this.state.next === 0 && this.state.current != this.state.next && i === 0){
-                    if (false && this.state.current === 1 && i === 0 ){
-                        console.log('true')
-                        cn[classes.prevSlide]= false
-                        cn[classes.nextSlide]= true
-                        cn[classes.currentSlide]=false
-                        cn[classes.transitionOff]=true
                     }
                 return(
                     <div
