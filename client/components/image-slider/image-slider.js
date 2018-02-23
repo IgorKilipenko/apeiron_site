@@ -77,7 +77,7 @@ class ImageSlider extends React.Component {
         super(props);
         this.timer = null;
         this.images = importAll(require.context('../../public/imgs/products', false, /\.(png|jpe?g|svg)$/));
-        this.imageCount = 5// Object.values(this.images).length;
+        this.imageCount = Object.values(this.images).length;
     }
 
     state = {
