@@ -7,10 +7,10 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
   },
   devtool: 'source-map',
   module: {
-    loaders: [{
+    rules: [{
       test: /\.css$/,
       use: [
-        'style-loader',
+        {loader:'style-loader'},
         {
           loader: 'css-loader',
           options: {

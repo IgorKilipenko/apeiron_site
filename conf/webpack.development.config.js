@@ -9,15 +9,17 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     'react-hot-loader/patch',
     __dirname + '/../client/index.js',
   ],
-  devtool: 'inline-source-map',
+  //devtool: 'inline-source-map',
+  devtool: '#source-map',
   output: {
+    pathinfo: true,
     filename: 'bundle.js'
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.css$/,
       use: [
-        'style-loader',
+        {loader:'style-loader'},
         {
           loader: 'css-loader',
           options: {
@@ -32,6 +34,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     }]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 });

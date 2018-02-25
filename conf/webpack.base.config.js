@@ -12,12 +12,12 @@ const port = 7700;
 export default new Config().merge({
     entry: ['./client/index.js'],
     output: {
-        path: __dirname + '/../public',
+        path: path.resolve(__dirname, '../public') ,
         publicPath: '/'
+        //filename: '[name].js'
     },
-
     module: {
-        loaders: [
+        rules: [
             {
                 test: /.jsx?$/,
                 loader: 'babel-loader',
