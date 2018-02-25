@@ -33,11 +33,16 @@ export default new Config().merge({
             },
             {
                 test: /\.svg$/,
-                loader: require.resolve('svg-sprite-loader'),
-                options: {
-                    extract: false,
-                    spriteFilename: "icons.[hash:20].svg"
-                }
+                use: [
+                    {loader: require.resolve('svgr/webpack')},
+                    {
+                        loader: require.resolve('url-loader'),
+                        options: {
+                            /*limit: 1000000,*/
+                            name: '[name].[hash:8].[ext]'
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,

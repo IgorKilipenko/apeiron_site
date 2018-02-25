@@ -39,14 +39,35 @@ class App extends React.Component {
 
     state = {
         open: document.body.clientWidth >= 600,
-        windowHeight: 0
+        //windowHeight: 0
     };
 
     handleResize() {
-        this.setState({
-            windowHeight: window.innerHeight
-        });
-        console.log({ window: window, routing: this.props.routing });
+        
+//        this.setState({
+//            windowHeight: window.innerHeight
+//        });
+//        console.log({ window: window, routing: this.props.routing });
+
+        this.setState( {breakpoint: this._getBreakpoint(window.innerWidth)});
+    }
+
+    _getBreakpoint(width){
+        if (width <= 600){
+            return 'xs'
+        }
+        if (width > 600 && width <= 960 ){
+            return 'sm'
+        }
+        if (width > 960 && width <= 1280 ){
+            return 'md'
+        }
+        if (width > 1280 && width <= 1920 ){
+            return 'lg'
+        }
+        if (width > 1920 ){
+            return 'xl'
+        }
     }
 
     componentDidMount() {
@@ -100,8 +121,8 @@ class App extends React.Component {
                         rel="stylesheet"
                     />
                 </Helmet>
-                <TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />
-                <Menu open={open} onClick={this.handleDrawerClose} />
+                {/*<TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />*/}
+                {/*<Menu open={open} onClick={this.handleDrawerClose} />*/}
                 <ScrollContainer open={open} routing={this.props.routing} handleMouseWheel={this.handleMouseWhell}>
                     {this.props.children}
                 </ScrollContainer>

@@ -75,7 +75,7 @@ export const styles = theme => ({
 class ImageSlider extends React.Component {
     constructor(props) {
         super(props);
-        this.timer = null;
+        this.interval = null;
         this.images = importAll(require.context('../../public/imgs/products', false, /\.(png|jpe?g|svg)$/));
         this.imageCount = Object.values(this.images).length;
     }
@@ -89,18 +89,14 @@ class ImageSlider extends React.Component {
 
     componentDidMount() {
         this.setState({current:0})
-        this.timer = setInterval(() => {
-            this.setState((prev, props) => {
-                const current =
-                    prev.current < this.imageCount -1 ? prev.current +1 : 0;
-                return { current, next: this.getNextIndex(current), previous: this.getPreviousIndex(current) };
-            });
-            console.log({previous:this.state.previous, current:this.state.current, next: this.state.next})
-        }, 3000);
+        this.animate();
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        if (this.state.interval){ 
+            clearInterval(this.state.interval);
+            this.setState({interval:null})
+        }
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -116,7 +112,30 @@ class ImageSlider extends React.Component {
         }
         return --current;
     }
-    iter = 0;
+
+    animate(){
+        if (this.state.interval){
+            this.clearInterval(this.state.interval);
+            this.setState({ interval: null });
+        }
+        const interval = setInterval(() => {
+            this.setState((prev, props) => {
+                const current =
+                    prev.current < this.imageCount -1 ? prev.current +1 : 0;
+                return { current, next: this.getNextIndex(current), previous: this.getPreviousIndex(current) };
+            });
+            console.log({previous:this.state.previous, current:this.state.current, next: this.state.next})
+        }, 3000);
+        this.setState({interval})
+    }
+
+    clearAnimate() {
+        if (this.state.interval){ 
+            clearInterval(this.state.interval);
+            this.setState({interval:null})
+        }
+    }
+
     render() {
         const { classes, children } = this.props;
         const images = Object.values(this.images).filter((img, i) => i >= 0 && i < this.imageCount);
@@ -124,7 +143,7 @@ class ImageSlider extends React.Component {
         return (
             <div className={classes.root}>
                 {images.map((image, i, arr) => {
-                    console.log({index:i, current:this.state.current, count:arr.length})
+                    //console.log({index:i, current:this.state.current, count:arr.length})
                     const cn = {
                         [classes.currentSlide]: this.state.current === i,
                         [classes.prevSlide]: i === this.state.previous,
