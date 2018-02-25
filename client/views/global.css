@@ -14,3 +14,15 @@
     height: inherit;
     width: inherit;
 }
+
+:global #logo1 {
+    stroke: white !important;
+}
+
+:global .cls-2 {
+    stroke: white !important;
+}
+
+:global #logo-menu path {
+    stroke: rgb(255, 255, 255) !important;
+}

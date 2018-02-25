@@ -13,6 +13,7 @@ import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
 import door_icon from '../../public/icons/4hz79g8msi.gif';
 import window_icon from '../../public/icons/q6s54q48gu.png';
+import apeironLogo from '../../public/logo-menu.svg';
 
 const styles = theme => ({
     drawerPaper: {
@@ -34,7 +35,29 @@ const styles = theme => ({
         '@media (hover: none)': {
             backgroundColor: 'transparent'
         }
-    }
+    },
+    menuLogo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        filter: 'drop-shadow(12px 12px 7px rgba(0,0,0,0.5))',
+        [`& #${apeironLogo.id} svg path`]: {
+            stroke: 'white !important'
+        },
+    },
+    logoContainer: {
+        position: 'absolute',
+        top: 200,
+        left: 250,
+        height: '100px',
+        width: '100px',
+        zIndex: 99999,
+    },
+    [`#${apeironLogo.id} svg path`]: {
+        stroke: 'white !important'
+    },
 });
 
 // Решение времменое! надо исправить - выделение активного элемнта!!
@@ -46,6 +69,12 @@ export const menuUrls = {
 };
 
 const Menu = ({ classes, open, onClick }) => (
+    <React.Fragment>
+                <div className={classes.logoContainer} >  
+            <svg id="logo1" className={classes.menuLogo} viewBox={apeironLogo.viewBox}>
+                <use xlinkHref={`#${apeironLogo.id}`} stroke="red" xmlns="http://www.w3.org/2000/svg"/>
+            </svg>
+        </div>
     <Drawer
         variant="persistent"
         classes={{
@@ -53,6 +82,8 @@ const Menu = ({ classes, open, onClick }) => (
         }}
         open={open}
     >
+
+
         <div className={classes.drawerInner}>
             <div className={classes.drawerHeader}>
                 <IconButton onClick={onClick}>{<ChevronLeftIcon />}</IconButton>
@@ -96,6 +127,7 @@ const Menu = ({ classes, open, onClick }) => (
             <List>{otherMailFolderListItems}</List>
         </div>
     </Drawer>
+    </React.Fragment>
 );
 
 Menu.propTypes = {

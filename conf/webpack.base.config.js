@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import Config from 'webpack-config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import SpriteLoaderPlugin from 'svg-sprite-loader/plugin';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import path from 'path';
@@ -23,11 +24,19 @@ export default new Config().merge({
                 exclude: [/node_modules/]
             },
             {
-                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
                 loader: require.resolve('url-loader'),
                 options: {
                     /*limit: 1000000,*/
                     name: '[name].[hash:8].[ext]'
+                }
+            },
+            {
+                test: /\.svg$/,
+                loader: require.resolve('svg-sprite-loader'),
+                options: {
+                    extract: false,
+                    spriteFilename: "icons.[hash:20].svg"
                 }
             },
             {
@@ -46,6 +55,7 @@ export default new Config().merge({
             //filename: 'index.html',
             inject: 'body'
         }),
-        new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } })
+        new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
+        new SpriteLoaderPlugin({ plainSprite: true }),
     ]
 });
