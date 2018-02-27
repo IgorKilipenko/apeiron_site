@@ -34,7 +34,14 @@ export default new Config().merge({
             {
                 test: /\.svg$/,
                 use: [
-                    {loader: require.resolve('svgr/webpack')},
+                    {
+                        loader: require.resolve('svgr/webpack'),
+                        options: {
+                            ids: true,
+                            'title': false,
+                            'viewBox': false
+                        }
+                    },
                     {
                         loader: require.resolve('url-loader'),
                         options: {

@@ -15,7 +15,7 @@ import App from './views/app';
 import Index from './views/home/index';
 import AppRouter from './routes';
 import withTheme from 'material-ui';
-import ScrollRouterStore from './stores/scroll-router-store'
+import ScrollRouterStore from './stores/scroll-router-store';
 
 const theme = createMuiTheme({
     palette: {
@@ -47,13 +47,13 @@ const theme = createMuiTheme({
 
 const browserHistory = createBrowserHistory();
 //const routingStore = new RouterStore();
-const scrollRoutingStore = new ScrollRouterStore(Index)
+const scrollRoutingStore = new ScrollRouterStore(Index);
 
 const stores = {
-  // Key can be whatever you want
-  routing: scrollRoutingStore,
-  //scrollRouting : scrollRouterStore
-  // ...other stores
+    // Key can be whatever you want
+    routing: scrollRoutingStore
+    //scrollRouting : scrollRouterStore
+    // ...other stores
 };
 
 const history = syncHistoryWithStore(browserHistory, scrollRoutingStore);
@@ -64,7 +64,7 @@ ReactDOM.render(
             <MuiThemeProvider theme={theme}>
                 <Reboot />
                 <App>
-                    <AppRouter/>
+                    <AppRouter />
                 </App>
             </MuiThemeProvider>
         </Router>

@@ -122,7 +122,7 @@ class App extends React.Component {
                     />
                 </Helmet>
                 {/*<TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />*/}
-                {/*<Menu open={open} onClick={this.handleDrawerClose} />*/}
+                <Menu open={open} onClick={this.handleDrawerClose} />
                 <ScrollContainer open={open} routing={this.props.routing} handleMouseWheel={this.handleMouseWhell}>
                     {this.props.children}
                 </ScrollContainer>

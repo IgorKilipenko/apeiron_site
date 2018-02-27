@@ -16,7 +16,7 @@ if (isDevelopment) {
   const webpack = require('webpack');
   const webpackConfig = require('./webpack.config.babel').default;
   const compiler = webpack(webpackConfig);
-  //console.log(webpackConfig.output);
+  console.log(webpackConfig.entry);
   //console.log(webpackConfig.output.publicPath);
   app.use(require('webpack-dev-middleware')(compiler, {
     hot: true,

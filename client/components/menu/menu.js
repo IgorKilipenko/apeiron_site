@@ -47,7 +47,15 @@ const styles = theme => ({
         '& path, text':{
             stroke: '#ff7f0d',
         },
-        fill: '#ff7f0d'
+        fill: '#ff7f0d',
+        '& #round1 path':{
+            animationDuration: '2000ms',
+            animationName: 'round',
+            animationIterationCount: 'infinite',
+            animationTimingFunction: theme.transitions.easing.ease,
+            transformOrigin: 'center'
+        },
+        
     },
     logoContainer: {
         position: 'absolute',
@@ -56,16 +64,18 @@ const styles = theme => ({
         height: '200px',
         width: '200px',
         zIndex: 99999,
-    }
+    },
+    ['@keyframes round']: {
+        
+          from: {
+            transform: 'rotate(0)' 
+          },
+          to: {
+              transform:'rotate(1turn)'
+          }
+    },
 });
 
-// Решение времменое! надо исправить - выделение активного элемнта!!
-export const menuUrls = {
-    products: {
-        for_windows: '/Фурнитура-системы-Provedal',
-        for_doors: '/Фурнитура-входых-групп'
-    }
-};
 
 const Menu = ({ classes, open, onClick }) => (
     <React.Fragment>
