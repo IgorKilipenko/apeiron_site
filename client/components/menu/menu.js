@@ -13,7 +13,6 @@ import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
 import door_icon from '../../public/icons/4hz79g8msi.gif';
 import window_icon from '../../public/icons/q6s54q48gu.png';
-import apeironLogoUrl, {ReactComponent as Logo} from '../../public/logo-menu.svg';
 
 const styles = theme => ({
     drawerPaper: {
@@ -36,52 +35,10 @@ const styles = theme => ({
             backgroundColor: 'transparent'
         }
     },
-    menuLogo: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: '100%',
-        filter: 'drop-shadow(12px 12px 7px rgba(0,0,0,0.5))',
-        '& path, text':{
-            stroke: '#ff7f0d',
-        },
-        fill: '#ff7f0d',
-        '& #round1 path':{
-            animationDuration: '2000ms',
-            animationName: 'round',
-            animationIterationCount: 'infinite',
-            animationTimingFunction: theme.transitions.easing.ease,
-            transformOrigin: 'center'
-        },
-        
-    },
-    logoContainer: {
-        position: 'absolute',
-        top: 200,
-        left: 250,
-        height: '200px',
-        width: '200px',
-        zIndex: 99999,
-    },
-    ['@keyframes round']: {
-        
-          from: {
-            transform: 'rotate(0)' 
-          },
-          to: {
-              transform:'rotate(1turn)'
-          }
-    },
 });
 
 
 const Menu = ({ classes, open, onClick }) => (
-    <React.Fragment>
-        <div className={classes.logoContainer}>
-            <Logo className={classes.menuLogo}/>
-        </div>
     <Drawer
         variant="persistent"
         classes={{
@@ -134,7 +91,6 @@ const Menu = ({ classes, open, onClick }) => (
             <List>{otherMailFolderListItems}</List>
         </div>
     </Drawer>
-    </React.Fragment>
 );
 
 Menu.propTypes = {

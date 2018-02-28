@@ -21,15 +21,15 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
         }),
-        height: 'calc(100% - 56px)',
-        paddingTop: 56,
+        height: '100vp', //'calc(100% - 56px)',
+        paddingTop: 0, //56,
         /*[`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {   // Добавил
       minHeight: 48,
     },*/
-        [theme.breakpoints.up('sm')]: {
-            height: 'calc(100% - 64px)',
-            paddingTop: 64
-        }
+//        [theme.breakpoints.up('sm')]: {
+//            height: 'calc(100% - 64px)',
+//            paddingTop: 64
+//        }
     },
     contentLeft: {
         marginLeft: -theme.customValues.drawerWidth,

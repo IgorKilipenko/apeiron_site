@@ -15,6 +15,7 @@ import TopBar from '../components/app-bar/app-bar';
 import ScrollContainer from '../components/scroll-container/scroll-container';
 import ProductList from '../components/products/product-list';
 import ProductItem from '../components/products/product-item';
+import Logo from '../components/main-logo/main-logo';
 
 import './global.css';
 import prodItemImg from '../public/imgs/products/ruch.png';
@@ -73,6 +74,8 @@ class App extends React.Component {
     componentDidMount() {
         this.handleResize();
         window.addEventListener('resize', () => this.handleResize());
+        setTimeout(() => this.setState({menuOpened: true}), 300);
+        
     }
 
     componentWillUnmount() {
@@ -122,7 +125,8 @@ class App extends React.Component {
                     />
                 </Helmet>
                 {/*<TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />*/}
-                <Menu open={open} onClick={this.handleDrawerClose} />
+                {/*<Menu open={open} onClick={this.handleDrawerClose} />*/}
+                <Logo opened={this.state.menuOpened}/>
                 <ScrollContainer open={open} routing={this.props.routing} handleMouseWheel={this.handleMouseWhell}>
                     {this.props.children}
                 </ScrollContainer>

@@ -39,7 +39,7 @@ export default new Config().merge({
                         options: {
                             ids: true,
                             'title': false,
-                            'viewBox': false
+                            'viewBox': true
                         }
                     },
                     {

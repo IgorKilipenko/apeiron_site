@@ -30,7 +30,15 @@ const styles = theme => ({
         //transition: theme.transitions.create('all'),
         position: 'relative',
         //backgroundColor: theme.palette.primary.dark, //'#16151b',
-        color: 'white'
+        color: 'white',
+        '&:hover $title':{
+            color: 'red !important',
+            '&:after':{
+                transformOrigin: 'bottom left',
+                transform: 'scaleX(1)'
+                
+            }
+        }
     },
     content: {
         //height: '100%',
@@ -55,10 +63,21 @@ const styles = theme => ({
     reversRow: {
         flexDirection: 'row-reverse'
     },
-    imageTitle: {
+    title: {
         position: 'relative',
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px ${theme.spacing.unit +
-            6}px`
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px ${theme.spacing.unit +6}px`,
+        '&:after':{
+            content: '\'\'',
+            position:'absolute',
+            bottom:0,
+            left:0,
+            width:'100%',
+            height:2,
+            backgroundColor: 'red',
+            transform: 'scaleX(0)',
+            transformOrigin: 'bottom right',
+            transition: theme.transitions.create(['transform'], {easing: theme.transitions.easing.easeOut, duration: theme.transitions.duration.standart}),
+        }
     },
     imageSrc: {
         position: 'relative',
@@ -83,12 +102,12 @@ const styles = theme => ({
             width: '50%',
             height: '50%'
         },*/
-    }
+    },
 });
 
 class ProductGroup extends React.Component {
     render() {
-        const { classes, revers = false, colored = false, imageTitle } = this.props;
+        const { classes, revers = false, colored = false, title} = this.props;
         return (
             <section
                 className={classNames(
@@ -108,10 +127,9 @@ class ProductGroup extends React.Component {
                         component="span"
                         variant="headline"
                         color="inherit"
-                        className={classes.imageTitle}
+                        className={classes.title}
                     >
-                        Входные группы
-                        {imageTitle}
+                        {title}
                         <span className={classes.imageMarked} />
                     </Typography>
                 </article>

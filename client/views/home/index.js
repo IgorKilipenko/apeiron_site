@@ -65,7 +65,7 @@ class Index extends React.Component {
         return (
             <React.Fragment>
             <section className={this.props.classes.flexContainer}>
-                <ProductGroup revers={true}>
+                <ProductGroup revers={true} title='Фурнитура для входных групп'>
                     {productListDoors.map(
                         product =>
                             isArray(product) ? (
@@ -83,7 +83,7 @@ class Index extends React.Component {
                             )
                     )}
                 </ProductGroup>
-                <ProductGroup colored={true}>
+                <ProductGroup colored={true} title='Фурнитура для системы Provedal'>
                     {productListWindows.map(
                         product =>
                             isArray(product) ? (
