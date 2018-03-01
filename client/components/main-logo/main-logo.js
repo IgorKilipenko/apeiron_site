@@ -37,17 +37,16 @@ const styles = theme => ({
         fill: '#fef5ff',
         '&:hover #round1 path, &:hover #round2 path': {
             animationDuration: '3000ms',
-            //animationName: 'round1',
             animationIterationCount: 'infinite',
             animationTimingFunction: 'linear', //theme.transitions.easing.ease,
             transformOrigin: 'center',
-            pointer: 'pointer'
+            pointer: 'pointer',
         },
         '& #round1 path': {
-            animationName: 'round',
+            animationName: 'rotate',
         },
         '& #round2 path': {
-            animationName: 'round-back',
+            animationName: 'rotate-back',
         },
         '&:hover':{
             cursor: 'pointer'
@@ -64,7 +63,7 @@ const styles = theme => ({
         transform: 'translate(-50%)',
         //zIndex: 99999
     },
-    ['@keyframes round']: {
+    ['@keyframes rotate']: {
         from: {
             transform: 'rotate(0)'
         },
@@ -72,7 +71,7 @@ const styles = theme => ({
             transform: 'rotate(360deg)'
         }
     },
-    ['@keyframes round-back']: {
+    ['@keyframes rotate-back']: {
         from: {
             transform: 'rotate(0)'
         },

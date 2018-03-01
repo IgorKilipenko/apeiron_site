@@ -13,6 +13,8 @@ import App from './views/app';
 import Index, { WindowsProducts, DoorsProducts } from './views/home/index';
 import ProductGroup from './components/products/product-group';
 import Slider from './components/image-slider/image-slider';
+import {productListDoors, productListWindows} from './stores/products-store';
+import ProductInfo from './components/products/product-info/product-info'
 
 export const routesConfig = {
     index: {
@@ -42,6 +44,10 @@ export const routesConfig = {
     page2: {
         path: '/page2',
         component: () => <div>Page 2</div>
+    },
+    products: {
+        path:'/Продукция/:id',
+        component: ({match}) => <ProductInfo match={match}>Product id:</ProductInfo>
     }
 };
 export default class Routes extends React.Component {

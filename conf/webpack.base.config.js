@@ -10,7 +10,7 @@ const host = 'localhost';
 const port = 7700;
 
 export default new Config().merge({
-    entry: ['./client/index.js'],
+    entry: ['babel-polyfill', './client/index.js'],
     output: {
         path: path.resolve(__dirname, '../public') ,
         publicPath: '/'

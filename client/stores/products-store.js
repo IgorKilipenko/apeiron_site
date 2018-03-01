@@ -209,7 +209,7 @@ export const productListWindows = [
         groupId: 1,
         subgroupId: 4,
         connectedId: undefined,
-        title: '',
+        title: 'test',
         img: img16,
         description: 'Используется для крепления импоста к раме, створке.',
         information: 'Исполнения 14,8 мм и 31 мм.'

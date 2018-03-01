@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 
-import s from './scroll-container.css';
 
 const styles = theme => ({
     content: {
@@ -89,8 +88,7 @@ class ScrollContainer extends React.Component {
                     {
                         [classes.contentShift]: open,
                         [classes.contentShiftLeft]: open
-                    },
-                    s['container-background']
+                    }
                 )}
             >
                 {React.cloneElement(this.props.children, {

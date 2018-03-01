@@ -9,8 +9,8 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     'react-hot-loader/patch',
     path.join(__dirname, '../client/index.js'),
   ],
-  //devtool: 'inline-source-map',
-  devtool: '#source-map',
+  devtool: 'inline-source-map',
+  //devtool: '#source-map',
   output: {
     pathinfo: true,
     filename: 'bundle.js'
