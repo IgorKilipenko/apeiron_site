@@ -29,7 +29,9 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
             minimize: false
           }
         },
-        { loader: 'postcss-loader' },
+        { 
+          loader: 'postcss-loader'
+        },
       ]
     }]
   },

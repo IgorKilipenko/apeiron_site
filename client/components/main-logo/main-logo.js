@@ -1,7 +1,7 @@
 import React from 'react';
 import apeironLogoUrl, {
     ReactComponent as Logo
-} from '../../public/logo-menu.svg';
+} from './logo-menu.svg';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import classNames from 'classnames';
@@ -35,23 +35,27 @@ const styles = theme => ({
             stroke: '#fef5ff'
         },
         fill: '#fef5ff',
-        '&:hover #round1 path, &:hover #round2 path': {
-            animationDuration: '3000ms',
+        '&:hover #round1, &:hover #round2': {
+            animationDuration: '3s',
             animationIterationCount: 'infinite',
             animationTimingFunction: 'linear', //theme.transitions.easing.ease,
             transformOrigin: 'center',
-            pointer: 'pointer',
         },
-        '& #round1 path': {
+        '&:hover #round1': {
             animationName: 'rotate',
         },
-        '& #round2 path': {
+        '&:hover #round2': {
             animationName: 'rotate-back',
         },
         '&:hover':{
             cursor: 'pointer'
         }
     },
+    '#round1':{
+        animation: 'rotate 2s linear infinite',
+        transformOrigin: 'center',
+    },
+
     logoContainer: {
         position: 'absolute',
         top: 0,
@@ -63,18 +67,12 @@ const styles = theme => ({
         transform: 'translate(-50%)',
         //zIndex: 99999
     },
-    ['@keyframes rotate']: {
-        from: {
-            transform: 'rotate(0)'
-        },
+    '@keyframes rotate': {
         to: {
             transform: 'rotate(360deg)'
         }
     },
-    ['@keyframes rotate-back']: {
-        from: {
-            transform: 'rotate(0)'
-        },
+    '@keyframes rotate-back': {
         to: {
             transform: 'rotate(-360deg)'
         }

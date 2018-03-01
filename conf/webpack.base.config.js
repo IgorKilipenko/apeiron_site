@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import Config from 'webpack-config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import SpriteLoaderPlugin from 'svg-sprite-loader/plugin';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import path from 'path';
@@ -27,7 +26,7 @@ export default new Config().merge({
                 test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
                 loader: require.resolve('url-loader'),
                 options: {
-                    /*limit: 1000000,*/
+                    limit: 8000,
                     name: '[name].[hash:8].[ext]'
                 }
             },
@@ -67,7 +66,6 @@ export default new Config().merge({
             //filename: 'index.html',
             inject: 'body'
         }),
-        new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
-        new SpriteLoaderPlugin({ plainSprite: true }),
+        //new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
     ]
 });
