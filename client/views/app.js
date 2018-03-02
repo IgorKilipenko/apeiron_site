@@ -24,7 +24,7 @@ const styles = theme => ({
     appFrame: {
         position: 'relative',
         display: 'flex',
-        width: '100%',
+        width: `100%`,
         height: '100%',
         //color: theme.palette.text.primary
     }
@@ -76,7 +76,6 @@ class App extends React.Component {
         this.handleResize();
         window.addEventListener('resize', () => this.handleResize());
         setTimeout(() => this.setState({menuOpened: true}), 300);
-        
     }
 
     componentWillUnmount() {
@@ -92,6 +91,9 @@ class App extends React.Component {
     };
 
     handleMouseWhell = (event) => {
+        if (event.type){
+            event.preventDefault();
+        }
         const { routing } = this.props;
         if (event.deltaY > 0) {
             //props.routing.push(route.next.path);

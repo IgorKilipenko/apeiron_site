@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import Config from 'webpack-config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import path from 'path';
@@ -44,7 +45,7 @@ export default new Config().merge({
                     {
                         loader: require.resolve('url-loader'),
                         options: {
-                            /*limit: 1000000,*/
+                            limit: 8000,
                             name: '[name].[hash:8].[ext]'
                         }
                     }
@@ -66,6 +67,7 @@ export default new Config().merge({
             //filename: 'index.html',
             inject: 'body'
         }),
+        new CleanWebpackPlugin(['public']),
         //new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
     ]
 });

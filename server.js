@@ -19,6 +19,8 @@ if (isDevelopment) {
   console.log(webpackConfig.entry);
   //console.log(webpackConfig.output.publicPath);
   app.use(require('webpack-dev-middleware')(compiler, {
+    contentBase: './public',
+    host: 'loclahost',
     hot: true,
     stats: {
       colors: true
@@ -38,17 +40,6 @@ app.get("/users", function(req, res) {
 
 app.all('*', function(req, res) {
     res.sendFile(path.resolve(PUBLIC_PATH, 'index.html'));
-    /*const page = `<!doctype html>
-      <html lang="utf-8">
-        <head>
-        </head>
-        <body>
-          <div id="app"></div>
-          <script src="/bundle.js"></script>
-        </body>
-      </html>`;
-
-      res.status(200).send(page);*/
 });
 
 app.listen(PORT, function() {

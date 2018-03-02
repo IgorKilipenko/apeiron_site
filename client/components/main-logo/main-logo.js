@@ -9,7 +9,7 @@ import classNames from 'classnames';
 const styles = theme => ({
     root: {
         height: '100%',
-        width: '100px',
+        width: theme.customValues.drawerWidth,
         transform: 'scaleX(0)',
         transition: theme.transitions.create(['transform'], {
             easing: theme.transitions.easing.easeOut,

@@ -9,7 +9,7 @@ import classNames from 'classnames';
 
 const styles = theme => ({
     content: {
-        width: '100%',
+        width: `calc(100% - ${theme.customValues.drawerWidth}px)`,
         position: 'relative',
         boxSizing: 'border-box',
         /*flexGrow: 1,*/
@@ -20,7 +20,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
         }),
-        height: '100vp', //'calc(100% - 56px)',
+        height: '100%', //'calc(100% - 56px)',
         paddingTop: 0, //56,
         /*[`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {   // Добавил
       minHeight: 48,
@@ -30,19 +30,19 @@ const styles = theme => ({
 //            paddingTop: 64
 //        }
     },
-    contentLeft: {
-        marginLeft: -theme.customValues.drawerWidth,
-        height: '100%'
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen
-        })
-    },
-    contentShiftLeft: {
-        marginLeft: 0
-    }
+//    contentLeft: {
+//        marginLeft: -theme.customValues.drawerWidth,
+//        height: '100%'
+//    },
+//    contentShift: {
+//        transition: theme.transitions.create('margin', {
+//            easing: theme.transitions.easing.easeOut,
+//            duration: theme.transitions.duration.enteringScreen
+//        })
+//    },
+//    contentShiftLeft: {
+//        marginLeft: 0
+//    }
 });
 
 //@inject('routing')
@@ -51,11 +51,12 @@ const styles = theme => ({
 class ScrollContainer extends React.Component {
     constructor(props) {
         super(props);
+        this.touchStart = null
     }
 
     state = {
         windowHeight: 0,
-        mouseWheel: 0
+        mouseWheel: 0,
     };
 
     handleResize() {
@@ -73,22 +74,51 @@ class ScrollContainer extends React.Component {
         window.removeEventListener('resize', () => this.handleResize());
     }
 
+    handleMouseWheel(event) {
+        //this.setState({eventType: event.type})
+        console.log({event: event.target});
+        //event.preventDefault();
+        //event.stopPropagation();
+
+        this.props.handleMouseWheel(event)
+    }
+
+    handleTouchStart(event){
+        //event.preventDefault();
+        const touch = event.changedTouches[0];
+        console.log({touch});
+        this.touchStart = touch
+    }
+    handleTouchEnd(event){
+        //event.preventDefault();
+        const touch = event.changedTouches[0];
+        console.log({touch});
+        if (this.touchStart){
+            const deltaY = touch.pageY - this.touchStart.pageY;
+            this.props.handleMouseWheel({deltaY})
+            console.log({dY: deltaY});
+        }
+        this.touchStart = null
+    }
+
     render() {
-        const { classes, open, handleMouseWheel} = this.props;
+        const { classes, open } = this.props;
         /*var childrenWithProps = React.Children.map(this.props.children, child =>
             React.cloneElement(child, { ref: (n) => this.childSection}));*/
         //var childrenWithProps = React.Children.map(this.props.children, child =>
         // React.cloneElement(child, { ref: (n) => this.childSection}));
         return (
             <main
-                onWheel={(event) => {this.props.handleMouseWheel(event)}}
+                onWheel={(event) => {this.handleMouseWheel(event)}}
+                onTouchStart={event => this.handleTouchStart(event)}
+                onTouchEnd={event => this.handleTouchEnd(event)}
                 className={classNames(
                     classes.content,
-                    classes.contentLeft,
-                    {
-                        [classes.contentShift]: open,
-                        [classes.contentShiftLeft]: open
-                    }
+//                    classes.contentLeft,
+//                    {
+//                        [classes.contentShift]: open,
+//                        [classes.contentShiftLeft]: open
+//                    }
                 )}
             >
                 {React.cloneElement(this.props.children, {

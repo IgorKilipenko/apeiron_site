@@ -124,7 +124,7 @@ class ImageSlider extends React.Component {
                     prev.current < this.imageCount -1 ? prev.current +1 : 0;
                 return { current, next: this.getNextIndex(current), previous: this.getPreviousIndex(current) };
             });
-            console.log({previous:this.state.previous, current:this.state.current, next: this.state.next})
+//            console.log({previous:this.state.previous, current:this.state.current, next: this.state.next})
         }, 3000);
         this.setState({interval})
     }
@@ -143,7 +143,7 @@ class ImageSlider extends React.Component {
         return (
             <div className={classes.root}>
                 {images.map((image, i, arr) => {
-                    //console.log({index:i, current:this.state.current, count:arr.length})
+//                    //console.log({index:i, current:this.state.current, count:arr.length})
                     const cn = {
                         [classes.currentSlide]: this.state.current === i,
                         [classes.prevSlide]: i === this.state.previous,

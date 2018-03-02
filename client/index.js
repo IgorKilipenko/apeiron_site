@@ -37,8 +37,8 @@ const theme = createMuiTheme({
         type: 'dark'
     },
     customValues: {
-        drawerWidth: 240,
-        borderColor: '#e5e5e5'
+        drawerWidth: 100,
+        borderColor: '#e5e5e5',
     },
     typography: {
         fontFamily: '"Montserrat Alternates", "Helvetica", "Arial", sans-serif'
