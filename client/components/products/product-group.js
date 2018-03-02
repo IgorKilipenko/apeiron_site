@@ -8,6 +8,7 @@ import Typography from 'material-ui/Typography';
 import { NavLink } from 'react-router-dom';
 import { menuUrls } from '../menu/menu';
 import ButtonBase from 'material-ui/ButtonBase';
+import { inject, observer } from 'mobx-react';
 
 import Toolbar from 'material-ui/Toolbar';
 import MenuIcon from 'material-ui-icons/Menu';
@@ -31,12 +32,11 @@ const styles = theme => ({
         position: 'relative',
         //backgroundColor: theme.palette.primary.dark, //'#16151b',
         color: 'white',
-        '&:hover $title':{
+        '&:hover $title': {
             color: 'red !important',
-            '&:after':{
+            '&:after': {
                 transformOrigin: 'bottom left',
                 transform: 'scaleX(1)'
-                
             }
         }
     },
@@ -46,15 +46,15 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         alignContent: 'flex-start',
-        height: `calc(100% - ${headerBlockHeght}%)`,
+        height: `calc(100% - ${headerBlockHeght}%)`
     },
     header: {
         position: 'relative',
         minHeight: `${headerBlockHeght}%`,
         width: '100%',
         display: 'flex',
-        flexDirection: 'row',
-//        border: '1px solid #e5e5e5',
+        flexDirection: 'row'
+        //        border: '1px solid #e5e5e5',
         //borderBottom: `1px solid ${theme.customValues.borderColor}`,
     },
     reversColumn: {
@@ -65,18 +65,22 @@ const styles = theme => ({
     },
     title: {
         position: 'relative',
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px ${theme.spacing.unit +6}px`,
-        '&:after':{
-            content: '\'\'',
-            position:'absolute',
-            bottom:0,
-            left:0,
-            width:'100%',
-            height:2,
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit *
+            4}px ${theme.spacing.unit + 6}px`,
+        '&:after': {
+            content: "''",
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            height: 2,
             backgroundColor: 'red',
             transform: 'scaleX(0)',
             transformOrigin: 'bottom right',
-            transition: theme.transitions.create(['transform'], {easing: theme.transitions.easing.easeOut, duration: theme.transitions.duration.standart}),
+            transition: theme.transitions.create(['transform'], {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.standart
+            })
         }
     },
     imageSrc: {
@@ -94,20 +98,45 @@ const styles = theme => ({
         borderLeft: '1px solid #ff7f00'
     },
     groupItemOverride: {
-        height: `${100/maxVisibleItems}%`,
-        width: `${100/maxVisibleItems}%`,
+        height: `${100 / maxVisibleItems}%`,
+        width: `${100 / maxVisibleItems}%`
         //borderRight: `1px solid ${theme.palette.divider}`,
         //borderBottom: `1px solid ${theme.palette.divider}`,
         /*[theme.breakpoints.down('xs')]: {
             width: '50%',
             height: '50%'
         },*/
-    },
+    }
 });
 
+@inject('uiStore')
+@observer
 class ProductGroup extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            childrenHeight: 0
+        };
+        this.breackpoint = this.props.uiStore.getBreakpoint;
+    }
+
+    componentDidMount() {
+        this.setState({
+            childrenHeight: this.contentSection.clientWidth / maxVisibleItems
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.uiStore.getBreakpoint !== this.breackpoint){
+            this.setState({
+                childrenHeight: this.contentSection.clientWidth / maxVisibleItems
+            });
+            console.log({breackpoint:nextProps.uiStore.getBreakpoint})
+        }
+    }
+
     render() {
-        const { classes, revers = false, colored = false, title} = this.props;
+        const { classes, revers = false, colored = false, title, uiStore } = this.props;
         return (
             <section
                 className={classNames(
@@ -116,12 +145,17 @@ class ProductGroup extends React.Component {
                     { [classes.coloredRoot]: colored }
                 )}
             >
-                <article className={classNames(classes.header, revers ? '' : classes.reversRow)}>
+                <article
+                    className={classNames(
+                        classes.header,
+                        revers ? '' : classes.reversRow
+                    )}
+                >
                     <span
                         className={classes.imageSrc}
-//                        style={{
-//                            backgroundImage: `url(${doorIcon})`
-//                        }}
+                        //style={{
+                        //    backgroundImage: `url(${doorIcon})`
+                        //}}
                     />
                     <Typography
                         component="span"
@@ -133,9 +167,18 @@ class ProductGroup extends React.Component {
                         <span className={classes.imageMarked} />
                     </Typography>
                 </article>
-                <section className={classNames(classes.content)}>
+                <section
+                    className={classNames(classes.content)}
+                    ref={section => (this.contentSection = section)}
+                >
                     {this.props.children.map((item, index) => (
-                        <article key={index} className={classes.groupItemOverride}>
+                        <article
+                            key={index}
+                            className={classes.groupItemOverride}
+                            style={{
+                                maxHeight: `${this.state.childrenHeight}px`
+                            }}
+                        >
                             {item}
                         </article>
                     ))}

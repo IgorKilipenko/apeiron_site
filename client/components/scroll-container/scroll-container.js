@@ -94,7 +94,7 @@ class ScrollContainer extends React.Component {
         const touch = event.changedTouches[0];
         console.log({touch});
         if (this.touchStart){
-            const deltaY = touch.pageY - this.touchStart.pageY;
+            const deltaY = this.touchStart.pageY - touch.pageY;
             this.props.handleMouseWheel({deltaY})
             console.log({dY: deltaY});
         }

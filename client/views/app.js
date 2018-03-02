@@ -31,7 +31,7 @@ const styles = theme => ({
 });
 
 @inject('routing')
-//@inject('scrollRouting')
+@inject('uiStore')
 @withRouter
 @observer
 class App extends React.Component {
@@ -45,13 +45,8 @@ class App extends React.Component {
     };
 
     handleResize() {
-        
-//        this.setState({
-//            windowHeight: window.innerHeight
-//        });
-//        console.log({ window: window, routing: this.props.routing });
-
         this.setState( {breakpoint: this._getBreakpoint(window.innerWidth)});
+        this.props.uiStore.setBreakpoint(this.state.breakpoint)
     }
 
     _getBreakpoint(width){
@@ -130,7 +125,7 @@ class App extends React.Component {
                 {/*<TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />*/}
                 {/*<Menu open={open} onClick={this.handleDrawerClose} />*/}
                 <Logo opened={this.state.menuOpened}/>
-                <ScrollContainer open={open} routing={this.props.routing} handleMouseWheel={this.handleMouseWhell}>
+                <ScrollContainer open={open} routing={this.props.routing} handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
                     {this.props.children}
                 </ScrollContainer>
             </div>

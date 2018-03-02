@@ -99,8 +99,8 @@ class ImageSlider extends React.Component {
         }
     }
 
-    componentWillUpdate(nextProps, nextState) {
-    }
+    //componentWillUpdate(nextProps, nextState) {
+    //}
 
     getNextIndex(current){
         //current = current + 1;
