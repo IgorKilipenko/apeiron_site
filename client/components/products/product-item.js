@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import { inject, observer } from 'mobx-react';
 import ButtonBase from 'material-ui/ButtonBase';
 import Typography from 'material-ui/Typography';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Divider from 'material-ui/Divider';
 
 const styles = theme => ({
@@ -34,7 +35,7 @@ const styles = theme => ({
         left: 0,
         right: 0,
         top: 0,
-        height:'100%',
+        height: '100%',
         width: '100%',
         padding: 2,
         //bottom: '20%',
@@ -52,7 +53,10 @@ const styles = theme => ({
         opacity: 0.0,
         transform: 'translateX(100%)',
         //transformOrigin: 'bottom center',
-        transition: theme.transitions.create(['opacity', 'transform'], {easing: theme.transitions.easing.easeOut, duration: theme.transitions.duration.standart}),
+        transition: theme.transitions.create(['opacity', 'transform'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.standart
+        }),
         [theme.breakpoints.down('sm')]: {
             //height: 200
         }
@@ -62,34 +66,54 @@ const styles = theme => ({
         bottom: 0,
         //left: '50%',
         lineHeight: 1,
-        paddingLeft:2,
-        paddingRight:2,
+        paddingLeft: 2,
+        paddingRight: 2,
         color: '#e5e5e5'
     }
 });
 
-const ProductItem = ({ to: toComponent, classes, imgUrl, product }) => (
-    <ButtonBase
-        focusRipple
-        className={classes.image}
-        component={props => <NavLink to={toComponent ? toComponent : ''} {...props} />}
-    >
-        <span
-            className={classes.imageSrc}
-            style={{
-                backgroundImage: `url(${imgUrl})`
-            }}
-        />
-        <span className={classes.imageBackdrop} />
-        <Divider />
-        <Typography className={classes.productTitle} variant="body2" gutterBottom align="center">
-            <span>{product.title}</span>
-        </Typography>
-    </ButtonBase>
-);
+@inject('uiStore')
+@observer
+class ProductItem extends React.Component {
+    render() {
+        const {
+            to: toComponent,
+            classes,
+            imgUrl,
+            product,
+            uiStore
+        } = this.props;
+        return (
+            <ButtonBase
+                focusRipple
+                className={classes.image}
+                component={props => (
+                    <Link to={toComponent ? toComponent : ''} {...props}/>
+                )}
+            >
+                <span
+                    className={classes.imageSrc}
+                    style={{
+                        backgroundImage: `url(${imgUrl})`
+                    }}
+                />
+                <span className={classes.imageBackdrop} />
+                <Divider />
+                <Typography
+                    className={classes.productTitle}
+                    variant="body2"
+                    gutterBottom
+                    align="center"
+                >
+                    <span>{product.title}</span>
+                </Typography>
+            </ButtonBase>
+        );
+    }
+}
 
 ProductItem.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ProductItem);

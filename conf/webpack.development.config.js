@@ -16,7 +16,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     filename: 'bundle.js'
   },
   module: {
-    rules: [{
+    /*rules: [{
       test: /\.css$/,
       use: [
         {loader:'style-loader'},
@@ -33,7 +33,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
           loader: 'postcss-loader'
         },
       ]
-    }]
+    }]*/
   },
   plugins: [
     new webpack.NamedModulesPlugin(),

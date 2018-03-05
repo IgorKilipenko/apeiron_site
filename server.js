@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 
+
 const PORT = 7700;
 const USERS = [
   { id: 1, name: "Alexey", age: 30 },

@@ -7,7 +7,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
   },
   devtool: 'source-map',
   module: {
-    rules: [{
+    /*rules: [{
       test: /\.css$/,
       use: [
         {loader:'style-loader'},
@@ -22,7 +22,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
         },
         { loader: 'postcss-loader' },
       ]
-    }]
+    }]*/
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({

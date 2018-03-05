@@ -13,14 +13,14 @@ import App from './views/app';
 import Index, { WindowsProducts, DoorsProducts } from './views/home/index';
 import ProductGroup from './components/products/product-group';
 import Slider from './components/image-slider/image-slider';
-import {productListDoors, productListWindows} from './stores/products-store';
-import ProductInfo from './components/products/product-info/product-info'
+import { productListDoors, productListWindows } from './stores/products-store';
+import ProductInfo from './components/products/product-info/product-info';
 
 export const routesConfig = {
     index: {
         path: '/',
         component: Index,
-        exact: true,
+        exact: true
     },
     slider: {
         path: '/Галерея',
@@ -33,7 +33,7 @@ export const routesConfig = {
             {
                 path: '/np',
                 component: () => <div>Nested page</div>,
-                exact:true
+                exact: true
             }
         ]
     },
@@ -46,8 +46,10 @@ export const routesConfig = {
         component: () => <div>Page 2</div>
     },
     products: {
-        path:'/Продукция/:id',
-        component: ({match}) => <ProductInfo match={match}>Product id:</ProductInfo>
+        path: '/Продукция/:id',
+        component: ({ match }) => (
+            <ProductInfo match={match}>Product id:</ProductInfo>
+        )
     }
 };
 export default class Routes extends React.Component {
@@ -64,7 +66,7 @@ export default class Routes extends React.Component {
                                 {route.routes
                                     ? route.routes.map((r, i) => (
                                           <Route
-                                            key= {i}
+                                              key={i}
                                               path={route.path + r.path}
                                               exact={r.exact}
                                               component={r.component}

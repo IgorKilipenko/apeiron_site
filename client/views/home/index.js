@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 
 import ProductGroup from '../../components/products/product-group';
 import ProductList from '../../components/products/product-list';
@@ -32,7 +33,7 @@ export const WindowsProducts = () => (
     <ProductList>
         {productListDoors.map(
             product =>
-                isArray(product) ? (
+                Array.isArray(product) ? (
                     <ProductItem
                         key={product[0].id}
                         imgUrl={product[0].img}
@@ -70,6 +71,8 @@ export const DoorsProducts = () => (
     </ProductList>
 );
 
+//@inject('uiStore')
+//@observer
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -80,6 +83,7 @@ class Index extends React.Component {
     }
 
     render() {
+        //const {uiStore} = this.props;
         const pattern = /\s+/gi;
         return (
             <React.Fragment>
@@ -97,10 +101,10 @@ class Index extends React.Component {
                                     key={p.id}
                                     imgUrl={p.img}
                                     product={p}
-                                    to={
-                                        '/Продукция/Продукт-' +
-                                        p.title.replace(pattern, '-')
-                                    }
+                                    to={{
+                                        pathname: '/Продукция/Продукт-' + p.title.replace(pattern, '-'),
+                                        state: {product: p}
+                                    }}
                                 />
                             );
                         })}
@@ -118,10 +122,10 @@ class Index extends React.Component {
                                     key={p.id}
                                     imgUrl={p.img}
                                     product={p}
-                                    to={
-                                        '/Продукция/Продукт-' +
-                                        p.title.replace(pattern, '-')
-                                    }
+                                    to={{
+                                        pathname: '/Продукция/Продукт-' + p.title.replace(pattern, '-'),
+                                        state: {product: p}
+                                    }}
                                 />
                             );
                         })}

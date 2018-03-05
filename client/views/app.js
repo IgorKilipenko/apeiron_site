@@ -17,16 +17,55 @@ import ProductList from '../components/products/product-list';
 import ProductItem from '../components/products/product-item';
 import Logo from '../components/main-logo/main-logo';
 
-import './global.css';
+//import './global.css';
 import prodItemImg from '../public/imgs/products/ruch.png';
 
 const styles = theme => ({
+    '@global': {
+        body: {
+            height: 'inherit',
+            width: 'inherit',
+            padding: 0,
+            margin: 0
+        },
+        html: {
+            height: '100%',
+            width: '100%',
+            position: 'relative',
+            padding: 0,
+            margin: 0
+        },
+        '#app': {
+            height: 'inherit',
+            width: 'inherit',
+            position: 'relative',
+        }
+    },
     appFrame: {
         position: 'relative',
         display: 'flex',
         width: `100%`,
         height: '100%',
         //color: theme.palette.text.primary
+    },
+    loader: {
+        position: 'absolute',
+        left:0,
+        top:0,
+        bottom: 0,
+        right: 0,
+        height: '100%',
+        width: '100%',
+        zIndex: 99999,
+        opacity: 1,
+        backgroundColor: 'white',
+        //transition: 'none'
+    },
+    hiddenLoader: {
+        //opacity: 0,
+        transform: 'translateX(100%)',
+        //zIndex:0
+        transition: theme.transitions.create(['opacity', 'transform'])
     }
 });
 
@@ -70,7 +109,10 @@ class App extends React.Component {
     componentDidMount() {
         this.handleResize();
         window.addEventListener('resize', () => this.handleResize());
-        setTimeout(() => this.setState({menuOpened: true}), 300);
+        this.viewLoader();
+        setTimeout(() => {
+            this.setState({menuOpened: true})
+        }, 300);
     }
 
     componentWillUnmount() {
@@ -92,11 +134,23 @@ class App extends React.Component {
         const { routing } = this.props;
         if (event.deltaY > 0) {
             //props.routing.push(route.next.path);
+            this.viewLoader();
             routing.goNext();
+            
         } else if (event.deltaY < 0) {
             //props.routing.push(route.prev.path);
+            this.viewLoader();
             routing.goPrev();
+            
+            
         }
+    }
+
+    viewLoader(){
+        this.setState({pageLoaded: false});
+        setTimeout(() => {
+            this.setState({pageLoaded: true})
+        }, 1000);
     }
 
     render() {
@@ -122,6 +176,7 @@ class App extends React.Component {
                         rel="stylesheet"
                     />
                 </Helmet>
+                {/*<div className={classNames(classes.loader, {[classes.hiddenLoader]: this.state.pageLoaded})}>Loader</div>*/}
                 {/*<TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />*/}
                 {/*<Menu open={open} onClick={this.handleDrawerClose} />*/}
                 <Logo opened={this.state.menuOpened}/>

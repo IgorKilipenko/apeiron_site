@@ -9,7 +9,6 @@ import { NavLink } from 'react-router-dom';
 import { menuUrls } from '../menu/menu';
 import ButtonBase from 'material-ui/ButtonBase';
 import { inject, observer } from 'mobx-react';
-
 import Toolbar from 'material-ui/Toolbar';
 import MenuIcon from 'material-ui-icons/Menu';
 import IconButton from 'material-ui/IconButton';
@@ -171,7 +170,7 @@ class ProductGroup extends React.Component {
                     className={classNames(classes.content)}
                     ref={section => (this.contentSection = section)}
                 >
-                    {this.props.children.map((item, index) => (
+                    {this.props.children.map((product, index) => (
                         <article
                             key={index}
                             className={classes.groupItemOverride}
@@ -179,7 +178,7 @@ class ProductGroup extends React.Component {
                                 maxHeight: `${this.state.childrenHeight}px`
                             }}
                         >
-                            {item}
+                            {product}
                         </article>
                     ))}
                 </section>
@@ -191,8 +190,8 @@ class ProductGroup extends React.Component {
 ProductGroup.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
-    rvers: PropTypes.bool,
-    colored: PropTypes.bool
+    revers: PropTypes.bool,
+    colored: PropTypes.bool,
 };
 
 export default withStyles(styles, { withTheme: true })(ProductGroup);
