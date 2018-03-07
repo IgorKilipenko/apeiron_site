@@ -26,11 +26,13 @@ const styles = theme => ({
         flexDirection: 'column',
         boxSizing: 'border-box',
         width: '50%',
+        height: '100%',
         boxShadow: 'none',
         //transition: theme.transitions.create('all'),
         position: 'relative',
         //backgroundColor: theme.palette.primary.dark, //'#16151b',
         color: 'white',
+        overflow: 'hidden',
         '&:hover $title': {
             color: 'red !important',
             '&:after': {
@@ -170,7 +172,7 @@ class ProductGroup extends React.Component {
                     className={classNames(classes.content)}
                     ref={section => (this.contentSection = section)}
                 >
-                    {this.props.children.map((product, index) => (
+                    {this.props.children && this.props.children.map((product, index) => (
                         <article
                             key={index}
                             className={classes.groupItemOverride}

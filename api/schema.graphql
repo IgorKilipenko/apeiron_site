@@ -1,0 +1,91 @@
+schema {
+  query: Query
+  mutation: RootMutation
+}
+
+type Query { catalog: [Catalog] }
+type Catalog { 
+    id: ID!, 
+    title: String!,
+    description: String,
+    metaTitle: String,
+    metaDescription: String,
+    content: String,
+    categoryId: Int,
+    languageCode: Language,
+    image: String,
+    order: Int,
+    active: Boolean
+}
+enum Language {
+    ru,
+    en
+}
+
+type RootMutation {
+  createComment(input: CreateCommentInput): CreateCommentPayload
+}
+
+input CreateCommentInput {
+  stuff: String
+}
+
+type CreateCommentPayload {
+  story: Story
+}
+
+type CreateEventPayload {
+  viewer: User
+  user: User
+}
+
+type User {
+  events: [String]
+}
+
+type RootQuery {
+  number: Int
+  allFilms: AllFilmsObj
+  sum(a: Int!, b: Int!): Int!
+  greetings: Greetings
+  stories: [Story!]!
+}
+
+type AllFilmsObj {
+  films: [Film]
+}
+
+type Film {
+  title: String
+  director: String
+  releaseDate: String
+}
+
+type Greetings {
+  id: ID
+  hello: String
+  hi: String @deprecated(reason: "Please use the more formal greeting 'hello'")
+  image(size: ImageSize!): Image
+}
+
+type Image {
+  size: ImageSize!
+}
+
+enum ImageSize {
+  SMALL @deprecated(reason: "Use 'LARGE' instead")
+  LARGE
+}
+
+type Story {
+  id: ID
+  comments: [Comment]
+}
+
+type Comment {
+  text: String
+}
+
+type PublicUser {
+  fullName: String
+}

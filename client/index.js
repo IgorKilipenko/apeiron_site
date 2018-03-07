@@ -10,6 +10,11 @@ import { Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
 
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo';
+
 //import 'typeface-roboto';
 import App from './views/app';
 import Index from './views/home/index';
@@ -59,18 +64,29 @@ const stores = {
     // ...other stores
 };
 
+const client = new ApolloClient({
+    // By default, this client will send queries to the
+    //  `/graphql` endpoint on the same host
+    // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
+    // to a different host
+    link: new HttpLink({uri: 'http://localhost:3300/graphql'}),
+    cache: new InMemoryCache(),
+  });
+
 const history = syncHistoryWithStore(browserHistory, scrollRoutingStore);
 
 ReactDOM.render(
     <Provider {...stores}>
-        <Router history={history}>
-            <MuiThemeProvider theme={theme}>
-                <Reboot />
-                <App>
-                    <AppRouter />
-                </App>
-            </MuiThemeProvider>
-        </Router>
+        <ApolloProvider client={client}>
+            <Router history={history}>
+                <MuiThemeProvider theme={theme}>
+                    <Reboot />
+                    <App>
+                        <AppRouter />
+                    </App>
+                </MuiThemeProvider>
+            </Router>
+        </ApolloProvider>
     </Provider>,
     document.getElementById('app')
 );

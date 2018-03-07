@@ -9,6 +9,7 @@ import ProductGroup from '../../components/products/product-group';
 import ProductList from '../../components/products/product-list';
 import ProductItem from '../../components/products/product-item';
 import {
+    products,
     productListDoors,
     productListWindows
 } from '../../stores/products-store';
@@ -29,62 +30,57 @@ const styles = theme => ({
     }
 });
 
-export const WindowsProducts = () => (
-    <ProductList>
-        {productListDoors.map(
-            product =>
-                Array.isArray(product) ? (
-                    <ProductItem
-                        key={product[0].id}
-                        imgUrl={product[0].img}
-                        product={product[0]}
-                    />
-                ) : (
-                    <ProductItem
-                        key={product.id}
-                        imgUrl={product.img}
-                        product={product}
-                    />
-                )
-        )}
-    </ProductList>
-);
-
-export const DoorsProducts = () => (
-    <ProductList>
-        {productListWindows.map(
-            product =>
-                isArray(product) ? (
-                    <ProductItem
-                        key={product[0].id}
-                        imgUrl={product[0].img}
-                        product={product[0]}
-                    />
-                ) : (
-                    <ProductItem
-                        key={product.id}
-                        imgUrl={product.img}
-                        product={product}
-                    />
-                )
-        )}
-    </ProductList>
-);
-
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+const productsListQuery = gql`
+    query Query {
+        catalog {
+            id
+            title
+            description
+            content
+            categoryId
+            languageCode
+            metaTitle
+            metaDescription
+            parentId
+            parentTitle
+        }
+    }
+`;
+@graphql(productsListQuery)
 //@inject('uiStore')
 //@observer
 class Index extends React.Component {
     constructor(props) {
         super(props);
+        //this.props.data.refetch();
     }
-
     componentWillUnmount() {
         window.removeEventListener('resize', () => this.handleResize());
+    }
+    _productsFilter() {
+        const { data: { catalog, refetch } } = this.props;
+        const buff = products.map(p => (Array.isArray(p) ? p[0] : p));
+        console.log({ buff });
+        const prods = catalog
+            ? catalog.map(cat =>{
+                const prod =
+                  buff.find(
+                      prod => cat.id == prod.id
+                  )
+                return prod && {...cat, title: cat.title.replace(/<[^>]*>/gi, ''), image:prod.img }
+            }).filter(cat => cat)
+            : [];
+        return prods;
     }
 
     render() {
         //const {uiStore} = this.props;
         const pattern = /\s+/gi;
+        const { data: { catalog, refetch } } = this.props;
+        let prods = this._productsFilter();
+        console.log({products: prods})
         return (
             <React.Fragment>
                 <section className={this.props.classes.flexContainer}>
@@ -92,43 +88,53 @@ class Index extends React.Component {
                         revers={true}
                         title="Фурнитура для входных групп"
                     >
-                        {productListDoors.map(product => {
-                            const p = Array.isArray(product)
-                                ? product[0]
-                                : product;
-                            return (
-                                <ProductItem
-                                    key={p.id}
-                                    imgUrl={p.img}
-                                    product={p}
-                                    to={{
-                                        pathname: '/Продукция/Продукт-' + p.title.replace(pattern, '-'),
-                                        state: {product: p}
-                                    }}
-                                />
-                            );
-                        })}
+                        {catalog &&
+                            prods
+                                .filter(product => product.parentId === 24)
+                                .map(product => {
+                                    return (
+                                        <ProductItem
+                                            key={product.id}
+                                            imgUrl={product.image}
+                                            title={product.title}
+                                            to={{
+                                                pathname:
+                                                    '/Продукция/Продукт-' +
+                                                    product.title.replace(
+                                                        pattern,
+                                                        '-'
+                                                    ),
+                                                state: { product: product }
+                                            }}
+                                        />
+                                    );
+                                })}
                     </ProductGroup>
                     <ProductGroup
                         colored={true}
                         title="Фурнитура для системы Provedal"
                     >
-                        {productListWindows.map(product => {
-                            const p = Array.isArray(product)
-                                ? product[0]
-                                : product;
-                            return (
-                                <ProductItem
-                                    key={p.id}
-                                    imgUrl={p.img}
-                                    product={p}
-                                    to={{
-                                        pathname: '/Продукция/Продукт-' + p.title.replace(pattern, '-'),
-                                        state: {product: p}
-                                    }}
-                                />
-                            );
-                        })}
+                        {catalog &&
+                            prods
+                                .filter(product => product.parentId === 4)
+                                .map(product => {
+                                    return (
+                                        <ProductItem
+                                            key={product.id}
+                                            imgUrl={product.image}
+                                            title={product.title}
+                                            to={{
+                                                pathname:
+                                                    '/Продукция/Продукт-' +
+                                                    product.title.replace(
+                                                        pattern,
+                                                        '-'
+                                                    ),
+                                                state: { product: product }
+                                            }}
+                                        />
+                                    );
+                                })}
                     </ProductGroup>
                 </section>
                 <Slider />

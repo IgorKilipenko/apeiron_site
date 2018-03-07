@@ -80,7 +80,7 @@ class ProductItem extends React.Component {
             to: toComponent,
             classes,
             imgUrl,
-            product,
+            title,
             uiStore
         } = this.props;
         return (
@@ -105,7 +105,7 @@ class ProductItem extends React.Component {
                     gutterBottom
                     align="center"
                 >
-                    <span>{product.title}</span>
+                    <span>{title}</span>
                 </Typography>
             </ButtonBase>
         );

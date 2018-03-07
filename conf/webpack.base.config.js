@@ -58,7 +58,12 @@ export default new Config().merge({
                     name: '[name].[ext]',
                     outputPath: __dirname + 'fonts/'
                 }
-            }
+            },
+            {
+                test: /\.(graphql|gql)$/,
+                exclude: /node_modules/,
+                loader: 'graphql-tag/loader',
+            },
         ]
     },
     plugins: [
