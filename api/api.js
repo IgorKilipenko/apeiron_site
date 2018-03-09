@@ -30,15 +30,23 @@ LEFT JOIN catalog cat
 on cat.CategoryID = ch.CategoryID
 WHERE c.ParentID = 0 AND cat.LanguageCode = "ru"
 ORDER BY cat.ItemID ASC
-`
-let catalog = db
-    .query(queryText)
-    .then(rows => (catalog = Object.values(rows)))
-    .then(rows => console.log(rows))
-    .then(db.close());
+`;
+let catalog = [];
 
 const resolvers = {
-    Query: { catalog: () => catalog }
+    Query: {
+        catalog: () => {
+            return db.fetchQuery(queryText, [], rows => {
+                const reg = /<[^>]*>/gi;
+                return rows.map(r => ({
+                    ...r,
+                    title: r.title.replace(reg, ''),
+                    content: r.content.replace(reg, ''),
+                    description: r.description.replace(reg, '')
+                }));
+            });
+        }
+    }
 };
 
 const schema = makeExecutableSchema({
@@ -57,5 +65,6 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.listen(PORT, () => {
+    //catalog =
     console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`);
 });

@@ -1,7 +1,9 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 
 const styles = theme => ({
     root: {
@@ -13,50 +15,62 @@ const styles = theme => ({
     },
     container: {
         height: '100%',
-        width: '50%'
+        width: '50%',
+        position: 'inherit'
     },
     view: {
         backgroundColor: 'white'
     },
     info: {
-
+        paddingLeft: '10px'
     },
     imageSrc: {
-        position: 'relative',
-        left: 0,
-        right: 0,
-        top: 0,
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
         height:'100%',
         width: '100%',
-        padding: 2,
-        //bottom: '20%',
+        maxWidth: 350,
+        padding: '5%',
+        transform: 'translate(-50%, -50%)',
+        margin: 0,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center 40%'
+        backgroundPosition: 'center'
     },
 });
 
+@inject('routing')
+@inject('uiStore')
 @withRouter
+@observer
 class ProductInfo extends React.Component {
+    componentWillMount(){
+        const {route, routing} = this.props;
+        routing.setCurrentRoute(route);
+        //console.debug({route})
+    }
     render() {
+        console.log(this.props.location)
         const { classes, component, match} = this.props;
         const {product} = this.props.location.state;
         //console.log({...this.props});
         return (
             <section className={classes.root}>
                 <div className={classNames(classes.container, classes.view)}>
-                    <span
+                    <div
                         className={classes.imageSrc}
                         style={{
-                            backgroundImage: `url(${product.img})`
+                            backgroundImage: `url(${new URL(product.image, window.location.href)})`
                         }}
                     />
-                    <img src={product.img} style={{height:'200px', width:'200px'}}/>
                 </div>
                 <div className={classNames(classes.container, classes.info)}>
-                    {match.params.id}
-                    <h2>{product.title}</h2>
-                    <h3>{product.description}</h3>
+                    {/*match.params.id*/}
+                    <Typography gutterBottom={true} variant='title'>{product.title}
+                        <span>{" " + product.description}</span>
+                    </Typography>
+                    <Typography paragraph={true} variant='body1'>{product.content}</Typography>
                 </div>
             </section>
         );

@@ -107,6 +107,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        const { routing } = this.props;
         this.handleResize();
         window.addEventListener('resize', () => this.handleResize());
         this.viewLoader();
@@ -180,7 +181,7 @@ class App extends React.Component {
                 {/*<TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />*/}
                 {/*<Menu open={open} onClick={this.handleDrawerClose} />*/}
                 <Logo opened={this.state.menuOpened}/>
-                <ScrollContainer open={open} routing={this.props.routing} handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
+                <ScrollContainer /*open={open} routing={this.props.routing}*/ handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
                     {this.props.children}
                 </ScrollContainer>
             </div>

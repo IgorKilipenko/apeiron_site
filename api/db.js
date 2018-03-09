@@ -31,4 +31,14 @@ export default class Database {
             } );
         } );
     }
+
+    async fetchQuery(sql, args, formatter) {
+        let result = null;
+        await this.query(sql, args)
+        .then(rows => result = typeof formatter == 'function' ? formatter(rows) : rows)
+        .then(rows => console.log(rows))
+        //.then(this.close())
+        .catch(err => console.warn({err}));
+        return result;
+    }
 }

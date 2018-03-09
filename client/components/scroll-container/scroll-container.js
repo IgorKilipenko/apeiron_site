@@ -103,22 +103,13 @@ class ScrollContainer extends React.Component {
 
     render() {
         const { classes, open } = this.props;
-        /*var childrenWithProps = React.Children.map(this.props.children, child =>
-            React.cloneElement(child, { ref: (n) => this.childSection}));*/
-        //var childrenWithProps = React.Children.map(this.props.children, child =>
-        // React.cloneElement(child, { ref: (n) => this.childSection}));
         return (
             <main
                 onWheel={(event) => {this.handleMouseWheel(event)}}
                 onTouchStart={event => this.handleTouchStart(event)}
                 onTouchEnd={event => this.handleTouchEnd(event)}
                 className={classNames(
-                    classes.content,
-//                    classes.contentLeft,
-//                    {
-//                        [classes.contentShift]: open,
-//                        [classes.contentShiftLeft]: open
-//                    }
+                    classes.content
                 )}
             >
                 {React.cloneElement(this.props.children, {

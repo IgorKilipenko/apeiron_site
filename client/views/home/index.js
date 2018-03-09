@@ -18,6 +18,7 @@ import doorImg from '../../public/imgs/doors.png';
 import prodItemImg from '../../public/imgs/products/ruch.png';
 import Slider from '../../components/image-slider/image-slider';
 
+
 const styles = theme => ({
     flexContainer: {
         display: 'flex',
@@ -49,12 +50,19 @@ const productsListQuery = gql`
     }
 `;
 @graphql(productsListQuery)
-//@inject('uiStore')
-//@observer
+@inject('routing')
+@inject('uiStore')
+@withRouter
+@observer
 class Index extends React.Component {
     constructor(props) {
         super(props);
         //this.props.data.refetch();
+    }
+    componentWillMount(){
+        const {route, routing} = this.props;
+        routing.setCurrentRoute(route);
+        console.log({routeMount: route})
     }
     componentWillUnmount() {
         window.removeEventListener('resize', () => this.handleResize());
@@ -62,25 +70,24 @@ class Index extends React.Component {
     _productsFilter() {
         const { data: { catalog, refetch } } = this.props;
         const buff = products.map(p => (Array.isArray(p) ? p[0] : p));
-        console.log({ buff });
         const prods = catalog
             ? catalog.map(cat =>{
                 const prod =
                   buff.find(
                       prod => cat.id == prod.id
                   )
-                return prod && {...cat, title: cat.title.replace(/<[^>]*>/gi, ''), image:prod.img }
+                return prod && {...cat, image: prod.img }
             }).filter(cat => cat)
             : [];
         return prods;
     }
 
     render() {
+        //console.log({props: this.props})
         //const {uiStore} = this.props;
         const pattern = /\s+/gi;
         const { data: { catalog, refetch } } = this.props;
         let prods = this._productsFilter();
-        console.log({products: prods})
         return (
             <React.Fragment>
                 <section className={this.props.classes.flexContainer}>

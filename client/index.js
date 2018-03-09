@@ -53,7 +53,7 @@ const theme = createMuiTheme({
 
 const browserHistory = createBrowserHistory();
 //const routingStore = new RouterStore();
-const scrollRoutingStore = new ScrollRouterStore(Index);
+const scrollRoutingStore = new ScrollRouterStore();
 const uiStore = new UiStore();
 
 const stores = {
