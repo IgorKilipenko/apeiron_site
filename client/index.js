@@ -9,6 +9,7 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
+import {API_ROOT} from '../api-config';
 
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
@@ -50,7 +51,6 @@ const theme = createMuiTheme({
         fontFamily: '"Montserrat Alternates", "Helvetica", "Arial", sans-serif'
     }
 });
-
 const browserHistory = createBrowserHistory();
 //const routingStore = new RouterStore();
 const scrollRoutingStore = new ScrollRouterStore();
@@ -69,7 +69,7 @@ const client = new ApolloClient({
     //  `/graphql` endpoint on the same host
     // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
     // to a different host
-    link: new HttpLink({uri: 'http://localhost:3300/graphql'}),
+    link: new HttpLink({uri: API_ROOT}),
     cache: new InMemoryCache(),
   });
 

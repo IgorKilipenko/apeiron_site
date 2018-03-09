@@ -74,5 +74,9 @@ export default new Config().merge({
         }),
         new CleanWebpackPlugin(['public']),
         //new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
+        new webpack.EnvironmentPlugin({
+            NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+            DEBUG: false
+          })
     ]
 });

@@ -7,6 +7,8 @@ import Database from './db';
 import { typeDefs } from './schema';
 import cors from 'cors';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 const PORT = 3300;
 
 var config = {
@@ -62,7 +64,9 @@ app.use(cors()); // enable `cors` to set HTTP response header: Access-Control-Al
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+if (isDevelopment) {
+    app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+}
 
 app.listen(PORT, () => {
     //catalog =
