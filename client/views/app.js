@@ -9,6 +9,7 @@ import { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import { Helmet } from 'react-helmet';
+import { renderRoutes } from 'react-router-config';
 
 import Menu, { menuUrls } from '../components/menu/menu';
 import TopBar from '../components/app-bar/app-bar';
@@ -155,9 +156,8 @@ class App extends React.Component {
     }
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes, theme, route } = this.props;
         const { open } = this.state;
-        //const { location, push, goBack } = this.props.routing;
 
         return (
             <div className={classes.appFrame}>
@@ -177,12 +177,9 @@ class App extends React.Component {
                         rel="stylesheet"
                     />
                 </Helmet>
-                {/*<div className={classNames(classes.loader, {[classes.hiddenLoader]: this.state.pageLoaded})}>Loader</div>*/}
-                {/*<TopBar open={open} handleDrawerOpen={this.handleDrawerOpen} />*/}
-                {/*<Menu open={open} onClick={this.handleDrawerClose} />*/}
                 <Logo opened={this.state.menuOpened}/>
                 <ScrollContainer /*open={open} routing={this.props.routing}*/ handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
-                    {this.props.children}
+                    {renderRoutes(route.routes)}
                 </ScrollContainer>
             </div>
         );

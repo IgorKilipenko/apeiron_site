@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
-import userConfig from './user.config';
+import userConfig from '../user.config';
 import Database from './db';
 import { typeDefs } from './schema';
 import cors from 'cors';
@@ -21,19 +21,18 @@ var config = {
 };
 const db = new Database(config);
 const queryText = `
-SELECT cat.ItemID as id, cat.SortOrder as 'order', cat.Title as title, 
-cat.Description as description, cat.MetaTitle as metaTitle, cat.MetaDescription as metaDescription, 
-cat.Content as content, cat.CategoryID as categoryId, cat.LanguageCode as languageCode, cat.Image as image, cat.Active as active
-, c.CategoryID as parentId, c.Title as parentTitle
-FROM catalog_category c
-RIGHT JOIN catalog_category ch
-ON c.CategoryID = ch.ParentID
-LEFT JOIN catalog cat
-on cat.CategoryID = ch.CategoryID
-WHERE c.ParentID = 0 AND cat.LanguageCode = "ru"
-ORDER BY cat.ItemID ASC
+    SELECT cat.ItemID as id, cat.SortOrder as 'order', cat.Title as title, 
+    cat.Description as description, cat.MetaTitle as metaTitle, cat.MetaDescription as metaDescription, 
+    cat.Content as content, cat.CategoryID as categoryId, cat.LanguageCode as languageCode, cat.Image as image, cat.Active as active
+    , c.CategoryID as parentId, c.Title as parentTitle
+    FROM catalog_category c
+    RIGHT JOIN catalog_category ch
+    ON c.CategoryID = ch.ParentID
+    LEFT JOIN catalog cat
+    on cat.CategoryID = ch.CategoryID
+    WHERE c.ParentID = 0 AND cat.LanguageCode = "ru"
+    ORDER BY cat.ItemID ASC
 `;
-let catalog = [];
 
 const resolvers = {
     Query: {
@@ -64,7 +63,7 @@ app.use(cors()); // enable `cors` to set HTTP response header: Access-Control-Al
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
-if (isDevelopment) {
+if (true/*isDevelopment*/) {
     app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 }
 

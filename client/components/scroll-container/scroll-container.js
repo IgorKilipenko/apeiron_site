@@ -76,7 +76,7 @@ class ScrollContainer extends React.Component {
 
     handleMouseWheel(event) {
         //this.setState({eventType: event.type})
-        console.log({event: event.target});
+        //console.log({event: event.target});
         //event.preventDefault();
         //event.stopPropagation();
 
@@ -86,17 +86,14 @@ class ScrollContainer extends React.Component {
     handleTouchStart(event){
         //event.preventDefault();
         const touch = event.changedTouches[0];
-        console.log({touch});
         this.touchStart = touch
     }
     handleTouchEnd(event){
         //event.preventDefault();
         const touch = event.changedTouches[0];
-        console.log({touch});
         if (this.touchStart){
             const deltaY = this.touchStart.pageY - touch.pageY;
             this.props.handleMouseWheel({deltaY})
-            console.log({dY: deltaY});
         }
         this.touchStart = null
     }

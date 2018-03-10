@@ -47,8 +47,8 @@ const styles = theme => ({
 class ProductInfo extends React.Component {
     componentWillMount(){
         const {route, routing} = this.props;
-        routing.setCurrentRoute(route);
-        //console.debug({route})
+        routing.updateRoute(route.path);
+        console.log({routeMount: route})
     }
     render() {
         console.log(this.props.location)

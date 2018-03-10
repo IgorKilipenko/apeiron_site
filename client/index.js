@@ -7,6 +7,8 @@ import { Provider } from 'mobx-react';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
+import routes from './routes';
+import { renderRoutes } from 'react-router-config'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
 import {API_ROOT} from '../api-config';
@@ -19,7 +21,6 @@ import { ApolloProvider } from 'react-apollo';
 //import 'typeface-roboto';
 import App from './views/app';
 import Index from './views/home/index';
-import AppRouter from './routes';
 import withTheme from 'material-ui';
 import ScrollRouterStore from './stores/scroll-router-store';
 import UiStore from './stores/ui-store';
@@ -81,9 +82,7 @@ ReactDOM.render(
             <Router history={history}>
                 <MuiThemeProvider theme={theme}>
                     <Reboot />
-                    <App>
-                        <AppRouter />
-                    </App>
+                    {renderRoutes(routes)}
                 </MuiThemeProvider>
             </Router>
         </ApolloProvider>

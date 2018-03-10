@@ -1,5 +1,6 @@
 import { observable, computed, action } from 'mobx';
-import { routesConfig, routes } from '../routes';
+import routes from '../routes';
+import { matchRoutes } from 'react-router-config'
 import { RouterStore } from 'mobx-react-router';
 
 class _ScrollRouterStore extends RouterStore {
@@ -63,60 +64,71 @@ class _ScrollRouterStore extends RouterStore {
 
 export default class ScrollRouterStore extends RouterStore {
     @observable route;
+    @observable branch;
     constructor(){
         super();
-        this.routes = routes().filter(r => !r.path.match(/:[\w]+/gi) )
-        this.route = null;
-        console.log({routesConfig: this.routes})
+        this.route = this.updateRoute(super.location && (super.location.pathname || '/') )
+        //console.log({routesConfig: this.getRoute})
     }
     
 
     @action
-    setCurrentRoute(route) {
-        this.route = this.routes.find(r => route.name === r.name)
-        console.log({currentRoute: this.route})
+    updateRoute(pathname) {
+        this.updateBranch(pathname);
+        this.route = this.getBranch.routes.find(r => r.path === pathname);
+        //console.log({branch})
+        console.log({currentRoute: this.getRoute})
+        console.log({branch: this.getBranch})
     }
+    @action
+    updateBranch(pathname) {
+        this.branch = matchRoutes(routes, pathname)[0].route;
+    } 
 
     @computed
     get getRoute() {
         return this.route;
     }
+    @computed 
+    get getBranch(){
+        return this.branch;
+    }
     @action
     goNext() {
         const route = this.getRoute;
-        //if ( typeof route === "undefined" && route === null ) {
-        //    console.warn(`Error. route is undefined`);
-        //    return;
-        //}
-        console.log({currentRoute: this.route})
-        const current = this.routes.findIndex(r => r.name === route.name);
-        const next = this.routes[this.getNextIndex(current)];
+        const current = this.getBranch.routes.findIndex(r => r.name === route.name);
+        const next = this.getBranch.routes[this.getNextIndex(current)];
         
-        super.push(next.path)
-        this.setCurrentRoute(next);
+        if (!next.path.match(/:\w/) && next.path !== route.path){
+            super.push(next.path)
+            this.updateRoute(next.path);
+        }
     }
     @action
     goPrev() {
         const route = this.getRoute;
-        //if ( typeof route === "undefined" && route === null ) {
-        //    console.warn(`Error. route is undefined`);
-        //    return;
-        //}
+        const current = this.getBranch.routes.findIndex(r => r.name === route.name);
+        const prev = this.getBranch.routes[this.getPreviousIndex(current)];
         
-        const current = this.routes.findIndex(r => r.name === route.name);
-        const prev = this.routes[this.getPreviousIndex(current)];
-        
-        super.push(prev.path)
-        this.setCurrentRoute(prev);
+        if (!prev.path.match(/:\w/) && prev.path !== route.path){
+            console.log({current, prev})
+            super.push(prev.path)
+            this.updateRoute(prev.path);
+        }
     }
 
     getNextIndex(current){
         //current = current + 1;
-        return ++current % this.routes.length;
+        //return ++current % this.getBranch.routes.length;
+        if (current >= this.getBranch.routes.length -1) {
+            return current
+        }
+        return ++current;
     }
     getPreviousIndex(current) {
         if (current === 0){
-            current = this.routes.length;
+            //current = this.getBranch.routes.length;
+            return 0;
         }
         return --current;
     }

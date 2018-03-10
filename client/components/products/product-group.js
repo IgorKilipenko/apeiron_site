@@ -132,7 +132,6 @@ class ProductGroup extends React.Component {
             this.setState({
                 childrenHeight: this.contentSection.clientWidth / maxVisibleItems
             });
-            console.log({breackpoint:nextProps.uiStore.getBreakpoint})
         }
     }
 

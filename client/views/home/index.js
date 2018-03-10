@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
+import { renderRoutes } from 'react-router-config';
 
 import ProductGroup from '../../components/products/product-group';
 import ProductList from '../../components/products/product-list';
@@ -61,7 +62,7 @@ class Index extends React.Component {
     }
     componentWillMount(){
         const {route, routing} = this.props;
-        routing.setCurrentRoute(route);
+        routing.updateRoute(route.path);
         console.log({routeMount: route})
     }
     componentWillUnmount() {
