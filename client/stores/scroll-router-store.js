@@ -98,6 +98,8 @@ export default class ScrollRouterStore extends RouterStore {
         const route = this.getRoute;
         const current = this.getBranch.routes.findIndex(r => r.name === route.name);
         const next = this.getBranch.routes[this.getNextIndex(current)];
+
+        console.log({current: route})
         
         if (!next.path.match(/:\w/) && next.path !== route.path){
             super.push(next.path)

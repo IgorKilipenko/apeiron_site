@@ -18,24 +18,16 @@ const routes = [
                 name: 'index',
                 path: '/',
                 component: Index,
-                exact: false,
+                exact: true,
                 scrollOrder: 0,
                 routes: [
-                    {
-                        name: 'products',
-                        path: '/:product',
-                        component: ProductInfo
-                    }
+
                 ]
             },
             {
                 name: 'contacts',
                 path: '/Контакты',
-                component: props => <Contacts {...props} isMarkerShown 
-                loadingElement={<div style={{ height: `100%` }} />} 
-                containerElement={<div style={{ height: `100%` }} />} 
-                mapElement={<div style={{ height: `100%` }} />}
-                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${config.google.mapKey}&v=3.exp&libraries=geometry,drawing,places`}/>
+                component: Contacts
             },
             {
                 name: 'slider',
@@ -54,6 +46,12 @@ const routes = [
                 path: '/Фурнитура-для-окон',
                 component: () => <div>Фурнитура-для-окон</div>
             },
+            {
+                name: 'products',
+                exact: false,
+                path: '/Продукция/:product',
+                component: ProductInfo
+            }
 
         ]
     }
@@ -63,10 +61,8 @@ export default routes;
 export const ScrollRouter = (props) => {
     const scrollRoutes = routes[0].routes;
     return (
-        <Switch>
-            {scrollRoutes.map((route,i) => (
-                <Route key={i} exact={route.exact} path={route.path} render={props => <route.component {...props} route={route} routes={route.routes}/>} />
-            ))}
-        </Switch>
+            scrollRoutes.map((route,i) => (
+                <Route key={i} exact={route.exact} path={route.path} render={props => props.match && <route.component {...props} route={route} routes={route.routes}/>} />
+            ))
     )
 }

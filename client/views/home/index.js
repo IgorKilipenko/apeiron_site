@@ -98,8 +98,8 @@ class Index extends React.Component {
         const pattern = /\s+/gi;
         const { data: { catalog, refetch } } = this.props;
         let prods = this._productsFilter();
+        console.log({index:this.props})
         return (
-            this.props.match.isExact ?
             <React.Fragment>
                 <section className={this.props.classes.flexContainer}>
                     <ProductGroup
@@ -121,7 +121,7 @@ class Index extends React.Component {
                                                     product.title.replace(
                                                         pattern,
                                                         '-'
-                                                    ),
+                                                    ) + `_${product.id}`,
                                                 state: { product: product }
                                             }}
                                         />
@@ -147,7 +147,7 @@ class Index extends React.Component {
                                                     product.title.replace(
                                                         pattern,
                                                         '-'
-                                                    ),
+                                                    ) + `_${product.id}`,
                                                 state: { product: product }
                                             }}
                                         />
@@ -157,8 +157,6 @@ class Index extends React.Component {
                 </section>
                 <Slider />
             </React.Fragment>
-            :
-            this.rendeRoutes()
         );
     }
 }

@@ -109,9 +109,10 @@ class ScrollContainer extends React.Component {
                     classes.content
                 )}
             >
-                {React.cloneElement(this.props.children, {
+                {/*React.cloneElement(this.props.children, {
                     ref: n => (this.childSection = n)
-                })}
+                })*/}
+                {this.props.children}
             </main>
         );
     }

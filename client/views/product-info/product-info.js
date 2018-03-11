@@ -4,6 +4,9 @@ import Typography from 'material-ui/Typography';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
+import {
+    products
+} from '../../stores/products-store';
 
 const styles = theme => ({
     root: {
@@ -40,6 +43,27 @@ const styles = theme => ({
     },
 });
 
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+const productsQuery = gql`
+    query Query {
+        catalog {
+            id
+            title
+            description
+            content
+            categoryId
+            languageCode
+            metaTitle
+            metaDescription
+            parentId
+            parentTitle
+        }
+    }
+`;
+
+
+@graphql(productsQuery)
 @inject('routing')
 @inject('uiStore')
 @withRouter
@@ -50,10 +74,23 @@ class ProductInfo extends React.Component {
         routing.updateRoute(route.path);
         console.log({routeMount: route})
     }
+    parseId = (path) => {
+        let id = path.match(/_(\d+)$/)
+        id = id && (id.length > 1 ? id[1] : null);
+        return id;
+    }
+    findById = (id) =>{
+        if (id == null) return null
+        const product = this.props.data.catalog.find(p => p.id == id);
+        const image = products.find(p => p.id == product.id).img;
+        return {...product, image};
+    }
     render() {
-        console.log(this.props.location)
+
+        console.log({data: this.props.data})
         const { classes, component, match} = this.props;
-        const {product} = this.props.location.state;
+        const product = this.findById(this.parseId(this.props.location.pathname)) //this.props.location.state;
+        console.log({product})
         //console.log({...this.props});
         return (
             <section className={classes.root}>
