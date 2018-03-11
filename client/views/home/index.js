@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { matchPath, Route, Switch, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { renderRoutes } from 'react-router-config';
 
@@ -83,6 +83,15 @@ class Index extends React.Component {
         return prods;
     }
 
+    rendeRoutes = () => {
+        const {routes} = this.props
+        if (routes){
+            return routes.map((route, i) => <Route key={i} exact={route.exact} path={route.path} render={props => <route.component {...props} route={route} routes={route.routes}/>} />)
+        }
+        return {}
+    } 
+
+
     render() {
         //console.log({props: this.props})
         //const {uiStore} = this.props;
@@ -90,6 +99,7 @@ class Index extends React.Component {
         const { data: { catalog, refetch } } = this.props;
         let prods = this._productsFilter();
         return (
+            this.props.match.isExact ?
             <React.Fragment>
                 <section className={this.props.classes.flexContainer}>
                     <ProductGroup
@@ -147,6 +157,8 @@ class Index extends React.Component {
                 </section>
                 <Slider />
             </React.Fragment>
+            :
+            this.rendeRoutes()
         );
     }
 }

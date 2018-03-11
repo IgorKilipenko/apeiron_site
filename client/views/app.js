@@ -179,7 +179,7 @@ class App extends React.Component {
                 </Helmet>
                 <Logo opened={this.state.menuOpened}/>
                 <ScrollContainer /*open={open} routing={this.props.routing}*/ handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
-                    {renderRoutes(route.routes)}
+                    {this.props.children}                   
                 </ScrollContainer>
             </div>
         );

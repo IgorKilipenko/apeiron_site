@@ -75,14 +75,17 @@ const client = new ApolloClient({
   });
 
 const history = syncHistoryWithStore(browserHistory, scrollRoutingStore);
-
+import {ScrollRouter} from './routes';
+const route = routes[0].routes[0];
 ReactDOM.render(
     <Provider {...stores}>
         <ApolloProvider client={client}>
             <Router history={history}>
                 <MuiThemeProvider theme={theme}>
                     <Reboot />
-                    {renderRoutes(routes)}
+                    <App>
+                        <ScrollRouter/>
+                    </App>
                 </MuiThemeProvider>
             </Router>
         </ApolloProvider>
