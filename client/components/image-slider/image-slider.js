@@ -11,11 +11,11 @@ function importAll(r) {
     return images;
 }
 
-const images = importAll(require.context('../../public/imgs/products', false, /\.(png|jpe?g|svg)$/));
+const images = importAll(require.context('../../public/upload/gallery', false, /\.(png|jpe?g|svg)$/));
 
 export const styles = theme => ({
     root: {
-        height: '25%',
+        height: '100%',
         width: '100%',
         overflow: 'hidden',
         position: 'relative',
@@ -45,7 +45,7 @@ export const styles = theme => ({
         clipPath: 'inset(0 100% 0 0)',
         opacity: 0,
         '& $imageSrc': {
-            left:'-55%',
+            left:'-0%',
             
         }
     },
@@ -76,7 +76,7 @@ class ImageSlider extends React.Component {
     constructor(props) {
         super(props);
         this.interval = null;
-        this.images = importAll(require.context('../../public/imgs/products', false, /\.(png|jpe?g|svg)$/));
+        this.images = importAll(require.context('../../public/upload/gallery', false, /\.(png|jpe?g|svg)$/));
         this.imageCount = Object.values(this.images).length;
     }
 
@@ -125,7 +125,7 @@ class ImageSlider extends React.Component {
                 return { current, next: this.getNextIndex(current), previous: this.getPreviousIndex(current) };
             });
 //            console.log({previous:this.state.previous, current:this.state.current, next: this.state.next})
-        }, 3000);
+        }, 5000);
         this.setState({interval})
     }
 
@@ -139,7 +139,8 @@ class ImageSlider extends React.Component {
     render() {
         const { classes, children } = this.props;
         const images = Object.values(this.images).filter((img, i) => i >= 0 && i < this.imageCount);
-        
+        const backgroundSize = this.props.backgroundSize || 'contain';
+        console.log({backgroundSize})
         return (
             <div className={classes.root}>
                 {images.map((image, i, arr) => {
@@ -158,7 +159,8 @@ class ImageSlider extends React.Component {
                         <span
                             className={classes.imageSrc}
                             style={{
-                                backgroundImage: `url(${image})`
+                                backgroundImage: `url(${image})`,
+                                backgroundSize: backgroundSize
                             }}
                         />
                     </div>

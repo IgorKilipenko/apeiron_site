@@ -72,7 +72,7 @@ export default new Config().merge({
             //filename: 'index.html',
             inject: 'body'
         }),
-        new CleanWebpackPlugin(['public']),
+        new CleanWebpackPlugin(['../public']),
         //new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
         new webpack.EnvironmentPlugin({
             NODE_ENV: 'production', // use 'development' unless process.env.NODE_ENV is defined

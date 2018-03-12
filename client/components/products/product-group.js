@@ -17,8 +17,8 @@ import classNames from 'classnames';
 //import './product-item-animation.css';
 import doorIcon from '../../public/imgs/doors.png';
 
-const headerBlockHeght = 10,
-    maxVisibleItems = 4;
+const headerBlockHeght = 15,
+    maxVisibleItems = 3;
 
 const styles = theme => ({
     root: {
@@ -34,7 +34,7 @@ const styles = theme => ({
         color: 'white',
         overflow: 'hidden',
         '&:hover $title': {
-            color: 'red !important',
+            //color: 'red !important',
             '&:after': {
                 transformOrigin: 'bottom left',
                 transform: 'scaleX(1)'
@@ -65,17 +65,21 @@ const styles = theme => ({
         flexDirection: 'row-reverse'
     },
     title: {
-        position: 'relative',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        position: 'absolute',
+        color: theme.palette.text.primary,
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit *
             4}px ${theme.spacing.unit + 6}px`,
+        height: 'fit-content',
         '&:after': {
             content: "''",
             position: 'absolute',
-            bottom: 0,
+            bottom: 10,
             left: 0,
             width: '100%',
             height: 2,
-            backgroundColor: 'red',
+            backgroundColor: theme.palette.text.primary,
             transform: 'scaleX(0)',
             transformOrigin: 'bottom right',
             transition: theme.transitions.create(['transform'], {
@@ -96,7 +100,6 @@ const styles = theme => ({
     },
     coloredRoot: {
         backgroundColor: '#ff7f00',
-        borderLeft: '1px solid #ff7f00'
     },
     groupItemOverride: {
         height: `${100 / maxVisibleItems}%`,
@@ -107,7 +110,7 @@ const styles = theme => ({
             width: '50%',
             height: '50%'
         },*/
-    }
+    },
 });
 
 @inject('uiStore')
@@ -151,12 +154,6 @@ class ProductGroup extends React.Component {
                         revers ? '' : classes.reversRow
                     )}
                 >
-                    <span
-                        className={classes.imageSrc}
-                        //style={{
-                        //    backgroundImage: `url(${doorIcon})`
-                        //}}
-                    />
                     <Typography
                         component="span"
                         variant="headline"
@@ -164,7 +161,6 @@ class ProductGroup extends React.Component {
                         className={classes.title}
                     >
                         {title}
-                        <span className={classes.imageMarked} />
                     </Typography>
                 </article>
                 <section

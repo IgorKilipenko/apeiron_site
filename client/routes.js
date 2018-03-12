@@ -33,7 +33,7 @@ const routes = [
                 name: 'slider',
                 id: 1,
                 path: '/Галерея',
-                component:  Slider,
+                component: Slider,
                 scrollOrder: 1
             },
             {

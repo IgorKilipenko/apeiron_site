@@ -18,6 +18,7 @@ import {
 import doorImg from '../../public/imgs/doors.png';
 import prodItemImg from '../../public/imgs/products/ruch.png';
 import Slider from '../../components/image-slider/image-slider';
+import MapComponent from '../../components/map-component/map-component';
 
 
 const styles = theme => ({
@@ -28,7 +29,11 @@ const styles = theme => ({
         //[theme.breakpoints.down("sm")]: {
         //  flexDirection:'column',
         //  },
-        height: 'calc(100% - 25%)'
+        height: 'calc(100% - 0%)'
+    },
+    footer: {
+        height: '25%',
+        width: '50%'
     }
 });
 
@@ -96,7 +101,7 @@ class Index extends React.Component {
         //console.log({props: this.props})
         //const {uiStore} = this.props;
         const pattern = /\s+/gi;
-        const { data: { catalog, refetch } } = this.props;
+        const { data: { catalog, refetch }, classes } = this.props;
         let prods = this._productsFilter();
         console.log({index:this.props})
         return (
@@ -155,7 +160,7 @@ class Index extends React.Component {
                                 })}
                     </ProductGroup>
                 </section>
-                <Slider />
+
             </React.Fragment>
         );
     }

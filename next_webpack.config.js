@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import Config from 'webpack-config';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 import path from 'path';
@@ -8,13 +9,21 @@ import path from 'path';
 const host = 'localhost';
 const port = 7700;
 
-module.exports = {
-    entry: ['babel-polyfill', './client/index.js'],
+export default {
+    entry: [
+        'babel-polyfill', 
+        './client/index.js',
+        'webpack-hot-middleware/client?reload=true',
+        'react-hot-loader/patch',
+        path.join(__dirname, './client/index.js'),
+    ],
+    devtool: 'inline-source-map',
     output: {
-        path: path.resolve(__dirname, '../public') ,
-        publicPath: '/',
+        path: path.resolve(__dirname, './public') ,
+        publicPath: '/'
         //filename: '[name].js'
     },
+    mode: 'development',
     module: {
         rules: [
             {
@@ -57,7 +66,12 @@ module.exports = {
                     name: '[name].[ext]',
                     outputPath: __dirname + 'fonts/'
                 }
-            }
+            },
+            {
+                test: /\.(graphql|gql)$/,
+                exclude: /node_modules/,
+                loader: 'graphql-tag/loader',
+            },
         ]
     },
     plugins: [
@@ -66,6 +80,11 @@ module.exports = {
             //filename: 'index.html',
             inject: 'body'
         }),
+        new CleanWebpackPlugin(['public']),
         //new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
+        new webpack.EnvironmentPlugin({
+            NODE_ENV: 'production', // use 'development' unless process.env.NODE_ENV is defined
+            DEBUG: false
+          })
     ]
-}
+};
