@@ -10,8 +10,7 @@
                         "Safari >= 7", 
                         "Explorer >= 9",
                         "last 2 versions"
-                    ],
-                    "node": "current"
+                    ]
                 },
                 "debug": true,
                 "useBuiltIns": true

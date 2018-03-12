@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import doorIcon from '../../public/imgs/doors.png';
 
 const headerBlockHeght = 15,
-    maxVisibleItems = 3;
+    maxVisibleItems = 4;
 
 const styles = theme => ({
     root: {

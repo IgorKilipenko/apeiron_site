@@ -8,6 +8,10 @@ import img7 from '../public/imgs/products/Zakladnaya-AKP-4509.png';
 import img8 from '../public/imgs/products/Ruchka-bugelnaya-ARD-01.png';
 import img9 from '../public/imgs/products/Nazhimnoy-garnitur-AGN-85.25.42-75-min.png';
 import img10 from '../public/imgs/products/Nazhimnoy-garnitur-AGN-92.25.42-75.png';
+import img10_1 from '../public/imgs/products/Perekhodnik-dlya-profilya-s-termorazryvom.png';
+import img10_2 from '../public/imgs/products/Konduktor-dlya-petel-APP-i-APV.png';
+
+
 export const productListDoors = [
     /* Фурнитура для входных групп */
     /* Петли дверные */
@@ -151,6 +155,24 @@ export const productListDoors = [
             'Предназначен для установки на двери из алюминиевого и ПВХ профиля толщиной от 42мм до 75мм.',
         information:
             'RAL 9016 в наличии, н/о в наличии, любой другой цвет под заказ. Упаковка: 12 шт.'
+    },
+    /*Переходники*/
+    {
+        id: 27,
+        groupId: 0,
+        subgroupId: 4,
+        connectedId: undefined,
+        title: 'Переходник для профиля с терморазрывом',
+        img: img10_1,
+    },
+        /*Кондуктор для петель*/
+    {
+        id: 28,
+        groupId: 0,
+        subgroupId: 5,
+        connectedId: undefined,
+        title: 'Кондуктор для петель АПП и АПВ',
+        img: img10_2,
     }
 ];
 

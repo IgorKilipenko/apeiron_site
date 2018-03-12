@@ -11,7 +11,7 @@ import routes from './routes';
 import { renderRoutes } from 'react-router-config'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
-import {API_ROOT} from '../api-config';
+
 
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
@@ -64,7 +64,7 @@ const stores = {
     //scrollRouting : scrollRouterStore
     // ...other stores
 };
-
+import {API_ROOT} from '../api-config';
 const client = new ApolloClient({
     // By default, this client will send queries to the
     //  `/graphql` endpoint on the same host

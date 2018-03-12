@@ -88,6 +88,7 @@ class ProductInfo extends React.Component {
     render() {
 
         console.log({data: this.props.data})
+        if (this.props.data.loading) return <div>LOADING</div>
         const { classes, component, match} = this.props;
         const product = this.findById(this.parseId(this.props.location.pathname)) //this.props.location.state;
         console.log({product})
