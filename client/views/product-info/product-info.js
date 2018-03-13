@@ -43,35 +43,15 @@ const styles = theme => ({
     },
 });
 
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-const productsQuery = gql`
-    query Query {
-        catalog {
-            id
-            title
-            description
-            content
-            categoryId
-            languageCode
-            metaTitle
-            metaDescription
-            parentId
-            parentTitle
-        }
-    }
-`;
 
-
-@graphql(productsQuery)
 @inject('routing')
 @inject('uiStore')
 @withRouter
 @observer
 class ProductInfo extends React.Component {
-    componentWillMount(){
-        const {route, routing} = this.props;
-        routing.updateRoute(route.path);
+    componentWillMount =() =>{
+        const {route, routing, routes} = this.props;
+        routing.update(route, {routes});
         console.log({routeMount: route})
     }
     parseId = (path) => {
@@ -82,15 +62,15 @@ class ProductInfo extends React.Component {
     findById = (id) =>{
         if (id == null) return null
         const product = this.props.data.catalog.find(p => p.id == id);
+        return this.transformProduct(product);
+    }
+    transformProduct = (product) => {
         const image = products.find(p => p.id == product.id).img;
         return {...product, image};
     }
     render() {
-
-        console.log({data: this.props.data})
-        if (this.props.data.loading) return <div>LOADING</div>
-        const { classes, component, match} = this.props;
-        const product = this.findById(this.parseId(this.props.location.pathname)) //this.props.location.state;
+        const { classes, product } = this.props;
+        //const product = this.findById(this.parseId(this.props.location.pathname)) //this.props.location.state;
         console.log({product})
         //console.log({...this.props});
         return (

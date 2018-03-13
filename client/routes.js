@@ -4,6 +4,7 @@ import Index from './views/home/index'
 import App from './views/app';
 import Slider from './components/image-slider/image-slider';
 import ProductInfo from './views/product-info/product-info';
+import Products from './views/products/products';
 import Contacts from '../client/views/contacts/contacts';
 import {Route, Switch} from 'react-router-dom';
 
@@ -48,9 +49,11 @@ const routes = [
             },
             {
                 name: 'products',
+                noView : true,
                 exact: false,
-                path: '/Продукция/:product',
-                component: ProductInfo
+                path: '/Продукция',
+                component: Products,
+                routes:[]
             }
 
         ]
@@ -61,8 +64,8 @@ export default routes;
 export const ScrollRouter = (props) => {
     const scrollRoutes = routes[0].routes;
     return (
-            scrollRoutes.map((route,i) => (
-                <Route key={i} exact={route.exact} path={route.path} render={props => props.match && <route.component {...props} route={route} routes={route.routes}/>} />
+            scrollRoutes.map((route,i, branch) => (
+                <Route key={i} exact={route.exact} path={route.path} render={props => props.match && <route.component {...props} route={route} routes={route.routes} branch={{routes:branch}}/>} />
             ))
     )
 }

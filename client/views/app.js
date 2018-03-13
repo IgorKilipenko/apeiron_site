@@ -133,18 +133,25 @@ class App extends React.Component {
         if (event.type){
             event.preventDefault();
         }
+
+        this.scrollRoute(event.deltaY);
+
+    }
+
+    scrollRoute = (deltaY) => {
         const { routing } = this.props;
-        if (event.deltaY > 0) {
+        if (!routing.isScroll) {
+            return;
+        }
+        if (deltaY > 0) {
             //props.routing.push(route.next.path);
             this.viewLoader();
             routing.goNext();
             
-        } else if (event.deltaY < 0) {
+        } else if (deltaY < 0) {
             //props.routing.push(route.prev.path);
             this.viewLoader();
             routing.goPrev();
-            
-            
         }
     }
 

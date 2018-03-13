@@ -19,7 +19,7 @@ import doorImg from '../../public/imgs/doors.png';
 import prodItemImg from '../../public/imgs/products/ruch.png';
 import Slider from '../../components/image-slider/image-slider';
 import MapComponent from '../../components/map-component/map-component';
-
+import { matchRoutes } from 'react-router-config'
 
 const styles = theme => ({
     flexContainer: {
@@ -66,8 +66,8 @@ class Index extends React.Component {
         //this.props.data.refetch();
     }
     componentWillMount(){
-        const {route, routing} = this.props;
-        routing.updateRoute(route.path);
+        const {route, branch, routing} = this.props;
+        routing.update(route, branch);
         console.log({routeMount: route})
     }
     componentWillUnmount() {
@@ -121,12 +121,12 @@ class Index extends React.Component {
                                             imgUrl={product.image}
                                             title={product.title}
                                             to={{
-                                                pathname:
-                                                    '/Продукция/Продукт-' +
-                                                    product.title.replace(
-                                                        pattern,
-                                                        '-'
-                                                    ) + `_${product.id}`,
+                                                pathname: '/Продукция/' + product.id,
+                                                    //'/Продукция/Продукт-' +
+                                                    //product.title.replace(
+                                                    //    pattern,
+                                                    //    '-'
+                                                    //) + `_${product.id}`,
                                                 state: { product: product }
                                             }}
                                         />
@@ -147,12 +147,12 @@ class Index extends React.Component {
                                             imgUrl={product.image}
                                             title={product.title}
                                             to={{
-                                                pathname:
-                                                    '/Продукция/Продукт-' +
-                                                    product.title.replace(
-                                                        pattern,
-                                                        '-'
-                                                    ) + `_${product.id}`,
+                                                pathname: '/Продукция/' + product.id,
+                                                    //'/Продукция/Продукт-' +
+                                                    //product.title.replace(
+                                                    //    pattern,
+                                                    //    '-'
+                                                    //) + `_${product.id}`,
                                                 state: { product: product }
                                             }}
                                         />
