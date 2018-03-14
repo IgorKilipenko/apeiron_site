@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react';
 import {
     products
 } from '../../stores/products-store';
+import { transaction } from 'mobx';
 
 const styles = theme => ({
     root: {
@@ -19,13 +20,20 @@ const styles = theme => ({
     container: {
         height: '100%',
         width: '50%',
-        position: 'inherit'
+        position: 'inherit',
+        overflow: 'hidden'
     },
     view: {
         backgroundColor: 'white'
     },
     info: {
-        paddingLeft: '10px'
+        paddingLeft: '10px',
+        position: 'relative',
+
+    },
+    loaded:{
+    },
+    loading:{
     },
     imageSrc: {
         position: 'absolute',
@@ -41,6 +49,15 @@ const styles = theme => ({
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center'
     },
+    title: {
+        position: 'relative',
+        transform: 'translateX(150%)',
+        transition: theme.transitions.create('transform', {delay: '0ms'}),
+        width: '100%',
+        '&$loaded':{
+            transform: 'translateX(0)',
+        }
+    }
 });
 
 
@@ -49,6 +66,14 @@ const styles = theme => ({
 @withRouter
 @observer
 class ProductInfo extends React.Component {
+
+    state = {loaded:false}
+    componentDidMount = () =>{
+        setTimeout(() => {
+            this.setState({loaded:true})
+        }, 0);
+        
+    }
     componentWillMount =() =>{
         const {route, routing, routes} = this.props;
         routing.update(route, {routes});
@@ -83,12 +108,14 @@ class ProductInfo extends React.Component {
                         }}
                     />
                 </div>
-                <div className={classNames(classes.container, classes.info)}>
+                <div className={classNames(classes.container, classes.info )}>
                     {/*match.params.id*/}
-                    <Typography gutterBottom={true} variant='title'>{product.title}
-                        <span>{" " + product.description}</span>
-                    </Typography>
-                    <Typography paragraph={true} variant='body1'>{product.content}</Typography>
+                    <article className={classNames(classes.title, {[classes.loaded]: this.state.loaded})}>
+                        <Typography gutterBottom={true} variant='title'>{product.title}
+                            <span>{" " + product.description}</span>
+                        </Typography>
+                        <Typography paragraph={true} variant='body1'>{product.content}</Typography>
+                    </article>
                 </div>
             </section>
         );

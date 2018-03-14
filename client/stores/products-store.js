@@ -11,6 +11,7 @@ import img10 from '../public/imgs/products/Nazhimnoy-garnitur-AGN-92.25.42-75.pn
 import img10_1 from '../public/imgs/products/Perekhodnik-dlya-profilya-s-termorazryvom.png';
 import img10_2 from '../public/imgs/products/Konduktor-dlya-petel-APP-i-APV.png';
 
+import _ from 'lodash'
 
 export const productListDoors = [
     /* Фурнитура для входных групп */
@@ -292,4 +293,4 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import React from 'react';
 
-export const products = [...productListDoors, ...productListWindows];
+export const products = [..._.flatMapDeep(productListDoors), ..._.flatMapDeep(productListWindows)];
