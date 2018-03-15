@@ -79,20 +79,6 @@ class ProductInfo extends React.Component {
         routing.update(route, {routes});
         console.log({routeMount: route})
     }
-    parseId = (path) => {
-        let id = path.match(/_(\d+)$/)
-        id = id && (id.length > 1 ? id[1] : null);
-        return id;
-    }
-    findById = (id) =>{
-        if (id == null) return null
-        const product = this.props.data.catalog.find(p => p.id == id);
-        return this.transformProduct(product);
-    }
-    transformProduct = (product) => {
-        const image = products.find(p => p.id == product.id).img;
-        return {...product, image};
-    }
     render() {
         const { classes, product } = this.props;
         //const product = this.findById(this.parseId(this.props.location.pathname)) //this.props.location.state;

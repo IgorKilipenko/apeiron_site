@@ -41,11 +41,6 @@ export default class Products extends React.Component {
         //console.log({routeMount: route})
         routing.update(route);
     }
-    parseId = (path) => {
-        let id = path.match(/_(\d+)$/)
-        id = id && (id.length > 1 ? id[1] : null);
-        return id;
-    }
     findById = (id) =>{
         if (id == null) return null
         const product = products.find(p => p.id == id);

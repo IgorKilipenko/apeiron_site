@@ -9,7 +9,8 @@
     "build-dev-lnx": "export NODE_ENV=development&& babel-node server.js",
     "build-prod-lnx": "export NODE_ENV=production&& webpack && babel-node server.js",
     "api": "babel-node ./api/api.js",
-    "api-dev": "set NODE_ENV=development&& nodemon ./api/api.js --exec babel-node"
+    "api-dev": "set NODE_ENV=development&& nodemon ./api/api.js --exec babel-node",
+    "init-data": "babel-node ./api/database/initialize-db.js"
   },
   "repository": {
     "type": "git",
