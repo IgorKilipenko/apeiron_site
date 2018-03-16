@@ -4,8 +4,12 @@ import {
 } from './olddata';
 import Database from './database';
 import mongoose from 'mongoose';
+import productsMap from './olddata/products-map';
 
-const catalog = { products: catalogOld.filter(p => p.LanguageCode == 'ru') };
+const catalog = { products: catalogOld.filter(p => p.LanguageCode == 'ru' && productsMap.find(map => map.id == p.ItemID)).map(p => {
+    const image = productsMap.find(map => map.id == p.ItemID).image;
+    return {...p, image}
+}) };
 const catalog_category = catalog_categoryOld.filter(
     cat => cat.LanguageCode == 'ru'
 );
@@ -64,6 +68,7 @@ const setDataAsync = async db => {
                     const product = new db.Products({
                         _id: new mongoose.Types.ObjectId(),
                         title: _clearHtml(db_product.Title),
+                        image: db_product.image,
                         description: _clearHtml(db_product.Description),
                         metaTitle: _clearHtml(db_product.MetaTitle),
                         metaDescription: _clearHtml(db_product.MetaDescription),

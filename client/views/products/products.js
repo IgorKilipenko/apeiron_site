@@ -18,12 +18,15 @@ const productsQuery = gql`
             title
             description
             content
-            categoryId
-            languageCode
+            category {
+                title
+            }
             metaTitle
             metaDescription
-            parentId
-            parentTitle
+            group {
+                title
+            }
+            image
         }
     }
 `;
@@ -55,7 +58,7 @@ export default class Products extends React.Component {
         console.log({data: this.props.data})
         if (this.props.data.loading) return <div>LOADING</div>
         //console.log({...this.props});
-        const catalog = this.props.data.catalog.filter(p => this.findById(p.id)).map(p => this.transformProduct(p))
+        const catalog = this.props.data.catalog;
         console.log({catalog})
         const routes = catalog.map(product => {
             return (

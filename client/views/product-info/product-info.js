@@ -90,7 +90,7 @@ class ProductInfo extends React.Component {
                     <div
                         className={classes.imageSrc}
                         style={{
-                            backgroundImage: `url(${new URL(product.image, window.location.href)})`
+                            backgroundImage:  `url(${require('../../public/imgs/products/' + product.image)})` //`url(${new URL(product.image, window.location.href)})`
                         }}
                     />
                 </div>

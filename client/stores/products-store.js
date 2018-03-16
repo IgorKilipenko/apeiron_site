@@ -1,15 +1,15 @@
-import img1 from '../public/imgs/products/St01-Stoyka-dlya-sverleniya.png';
-import img2 from '../public/imgs/products/Petlya-dvernaya-APP-2.png';
-import img3 from '../public/imgs/products/Petlya-dvernaya-APP-3.png';
+import img1 from '../public/imgs/products/St01-Stoyka-dlya-sverleniya.png';//
+import img2 from '../public/imgs/products/Petlya-dvernaya-APP-2.png';//
+import img3 from '../public/imgs/products/Petlya-dvernaya-APP-3.png';//
 import img4 from '../public/imgs/products/Petlya-dlya-PVH-dverey-APD120.png';
-import img5 from '../public/imgs/products/Zakladnaya-AKP-4528.png';
-import img6 from '../public/imgs/products/Zakladnaya-AKP-4510.png';
-import img7 from '../public/imgs/products/Zakladnaya-AKP-4509.png';
-import img8 from '../public/imgs/products/Ruchka-bugelnaya-ARD-01.png';
-import img9 from '../public/imgs/products/Nazhimnoy-garnitur-AGN-85.25.42-75-min.png';
-import img10 from '../public/imgs/products/Nazhimnoy-garnitur-AGN-92.25.42-75.png';
-import img10_1 from '../public/imgs/products/Perekhodnik-dlya-profilya-s-termorazryvom.png';
-import img10_2 from '../public/imgs/products/Konduktor-dlya-petel-APP-i-APV.png';
+import img5 from '../public/imgs/products/Zakladnaya-AKP-4528.png';//
+import img6 from '../public/imgs/products/Zakladnaya-AKP-4510.png';//
+import img7 from '../public/imgs/products/Zakladnaya-AKP-4509.png';//
+import img8 from '../public/imgs/products/Ruchka-bugelnaya-ARD-01.png';//
+import img9 from '../public/imgs/products/Nazhimnoy-garnitur-AGN-85.25.42-75-min.png';//
+import img10 from '../public/imgs/products/Nazhimnoy-garnitur-AGN-92.25.42-75.png';//
+import img10_1 from '../public/imgs/products/Perekhodnik-dlya-profilya-s-termorazryvom.png';//
+import img10_2 from '../public/imgs/products/Konduktor-dlya-petel-APP-i-APV.png';//
 
 import _ from 'lodash'
 
@@ -177,15 +177,15 @@ export const productListDoors = [
     }
 ];
 
-import img11 from '../public/imgs/products/Zakladnaya-AKP-45.15.png';
-import img12 from '../public/imgs/products/Zakladnaya-AKP-45.14.png';
-import img13 from '../public/imgs/products/Zakladnaya-AKP-45.31.png';
-import img14 from '../public/imgs/products/Zakladnaya-AKP-45.32.png';
-import img15 from '../public/imgs/products/Zakladnaya-AKP-4509.png';
-import img16 from '../public/imgs/products/Zakladnaya-AKP-4510.png';
-import img17 from '../public/imgs/products/Zaschelka-balkonnaya-AZB-03A.png';
-import img18 from '../public/imgs/products/Petlya-okonnaya-APO-R400.png';
-import img19 from '../public/imgs/products/Petlya-okonnaya-APD-R400.png';
+import img11 from '../public/imgs/products/Zakladnaya-AKP-45.15.png';//
+import img12 from '../public/imgs/products/Zakladnaya-AKP-45.14.png';//
+import img13 from '../public/imgs/products/Zakladnaya-AKP-45.31.png';//
+import img14 from '../public/imgs/products/Zakladnaya-AKP-45.32.png';//
+import img15 from '../public/imgs/products/Zakladnaya-AKP-4509.png';//
+import img16 from '../public/imgs/products/Zakladnaya-AKP-4510.png';//
+import img17 from '../public/imgs/products/Zaschelka-balkonnaya-AZB-03A.png';//
+import img18 from '../public/imgs/products/Petlya-okonnaya-APO-R400.png';//
+import img19 from '../public/imgs/products/Petlya-okonnaya-APD-R400.png';//
 
 export const productListWindows = [
     /* Фурнитура для системы Provedal */

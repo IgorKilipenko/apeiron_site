@@ -44,14 +44,13 @@ const productsListQuery = gql`
         catalog {
             id
             title
-            description
-            content
-            categoryId
-            languageCode
-            metaTitle
-            metaDescription
-            parentId
-            parentTitle
+            category {
+                title
+            }
+            group {
+                title
+            }
+            image
         }
     }
 `;
@@ -102,23 +101,25 @@ class Index extends React.Component {
         //const {uiStore} = this.props;
         const pattern = /\s+/gi;
         const { data: { catalog, refetch }, classes } = this.props;
-        let prods = this._productsFilter();
+        console.log({indexData: this.props.data})
+        //let prods = this._productsFilter();
         console.log({index:this.props})
         return (
+            this.props.data.loading ? <div>LOADING</div>
+            :
             <React.Fragment>
                 <section className={this.props.classes.flexContainer}>
                     <ProductGroup
                         revers={true}
                         title="Фурнитура для входных групп"
                     >
-                        {catalog &&
-                            prods
-                                .filter(product => product.parentId === 24)
+                        {catalog
+                                .filter(product => product.category.title.match(/^Фурнитура для входных групп/))
                                 .map(product => {
                                     return (
                                         <ProductItem
                                             key={product.id}
-                                            imgUrl={product.image}
+                                            imgUrl={require('../../public/imgs/products/' + product.image)}
                                             title={product.title}
                                             to={{
                                                 pathname: '/Продукция/' + product.id,
@@ -137,14 +138,13 @@ class Index extends React.Component {
                         colored={true}
                         title="Фурнитура для системы Provedal"
                     >
-                        {catalog &&
-                            prods
-                                .filter(product => product.parentId === 4)
+                        {catalog
+                            .filter(product => product.category.title.match(/^Фурнитура для системы Provedal/))
                                 .map(product => {
                                     return (
                                         <ProductItem
                                             key={product.id}
-                                            imgUrl={product.image}
+                                            imgUrl={require('../../public/imgs/products/' + product.image)}
                                             title={product.title}
                                             to={{
                                                 pathname: '/Продукция/' + product.id,

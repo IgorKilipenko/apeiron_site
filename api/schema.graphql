@@ -1,91 +1,104 @@
 schema {
-  query: Query
-  mutation: RootMutation
+    query: Query
+    mutation: RootMutation
 }
 
-type Query { catalog: [Catalog] }
-type Catalog { 
-    id: ID!, 
-    title: String!,
-    description: String,
-    metaTitle: String,
-    metaDescription: String,
-    content: String,
-    categoryId: Int,
-    languageCode: Language,
-    image: String,
-    order: Int,
+type Query {
+    catalog: [Catalog]
+}
+
+type Catalog {
+    id: ID!
+    title: String!
+    description: String
+    metaTitle: String
+    metaDescription: String
+    content: String
+    image: String
+    order: Int
     active: Boolean
+    category: ProductCategory
+    group: ProductGroup
+    details: ID
 }
-enum Language {
-    ru,
-    en
+
+type ProductCategory {
+    id: ID!
+    title: String
 }
+
+type ProductGroup {
+    id: ID!
+    title: String
+}
+
+
 
 type RootMutation {
-  createComment(input: CreateCommentInput): CreateCommentPayload
+    createComment(input: CreateCommentInput): CreateCommentPayload
 }
 
 input CreateCommentInput {
-  stuff: String
+    stuff: String
 }
 
 type CreateCommentPayload {
-  story: Story
+    story: Story
 }
 
 type CreateEventPayload {
-  viewer: User
-  user: User
+    viewer: User
+    user: User
 }
 
 type User {
-  events: [String]
+    events: [String]
 }
 
 type RootQuery {
-  number: Int
-  allFilms: AllFilmsObj
-  sum(a: Int!, b: Int!): Int!
-  greetings: Greetings
-  stories: [Story!]!
+    number: Int
+    allFilms: AllFilmsObj
+    sum(a: Int!, b: Int!): Int!
+    greetings: Greetings
+    stories: [Story!]!
 }
 
 type AllFilmsObj {
-  films: [Film]
+    films: [Film]
 }
 
 type Film {
-  title: String
-  director: String
-  releaseDate: String
+    title: String
+    director: String
+    releaseDate: String
 }
 
 type Greetings {
-  id: ID
-  hello: String
-  hi: String @deprecated(reason: "Please use the more formal greeting 'hello'")
-  image(size: ImageSize!): Image
+    id: ID
+    hello: String
+    hi: String
+        @deprecated(reason: "Please use the more formal greeting 'hello'")
+    image(size: ImageSize!): Image
 }
 
 type Image {
-  size: ImageSize!
+    size: ImageSize!
 }
 
 enum ImageSize {
-  SMALL @deprecated(reason: "Use 'LARGE' instead")
-  LARGE
+    SMALL @deprecated(reason: "Use 'LARGE' instead")
+    LARGE
 }
 
 type Story {
-  id: ID
-  comments: [Comment]
+    id: ID
+    comments: [Comment]
 }
 
 type Comment {
-  text: String
+    text: String
 }
 
 type PublicUser {
-  fullName: String
+    fullName: String
 }

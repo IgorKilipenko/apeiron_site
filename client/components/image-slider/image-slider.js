@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import { duration } from 'material-ui/styles/transitions';
+//import { duration } from 'material-ui/styles/transitions';
 
 function importAll(r) {
     const images = {};

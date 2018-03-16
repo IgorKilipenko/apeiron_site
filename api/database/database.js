@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 export default class Datebase {
     constructor(connectionString){
         this.connectionString = connectionString;
+
         this.buildSchema();
     }
     connect = () => {
@@ -20,7 +21,7 @@ export default class Datebase {
         _id: mongoose.Schema.Types.ObjectId,
         title: String,
         description: String,
-        imageUrl: String,
+        image: String,
         metaTitle: String,
         metaDescription: String,
         content: String,
@@ -38,7 +39,7 @@ export default class Datebase {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ProductsDetails'
         }
-    });
+    }, {toJSON: {getters: true}});
     productsDetailsSchema = new mongoose.Schema({
         _id: mongoose.Schema.Types.ObjectId,
         videos: [
