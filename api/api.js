@@ -55,7 +55,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors()); // enable `cors` to set HTTP response header: Access-Control-Allow-Origin: *
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+app.use('/graphql', bodyParser.json(), graphqlExpress({ 
+    schema,
+    tracing: true,
+    cacheControl: true, 
+}));
 
 if (true/*isDevelopment*/) {
     app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));

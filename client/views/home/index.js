@@ -54,7 +54,7 @@ const productsListQuery = gql`
         }
     }
 `;
-@graphql(productsListQuery)
+@graphql(productsListQuery, {options: { notifyOnNetworkStatusChange: true } })
 @inject('routing')
 @inject('uiStore')
 @withRouter
