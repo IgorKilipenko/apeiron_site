@@ -7,7 +7,8 @@ export default class Datebase {
         this.buildSchema();
     }
     connect = () => {
-        return mongoose.connect(this.connectionString || 'mongodb://localhost/test2');
+        mongoose.connect(this.connectionString || 'mongodb://localhost/test2', { useMongoClient: true });
+        return mongoose.connection;
     }
 
     buildSchema = () => {
