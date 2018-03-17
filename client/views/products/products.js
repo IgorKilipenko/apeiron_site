@@ -54,11 +54,10 @@ export default class Products extends React.Component {
         return {...product, image};
     }
     render() {
-
+        const { data: { catalog, refetch } } = this.props;
         console.log({data: this.props.data})
-        if (this.props.data.loading  || !this.props.data.catalog || !this.props.data.catalog.length === 0) return <div>LOADING</div>
+        if (this.props.data.loading  || (!catalog || !catalog.length === 0) && refetch() ) return <div>LOADING</div>
         //console.log({...this.props});
-        const catalog = this.props.data.catalog;
         console.log({catalog})
         const routes = catalog.map(product => {
             return (

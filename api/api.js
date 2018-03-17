@@ -36,9 +36,9 @@ var config = {
 //`;
 
 const mdb = new Database();
-const getCatalog = async () => {
+const getCatalog = async (mdb) => {
     let res = null; 
-    mdb.connect();
+    
     const query = mdb.Products.find({})
         .populate('category')
         .populate({
@@ -65,7 +65,7 @@ const resolvers = {
             //        description: r.description.replace(reg, '')
             //    }));
             //});
-            return getCatalog();
+            return getCatalog(mdb);
         }
     }
 };
@@ -87,7 +87,8 @@ if (true/*isDevelopment*/) {
     app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 }
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     //catalog =
+    await mdb.connect();
     console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`);
 });
