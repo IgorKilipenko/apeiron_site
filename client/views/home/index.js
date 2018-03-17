@@ -105,7 +105,7 @@ class Index extends React.Component {
         //let prods = this._productsFilter();
         console.log({index:this.props})
         return (
-            this.props.data.loading ? <div>LOADING</div>
+            this.props.data.loading  || !this.props.data.catalog || !this.props.data.catalog.length === 0 ? <div>LOADING</div>
             :
             <React.Fragment>
                 <section className={this.props.classes.flexContainer}>
