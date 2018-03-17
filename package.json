@@ -4,12 +4,12 @@
   "description": "\"# apeiron_site\"",
   "main": "index.js",
   "scripts": {
-    "build-dev": "set NODE_ENV=development&& babel-node server.js",
-    "build-prod": "set NODE_ENV=production&& webpack && babel-node server.js",
+    "build-dev": "cross-env NODE_ENV=development&& babel-node server.js",
+    "build-prod": "cross-env NODE_ENV=production&& webpack && babel-node server.js",
     "build-dev-lnx": "export NODE_ENV=development&& babel-node server.js",
     "build-prod-lnx": "export NODE_ENV=production&& webpack && babel-node server.js",
     "api": "babel-node ./api/api.js",
-    "api-dev": "set NODE_ENV=development&& nodemon ./api/api.js --exec babel-node",
+    "api-dev": "cross-env NODE_ENV=development&& nodemon ./api/api.js --exec babel-node",
     "init-data": "babel-node ./api/database/initialize-db.js"
   },
   "repository": {
@@ -36,6 +36,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.1.4",
     "css-loader": "^0.28.10",
     "eslint": "^4.18.2",
     "eslint-config-react-app": "^2.1.0",
