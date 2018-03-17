@@ -42,7 +42,13 @@ const theme = createMuiTheme({
         background: {
             default: 'white'
         },*/
-        type: 'dark'
+        type: 'dark',
+        primary: {
+            light: '#ff7f00',
+            main: '#3f51b5',
+            dark: '#303f9f',
+            contrastText: '#fff'
+        }
     },
     customValues: {
         drawerWidth: 100,

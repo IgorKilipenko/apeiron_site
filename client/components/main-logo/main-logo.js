@@ -5,6 +5,7 @@ import apeironLogoUrl, {
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import classNames from 'classnames';
+import {Link} from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -65,7 +66,7 @@ const styles = theme => ({
         height: '100px',
         width: '100%',
         transform: 'translate(-50%)',
-        //zIndex: 99999
+        
     },
     '@keyframes rotate': {
         to: {
@@ -97,9 +98,11 @@ class MainLogo extends React.Component {
                     [classes.opened]: opened
                 })}
             >
-                <div className={classNames(classes.logoContainer)}>
+                <Link className={classNames(classes.logoContainer)}
+                    to='/'
+                >
                     <Logo className={classes.menuLogo} />
-                </div>
+                </Link>
                     <Typography
                         component="span"
                         variant="headline"
