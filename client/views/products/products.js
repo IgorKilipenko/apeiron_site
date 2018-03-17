@@ -56,6 +56,12 @@ export default class Products extends React.Component {
     render() {
         const { data: { catalog, refetch } } = this.props;
         console.log({data: this.props.data})
+        if (this.props.data.networkStatus !== 7){
+            if (this.props.data.networkStatus === 4){
+                refetch();
+            }
+            return <div>LOADING</div>
+        }
         if (this.props.data.loading  || (!catalog || !catalog.length === 0) && refetch() ) return <div>LOADING</div>
         //console.log({...this.props});
         console.log({catalog})

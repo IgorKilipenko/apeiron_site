@@ -102,11 +102,14 @@ class Index extends React.Component {
         const pattern = /\s+/gi;
         const { data: { catalog, refetch }, classes } = this.props;
         console.log({indexData: this.props.data})
-        //let prods = this._productsFilter();
+        if (this.props.data.networkStatus !== 7){
+            if (this.props.data.networkStatus === 4){
+                refetch();
+            }
+            return <div>LOADING</div>
+        }
         console.log({index:this.props})
         return (
-            this.props.data.loading  || (!catalog || !catalog.length === 0) && refetch() ? <div>LOADING</div>
-            :
             <React.Fragment>
                 <section className={this.props.classes.flexContainer}>
                     <ProductGroup

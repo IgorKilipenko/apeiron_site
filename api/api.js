@@ -12,34 +12,25 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 const PORT = 3300;
 
-
-
 const mdb = new Database();
-mdb.connect()
+const conn = mdb
+    .connect()
     .once('open', () => console.log('Connected to MongoLab instance.'))
-    .on('error', () => error => console.log('Error connecting to MongoLab:', error));
-
-const getCatalog = async (mdb) => {
-    let res = null; 
-    
-    const query = mdb.Products.find({})
-        .populate('category')
-        .populate({
-            path:'group',
-            populate: {path: 'category'}
-        })
-        .populate('details');
-    query.exec((err, products) => {
-        res = products;
-    })
-    await query;
-    return res;
-}
+    .on('error', () => error =>
+        console.log('Error connecting to MongoLab:', error)
+    );
 
 const resolvers = {
     Query: {
-        catalog: () => {
-            return getCatalog(mdb);
+        catalog: async () => {
+            //return (await mdb.Products.find({}))
+            return await mdb.Products.find({})
+                .populate('category')
+                .populate({
+                    path: 'group',
+                    populate: { path: 'category' }
+                })
+                .populate('details');
         }
     }
 };
@@ -55,17 +46,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors()); // enable `cors` to set HTTP response header: Access-Control-Allow-Origin: *
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({ 
-    schema,
-    tracing: true,
-    cacheControl: true, 
-}));
+app.use(
+    '/graphql',
+    bodyParser.json(),
+    graphqlExpress({
+        schema,
+        tracing: true,
+        cacheControl: true
+    })
+);
 
-if (true/*isDevelopment*/) {
+if (true /*isDevelopment*/) {
     app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 }
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     //catalog =
+    await conn;
     console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`);
 });
