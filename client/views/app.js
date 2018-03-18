@@ -132,7 +132,7 @@ class App extends React.Component {
 
     handleMouseWhell = (event) => {
         if (event.type){
-            event.preventDefault();
+            //event.preventDefault();
         }
 
         this.scrollRoute(event.deltaY);

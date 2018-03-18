@@ -7,7 +7,7 @@ import { inject, observer } from 'mobx-react';
 import {
     products
 } from '../../stores/products-store';
-import { transaction } from 'mobx';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const styles = theme => ({
     root: {
@@ -76,7 +76,7 @@ class ProductInfo extends React.Component {
     }
     componentWillMount =() =>{
         const {route, routing, routes} = this.props;
-        routing.update(route, {routes});
+        routing.update(route /*, {routes}*/);
         console.log({routeMount: route})
     }
     render() {
@@ -96,12 +96,18 @@ class ProductInfo extends React.Component {
                 </div>
                 <div className={classNames(classes.container, classes.info )}>
                     {/*match.params.id*/}
-                    <article className={classNames(classes.title, {[classes.loaded]: this.state.loaded})}>
-                        <Typography gutterBottom={true} variant='title'>{product.title}
-                            <span>{" " + product.description}</span>
-                        </Typography>
-                        <Typography paragraph={true} variant='body1'>{product.content}</Typography>
-                    </article>
+                    <Scrollbars >
+                        <article className={classNames(classes.title, {[classes.loaded]: this.state.loaded})}>
+                            
+                            <Typography gutterBottom={true} variant='title'>{product.title}
+                                <span>{" " + product.description}</span>
+                            </Typography>
+                            {
+                            [...Array(50).keys()].map(key => 
+                            <Typography key={key} paragraph={true} variant='body1'>{product.content}</Typography>
+                            )}
+                        </article>
+                    </Scrollbars>
                 </div>
             </section>
         );

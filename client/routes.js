@@ -23,19 +23,22 @@ const routes = [
                 scrollOrder: 0,
                 routes: [
 
-                ]
+                ],
+                isScrollRoute: true
             },
             {
                 name: 'contacts',
                 path: '/Контакты',
-                component: Contacts
+                component: Contacts,
+                isScrollRoute: true
             },
             {
                 name: 'slider',
                 id: 1,
                 path: '/Галерея',
                 component: Slider,
-                scrollOrder: 1
+                scrollOrder: 1,
+                isScrollRoute: true
             },
             {
                 name: 'products',

@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 const styles = theme => ({
     content: {
+        overflow: 'hidden',
         width: `calc(100% - ${theme.customValues.drawerWidth}px)`,
         position: 'relative',
         boxSizing: 'border-box',
