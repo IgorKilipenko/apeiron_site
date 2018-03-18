@@ -27,7 +27,8 @@ const styles = theme => ({
             height: 'inherit',
             width: 'inherit',
             padding: 0,
-            margin: 0
+            margin: 0,
+            color: theme.palette.text.primary
         },
         html: {
             height: '100%',

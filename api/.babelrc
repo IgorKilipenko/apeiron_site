@@ -1,0 +1,21 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "node": "current"
+                },
+                "debug": true,
+                "useBuiltIns": true
+            }
+        ]
+    ],
+    "plugins": [
+        "react-hot-loader/babel",
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "transform-runtime"
+    ]
+}

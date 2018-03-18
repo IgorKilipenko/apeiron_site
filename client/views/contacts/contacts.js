@@ -2,41 +2,84 @@ import React from 'react';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+
 import MapComponent from '../../components/map-component/map-component';
 import ContactForm from '../../components/contact-form/contact-form';
+import ContactInfo from '../../components/contact-form/contact-info';
+import Slider from '../../components/image-slider/image-slider';
+import { auto } from 'async';
 
 const styles = theme => ({
     root: {
         height: '100%',
         width: '100%',
         display: 'flex',
-        flexFlow: 'column'
+        flexFlow: 'column',
+        position: 'relative'
     },
-    contact: {
+    contactInfo: {
+        height: '100%',
+        width: '50%',
+        padding: '1em',
+        position: 'inherit'
+    },
+    contactForm: {
+        height: '100%',
+        maxWidth: '50%',
+        width: 400,
+        padding: '1em'
+    },
+    contactContainer: {
+        height: '40%',
+        width: '100%',
+        display: 'flex',
+        flexFlow: 'row',
+        position: 'inherit'
+    },
+    mapContainer: {
         height: '60%',
-        width: '50%'
+        width: '100%',
+        position: 'relative',
+        boxShadow: theme.shadows[10],
+        zIndex: theme.zIndex.appBar
     },
-    mapElements: {
-        height: '40%', 
-        width: '100%'
+    sliderContainer: {
+        height: '50%',
+        width: '70%',
+        position: 'absolute',
+        bottom: '0%',
+        left: '0%',
+        right: 'auto',
+        top: 'auto'
+        //boxShadow: theme.shadows[10],
+        //zIndex: theme.zIndex.appBar
     }
 });
 
 class Contacts extends React.Component {
     render() {
-        const {classes} = this.props; 
+        const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <div className={classes.contact}>
-                    <ContactForm/>
+                <div className={classes.contactContainer}>
+                    <div className={classes.contactInfo}>
+
+                        <ContactInfo />
+                        {/*<div className={classes.sliderContainer}>
+                            <Slider backgroundSize='cover'/>
+                        </div>*/}
+                    </div>
+                    <div className={classes.contactForm}>
+                        <Typography variant="headline">Напишите нам</Typography>
+                        <ContactForm />
+                    </div>
                 </div>
-                <div className={classes.mapElements}>
-                    <MapComponent/>
+                <div className={classes.mapContainer}>
+                    <MapComponent />
                 </div>
             </div>
-            
         );
     }
 }
 
-export default withStyles(styles, {withTheme: true})(Contacts);
+export default withStyles(styles, { withTheme: true })(Contacts);

@@ -14,31 +14,31 @@ const styles = theme => ({
 
 class ContactsForm extends React.Component {
     state = {
-        name: ''
+        name: '',
+        surname: ''
     };
-    handleChange = event => {
-        this.setState({ name: event.target.value });
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
     };
     render() {
         const { classes } = this.props;
         return (
             <React.Fragment>
-                <Typography variant='title'>Контакты</Typography>
                 <div className={classes.root} noValidate autoComplete="off">
                     <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="name-field" required={true}>Имя</InputLabel>
                         <Input
                             id="name-field"
                             value={this.state.name}
-                            onChange={this.handleChange}
+                            onChange={this.handleChange('name')}
                         />
                     </FormControl>
                     <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="name-field" required={true}>Почта</InputLabel>
+                        <InputLabel htmlFor="surname-field" required={true}>Почта</InputLabel>
                         <Input
-                            id="name-field"
-                            value={this.state.name}
-                            onChange={this.handleChange}
+                            id="surname-field"
+                            value={this.state.surname}
+                            onChange={this.handleChange('surname')}
                         />
                     </FormControl>
                 </div>

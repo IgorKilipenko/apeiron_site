@@ -38,16 +38,6 @@ const routes = [
                 scrollOrder: 1
             },
             {
-                name: 'doors',
-                path: '/Фурнитура-входных-групп',
-                component: () => <div>Фурнитура-входных-групп</div>
-            },
-            {
-                name: 'windows',
-                path: '/Фурнитура-для-окон',
-                component: () => <div>Фурнитура-для-окон</div>
-            },
-            {
                 name: 'products',
                 noView : true,
                 exact: false,
