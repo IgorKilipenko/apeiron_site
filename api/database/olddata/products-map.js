@@ -115,7 +115,6 @@ const productsMap = [
         id: 8,
         title: 'Петля оконная АПО-Р400',
         image: 'Petlya-okonnaya-APO-R400.png',
-        videos: ['https://www.youtube.com/embed/m9kJYYr_pu0'],
         content: [
             {
                 contentType: 'document',
@@ -137,7 +136,7 @@ const productsMap = [
             },
             {
                 contentType: 'video',
-                value: 'https://www.youtube.com/watch?v=m9kJYYr_pu0',
+                value: 'https://youtu.be/m9kJYYr_pu0',
                 
             }
         ]

@@ -27,6 +27,12 @@ const productsQuery = gql`
                 title
             }
             image
+            details {
+                id
+                title
+                value
+                contentType
+            }
         }
     }
 `;

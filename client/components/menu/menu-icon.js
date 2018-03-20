@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
+import { inject, observer } from 'mobx-react';
 
 const styles = theme => {
     const width = 40;
@@ -53,23 +54,29 @@ const styles = theme => {
     };
 };
 
+@inject('uiStore')
+@observer
 class MenuIcon extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            opened: props.opened || false
-        };
+        //this.state = {
+        //    opened: props.opened || false
+        //};
     }
     handleClick = e => {
         e.stopPropagation();
         e.preventDefault();
-        this.setState((prevState, props) => ({
+        //this.setState((prevState, props) => ({
+        //    ...prevState,
+        //    opened: !prevState.opened
+        //}));
+        this.props.uiStore.setState(prevState => ({
             ...prevState,
-            opened: !prevState.opened
-        }));
+            menuOpened: !prevState.menuOpened
+        }))
     };
     render() {
-        const { classes } = this.props;
+        const { classes, uiStore } = this.props;
         return (
             <div
                 className={this.props.className + ' ' + classes.root}
@@ -77,7 +84,7 @@ class MenuIcon extends React.Component {
             >
                 <span
                     className={classNames(classes.line, {
-                        [classes.opened]: this.state.opened
+                        [classes.opened]: uiStore.state.menuOpened
                     })}
                 />
             </div>
