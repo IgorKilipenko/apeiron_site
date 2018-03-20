@@ -36,25 +36,21 @@ export default class Datebase {
             type: mongoose.Schema.ObjectId,
             ref: 'ProductGroups'
         },
-        details: {
+        details: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ProductsDetails'
-        }
+        }]
     }, {toJSON: {getters: true}});
     productsDetailsSchema = new mongoose.Schema({
         _id: mongoose.Schema.Types.ObjectId,
-        videos: [
+        contentType: String,
+        value: String,
+        title: String,
+        description: String,
+        text: [
             {
-                url: String,
-                title: String,
-                description: String
-            }
-        ],
-        documents: [
-            {
-                url: String,
-                title: String,
-                description: String
+                value: String,
+                tag: String
             }
         ]
     });
@@ -69,5 +65,12 @@ export default class Datebase {
             type: mongoose.Schema.ObjectId,
             ref: 'ProductCategories'
         },
-    })
+    });
+
+    static contentTypes = {
+        text: 0,
+        image: 1,
+        document: 2,
+        video: 3
+    }
 }

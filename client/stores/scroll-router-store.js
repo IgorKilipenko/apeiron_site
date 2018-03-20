@@ -89,5 +89,4 @@ export default class ScrollRouterStore extends RouterStore {
     get isScroll(){
         return this.getRoute && this.getBranch
     }
-
 }

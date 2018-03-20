@@ -7,8 +7,8 @@ import mongoose from 'mongoose';
 import productsMap from './olddata/products-map';
 
 const catalog = { products: catalogOld.filter(p => p.LanguageCode == 'ru' && productsMap.find(map => map.id == p.ItemID)).map(p => {
-    const image = productsMap.find(map => map.id == p.ItemID).image;
-    return {...p, image}
+    const oldProduct = productsMap.find(map => map.id == p.ItemID);
+    return {...p, image: oldProduct.image, content: oldProduct.content}
 }) };
 const catalog_category = catalog_categoryOld.filter(
     cat => cat.LanguageCode == 'ru'
@@ -47,7 +47,7 @@ const setDataAsync = async db => {
                 _id: new mongoose.Types.ObjectId(),
                 title: _clearHtml(cat.Title)
             });
-            await productCategory.save();
+            productCategory.save();
 
             cat.groups.forEach(async group => {
                 const productGroup = new db.ProductGroups({
@@ -55,15 +55,23 @@ const setDataAsync = async db => {
                     title: _clearHtml(group.Title),
                     category: productCategory._id
                 });
-                await productGroup.save();
+                productGroup.save();
 
                 group.products.forEach(async db_product => {
-                    const productDetails = new db.ProductsDetails({
-                        _id: new mongoose.Types.ObjectId(),
-                        videos: [],
-                        documents: []
-                    });
-                    await productDetails.save();
+                    let productDetailsArray = [];
+                    if (db_product.content) {
+                        productDetailsArray =db_product.content.map(content => {
+                            const productDetails = new db.ProductsDetails({
+                                _id: new mongoose.Types.ObjectId(),
+                                ...content
+                            });
+                            productDetails.save();
+                            return productDetails;
+                        })
+                        productDetailsArray;
+                        console.log({productDetailsArray});
+                    }
+
 
                     const product = new db.Products({
                         _id: new mongoose.Types.ObjectId(),
@@ -77,9 +85,9 @@ const setDataAsync = async db => {
                         active: parseInt(db_product.Active, 10),
                         category: productCategory._id,
                         group: productGroup._id,
-                        details: productDetails._id
+                        details: productDetailsArray.map(d => d._id)
                     });
-                    await product.save();
+                    product.save();
                     console.log(`save success product id_${product._id}`);
                 });
                 

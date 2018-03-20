@@ -52,7 +52,7 @@ const styles = theme => ({
 class ScrollContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.touchStart = null
+        this.touchStart = null;
     }
 
     state = {
@@ -80,12 +80,14 @@ class ScrollContainer extends React.Component {
         //console.log({event: event.target});
         //event.preventDefault();
         //event.stopPropagation();
-
         this.props.handleMouseWheel(event)
     }
 
     handleTouchStart(event){
         //event.preventDefault();
+        if (!event.changedTouches || event.changedTouches.length !== 1){
+            return;
+        }
         const touch = event.changedTouches[0];
         this.touchStart = touch
     }

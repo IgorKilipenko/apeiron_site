@@ -72,11 +72,10 @@ class ProductInfo extends React.Component {
         setTimeout(() => {
             this.setState({loaded:true})
         }, 0);
-        
     }
     componentWillMount =() =>{
         const {route, routing, routes} = this.props;
-        routing.update(route /*, {routes}*/);
+        routing.update(route , {routes});
         console.log({routeMount: route})
     }
     render() {
@@ -96,7 +95,7 @@ class ProductInfo extends React.Component {
                 </div>
                 <div className={classNames(classes.container, classes.info )}>
                     {/*match.params.id*/}
-                    <Scrollbars >
+                    <Scrollbars onWheel={e => e.stopPropagation()}>
                         <article className={classNames(classes.title, {[classes.loaded]: this.state.loaded})}>
                             
                             <Typography gutterBottom={true} variant='title'>{product.title}

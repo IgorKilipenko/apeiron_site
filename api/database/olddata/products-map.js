@@ -114,7 +114,33 @@ const productsMap = [
     {
         id: 8,
         title: 'Петля оконная АПО-Р400',
-        image: 'Petlya-okonnaya-APO-R400.png'
+        image: 'Petlya-okonnaya-APO-R400.png',
+        videos: ['https://www.youtube.com/embed/m9kJYYr_pu0'],
+        content: [
+            {
+                contentType: 'document',
+                value: 'Sertifikat_sootvetstviya_Apeiron_petli.jpg',
+                title: 'Сертификат соответствия на оконные и дверные петли Апейрон'
+            },
+            {
+                contentType: 'document',
+                value: 'Protokol_ispytanii_Apeiron_petli.jpg',
+                title: 'Протокол испытаний, оконные и дверные петли Апейрон'
+            },
+            {
+                contentType: 'image',
+                value: [
+                    '111.png',
+                    '222.png'
+                ],
+                description: 'Петля оконная АПО-Р400'
+            },
+            {
+                contentType: 'video',
+                value: 'https://www.youtube.com/watch?v=m9kJYYr_pu0',
+                
+            }
+        ]
     },
     {
         id: 9,
