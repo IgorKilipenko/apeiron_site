@@ -1,11 +1,10 @@
 import React from 'react';
-import apeironLogoUrl, {
-    ReactComponent as Logo
-} from './logo-menu.svg';
+import apeironLogoUrl, { ReactComponent as Logo } from './logo-menu.svg';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import MenuIcon from '../menu/menu-icon';
 
 const styles = theme => ({
     root: {
@@ -40,21 +39,21 @@ const styles = theme => ({
             animationDuration: '3s',
             animationIterationCount: 'infinite',
             animationTimingFunction: 'linear', //theme.transitions.easing.ease,
-            transformOrigin: 'center',
+            transformOrigin: 'center'
         },
         '&:hover #round1': {
-            animationName: 'rotate',
+            animationName: 'rotate'
         },
         '&:hover #round2': {
-            animationName: 'rotate-back',
+            animationName: 'rotate-back'
         },
-        '&:hover':{
+        '&:hover': {
             cursor: 'pointer'
         }
     },
-    '#round1':{
+    '#round1': {
         animation: 'rotate 2s linear infinite',
-        transformOrigin: 'center',
+        transformOrigin: 'center'
     },
 
     logoContainer: {
@@ -65,8 +64,7 @@ const styles = theme => ({
         marginRight: '-50%',
         height: '100px',
         width: '100%',
-        transform: 'translate(-50%)',
-        
+        transform: 'translate(-50%)'
     },
     '@keyframes rotate': {
         to: {
@@ -86,6 +84,12 @@ const styles = theme => ({
         left: '50%',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%) rotate(-90deg)'
+    },
+    menuIcon: {
+        position: 'absolute',
+        top: 110,
+        left: '50%',
+        transform: 'translateX(-50%)'
     }
 });
 
@@ -98,19 +102,18 @@ class MainLogo extends React.Component {
                     [classes.opened]: opened
                 })}
             >
-                <Link className={classNames(classes.logoContainer)}
-                    to='/'
-                >
+                <Link className={classNames(classes.logoContainer)} to="/">
                     <Logo className={classes.menuLogo} />
                 </Link>
-                    <Typography
-                        component="span"
-                        variant="headline"
-                        color="inherit"
-                        className={classes.logoTitle}
-                    >
-                        Апейрон
-                    </Typography>
+                <MenuIcon className={classes.menuIcon}/>
+                <Typography
+                    component="span"
+                    variant="headline"
+                    color="inherit"
+                    className={classes.logoTitle}
+                >
+                    Апейрон
+                </Typography>
             </div>
         );
     }

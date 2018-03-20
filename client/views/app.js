@@ -78,19 +78,16 @@ const styles = theme => ({
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {}
     }
 
-    state = {
-        open: document.body.clientWidth >= 600,
-        //windowHeight: 0
-    };
-
     handleResize() {
-        this.setState( {breakpoint: this._getBreakpoint(window.innerWidth)});
+        this.setState( {breakpoint: this._getBreakpoint(document.body.clientWidth)});
         this.props.uiStore.setBreakpoint(this.state.breakpoint)
     }
 
     _getBreakpoint(width){
+        console.log({innerWidth: width});
         if (width <= 600){
             return 'xs'
         }
@@ -115,7 +112,7 @@ class App extends React.Component {
         this.viewLoader();
         setTimeout(() => {
             this.setState({menuOpened: true})
-        }, 300);
+        }, 0);
     }
 
     componentWillUnmount() {
@@ -165,7 +162,6 @@ class App extends React.Component {
 
     render() {
         const { classes, theme, route } = this.props;
-        const { open } = this.state;
 
         return (
             <div className={classes.appFrame}>
@@ -186,7 +182,7 @@ class App extends React.Component {
                     />
                 </Helmet>
                 <Logo opened={this.state.menuOpened}/>
-                <ScrollContainer /*open={open} routing={this.props.routing}*/ handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
+                <ScrollContainer handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
                     {this.props.children}                   
                 </ScrollContainer>
             </div>
