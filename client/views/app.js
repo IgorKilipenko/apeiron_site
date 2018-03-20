@@ -11,7 +11,7 @@ import TextField from 'material-ui/TextField';
 import { Helmet } from 'react-helmet';
 import { renderRoutes } from 'react-router-config';
 
-import Menu, { menuUrls } from '../components/menu/menu';
+import Menu from '../components/menu/menu';
 import TopBar from '../components/app-bar/app-bar';
 import ScrollContainer from '../components/scroll-container/scroll-container';
 import ProductList from '../components/products/product-list';
@@ -41,7 +41,16 @@ const styles = theme => ({
             height: 'inherit',
             width: 'inherit',
             position: 'relative',
+        },
+        a: {
+            textDecoration: 'none'
         }
+    },
+    root:{
+        width: `calc(100% - ${theme.customValues.drawerWidth}px)`,
+        height: '100%',
+        position: 'relative',
+        overflow: 'hidden'
     },
     appFrame: {
         position: 'relative',
@@ -69,6 +78,7 @@ const styles = theme => ({
         //zIndex:0
         transition: theme.transitions.create(['opacity', 'transform'])
     }
+
 });
 
 @inject('routing')
@@ -161,7 +171,7 @@ class App extends React.Component {
     }
 
     render() {
-        const { classes, theme, route } = this.props;
+        const { classes, theme, route, uiStore } = this.props;
 
         return (
             <div className={classes.appFrame}>
@@ -182,9 +192,13 @@ class App extends React.Component {
                     />
                 </Helmet>
                 <Logo opened={this.state.menuOpened}/>
-                <ScrollContainer handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
-                    {this.props.children}                   
-                </ScrollContainer>
+                <div className={classes.root}>
+                    <Menu/>
+                    <ScrollContainer handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
+                        {this.props.children}                   
+                    </ScrollContainer>
+                </div>
+
             </div>
         );
     }

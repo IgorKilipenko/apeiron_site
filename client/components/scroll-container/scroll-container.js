@@ -10,7 +10,8 @@ import classNames from 'classnames';
 const styles = theme => ({
     content: {
         overflow: 'hidden',
-        width: `calc(100% - ${theme.customValues.drawerWidth}px)`,
+        //width: `calc(100% - ${theme.customValues.drawerWidth}px)`,
+        width: '100%',
         position: 'relative',
         boxSizing: 'border-box',
         /*flexGrow: 1,*/

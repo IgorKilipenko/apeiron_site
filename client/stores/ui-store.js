@@ -22,7 +22,10 @@ class UiStore {
         if (typeof state == 'function') {
             state = state(this.state);
         }
-        this._state = state;
+        this._state = {
+            ...this._state,
+            ...state
+        };
     }
 
     @computed

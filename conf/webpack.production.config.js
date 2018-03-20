@@ -25,6 +25,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     }]*/
   },
   plugins: [
+    new webpack.NamedModulesPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: true

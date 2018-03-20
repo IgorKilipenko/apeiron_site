@@ -46,7 +46,7 @@ export default new Config().merge({
                         loader: require.resolve('url-loader'),
                         options: {
                             limit: 8000,
-                            name: '[name].[hash:8].[ext]'
+                            name: '[path][name].[hash:8].[ext]'
                         }
                     }
                 ]

@@ -66,12 +66,7 @@ class MenuIcon extends React.Component {
     handleClick = e => {
         e.stopPropagation();
         e.preventDefault();
-        //this.setState((prevState, props) => ({
-        //    ...prevState,
-        //    opened: !prevState.opened
-        //}));
         this.props.uiStore.setState(prevState => ({
-            ...prevState,
             menuOpened: !prevState.menuOpened
         }))
     };
