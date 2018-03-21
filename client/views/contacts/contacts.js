@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
+import { inject, observer } from 'mobx-react';
 
 import MapComponent from '../../components/map-component/map-component';
 import ContactForm from '../../components/contact-form/contact-form';
@@ -56,7 +57,14 @@ const styles = theme => ({
     }
 });
 
+@inject('routing')
+@observer
 class Contacts extends React.Component {
+    componentWillMount = () => {
+        const {route, branch, routing} = this.props;
+        routing.update(route, branch);
+        console.log({routeMount: route})
+    }
     render() {
         const { classes } = this.props;
         return (

@@ -10,7 +10,7 @@ import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { renderRoutes } from 'react-router-config'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 
 
 import { ApolloClient } from 'apollo-client';
@@ -91,7 +91,7 @@ ReactDOM.render(
         <ApolloProvider client={client}>
             <Router history={history}>
                 <MuiThemeProvider theme={theme}>
-                    <Reboot />
+                    <CssBaseline />
                     <App>
                         <Switch>
                             <ScrollRouter/>
