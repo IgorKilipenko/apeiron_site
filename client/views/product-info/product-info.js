@@ -53,6 +53,25 @@ const styles = theme => ({
         '&$loaded': {
             transform: 'translateX(0)'
         }
+    },
+    video: {
+    },
+    videoIframe:{
+        width:'100%',
+        margin: '0px auto',
+        '& $video':{
+            position: 'relative',
+            paddingBottom: '75%',
+            height: 0,
+            width:'100% !important',
+            '& iframe':{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%'
+            } 
+        }
     }
 });
 
@@ -114,12 +133,16 @@ class ProductInfo extends React.Component {
                                     .filter(c => c.contentType === 'video')
                                     .map(content => {
                                         return (
+                                            <div className={classes.videoIframe}> 
                                             <YouTubePlayer
                                                 key={content.id}
+                                                className={classes.video}
                                                 playing={false}
                                                 controls={true}
                                                 url={content.value}
                                             />
+                                            </div>
+
                                         );
                                     })}
                         </article>

@@ -41,7 +41,8 @@ const styles = theme => ({
         //bottom: '20%',
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center 40%'
+        backgroundPosition: 'center 50%',
+        paddingTop: '100%'
     },
     imageBackdrop: {
         position: 'absolute',
@@ -68,7 +69,10 @@ const styles = theme => ({
         lineHeight: 1,
         paddingLeft: 2,
         paddingRight: 2,
-        color: '#e5e5e5'
+        color: '#e5e5e5',
+        //[theme.breakpoints.down('xs')]: {
+        //    display: 'none'
+        //},
     }
 });
 

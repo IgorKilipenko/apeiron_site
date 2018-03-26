@@ -29,7 +29,10 @@ const styles = theme => ({
         //[theme.breakpoints.down("sm")]: {
         //  flexDirection:'column',
         //  },
-        height: 'calc(100% - 0%)'
+        height: 'calc(100% - 0%)',
+        [theme.breakpoints.down('xs')]: {
+            flexDirection: 'column'
+        },
     },
     footer: {
         height: '25%',
@@ -66,7 +69,7 @@ class Index extends React.Component {
     }
     componentWillMount(){
         const {route, branch, routing} = this.props;
-        routing.update(route, branch);
+        routing.update(route, /*branch*/);
         console.log({routeMount: route})
     }
     componentWillUnmount() {

@@ -13,11 +13,12 @@ import Toolbar from 'material-ui/Toolbar';
 import MenuIcon from 'material-ui-icons/Menu';
 import IconButton from 'material-ui/IconButton';
 import classNames from 'classnames';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 //import './product-item-animation.css';
 import doorIcon from '../../public/imgs/doors.png';
 
-const headerBlockHeght = 15,
+const headerBlockHeght = 80,
     maxVisibleItems = 4;
 
 const styles = theme => ({
@@ -39,7 +40,11 @@ const styles = theme => ({
                 transformOrigin: 'bottom left',
                 transform: 'scaleX(1)'
             }
-        }
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            height: '50%',
+        },
     },
     content: {
         //height: '100%',
@@ -47,14 +52,14 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         alignContent: 'flex-start',
-        height: `calc(100% - ${headerBlockHeght}%)`
+        height: `calc(100% - ${headerBlockHeght}px)`
     },
     header: {
         position: 'relative',
-        minHeight: `${headerBlockHeght}%`,
+        height: `${headerBlockHeght}px`,
         width: '100%',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
         //        border: '1px solid #e5e5e5',
         //borderBottom: `1px solid ${theme.customValues.borderColor}`,
     },
@@ -102,15 +107,22 @@ const styles = theme => ({
         backgroundColor: '#ff7f00',
     },
     groupItemOverride: {
-        height: `${100 / maxVisibleItems}%`,
-        width: `${100 / maxVisibleItems}%`
+        //height: `${100 / maxVisibleItems}%`,
+        width: `${100 / maxVisibleItems}%`,
         //borderRight: `1px solid ${theme.palette.divider}`,
         //borderBottom: `1px solid ${theme.palette.divider}`,
         /*[theme.breakpoints.down('xs')]: {
             width: '50%',
             height: '50%'
         },*/
+        '&$smallScreen': {
+            width: `${100/3}%`,
+            //height: `${100/2}%`
+        }
     },
+    smallScreen: {
+
+    }
 });
 
 @inject('uiStore')
@@ -122,13 +134,20 @@ class ProductGroup extends React.Component {
 
     calcItemsHeght = (breakpoint) => {
         //console.log(`resize itens, bp=${breakpoint}`)
+        const count = breakpoint === 'sm' || breakpoint === 'xs' ? 2 : maxVisibleItems
         return this.contentSection ?
-            this.contentSection.clientWidth / maxVisibleItems + 'px':
+            this.contentSection.clientWidth / count + 'px':
             'none';
+    }
+    setSection = section => {
+        this.contentSection = section;
+        //console.log({section});
     }
 
     render() {
         const { classes, revers = false, colored = false, title, uiStore } = this.props;
+        const breakpoint = uiStore.getBreakpoint;
+        const smallScreen = breakpoint === 'sm' || breakpoint === 'xs';
         return (
             <section
                 className={classNames(
@@ -145,29 +164,31 @@ class ProductGroup extends React.Component {
                 >
                     <Typography
                         component="span"
-                        variant="headline"
+                        variant={smallScreen ? 'body1': "headline"}
                         color="inherit"
                         className={classes.title}
                     >
                         {title}
                     </Typography>
                 </article>
+                <Scrollbars>
                 <section
                     className={classNames(classes.content)}
-                    ref={section => (this.contentSection = section)}
+                    ref={section => this.setSection(section) }
                 >
                     {this.props.children && this.props.children.map((product, index) => (
                         <article
                             key={index}
-                            className={classes.groupItemOverride}
-                            style={{
-                                maxHeight: `${this.calcItemsHeght(uiStore.getBreakpoint)}`
-                            }}
+                            className={classNames(classes.groupItemOverride, {[classes.smallScreen]: smallScreen})}
+                            //style={{
+                            //    height: `${this.calcItemsHeght(breakpoint)}`
+                            //}}
                         >
                             {product}
                         </article>
                     ))}
                 </section>
+                </Scrollbars>
             </section>
         );
     }
