@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 import { inject, observer } from 'mobx-react';
+import Tooltip from 'material-ui/Tooltip';
 
 const styles = theme => {
     const width = 40;
@@ -73,16 +74,18 @@ class MenuIcon extends React.Component {
     render() {
         const { classes, uiStore } = this.props;
         return (
-            <div
-                className={this.props.className + ' ' + classes.root}
-                onClick={e => this.handleClick(e)}
-            >
-                <span
-                    className={classNames(classes.line, {
-                        [classes.opened]: uiStore.state.menuOpened
-                    })}
-                />
-            </div>
+            <Tooltip title="Меню" placement="bottom">
+                <div
+                    className={this.props.className + ' ' + classes.root}
+                    onClick={e => this.handleClick(e)}
+                >
+                    <span
+                        className={classNames(classes.line, {
+                            [classes.opened]: uiStore.state.menuOpened
+                        })}
+                    />
+                </div>
+            </Tooltip>
         );
     }
 }

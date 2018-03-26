@@ -92,12 +92,11 @@ class App extends React.Component {
     }
 
     handleResize() {
-        this.setState( {breakpoint: this._getBreakpoint(document.body.clientWidth)});
-        this.props.uiStore.setBreakpoint(this.state.breakpoint)
+        this.props.uiStore.setBreakpoint(this._getBreakpoint(document.body.clientWidth));
     }
 
-    _getBreakpoint(width){
-        console.log({innerWidth: width});
+    _getBreakpoint = (width) => {
+        //console.log({innerWidth: width});
         if (width <= 600){
             return 'xs'
         }
@@ -190,11 +189,12 @@ class App extends React.Component {
                         href="https://fonts.googleapis.com/css?family=Montserrat+Alternates:300,300i,400,400i,500,500i,600,600i&amp;subset=cyrillic" 
                         rel="stylesheet"
                     />
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
                 </Helmet>
                 <Logo opened={this.state.menuOpened}/>
                 <div className={classes.root}>
                     <Menu/>
-                    <ScrollContainer handleMouseWheel={this.handleMouseWhell} breakpoint={this.state.breakpoint}>
+                    <ScrollContainer handleMouseWheel={this.handleMouseWhell} breakpoint={uiStore.getBreakpoint}>
                         {this.props.children}                   
                     </ScrollContainer>
                 </div>

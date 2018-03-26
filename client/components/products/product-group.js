@@ -118,24 +118,13 @@ const styles = theme => ({
 class ProductGroup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            childrenHeight: 0
-        };
-        this.breackpoint = this.props.uiStore.getBreakpoint;
     }
 
-    componentDidMount() {
-        this.setState({
-            childrenHeight: this.contentSection.clientWidth / maxVisibleItems
-        });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.uiStore.getBreakpoint !== this.breackpoint){
-            this.setState({
-                childrenHeight: this.contentSection.clientWidth / maxVisibleItems
-            });
-        }
+    calcItemsHeght = (breakpoint) => {
+        //console.log(`resize itens, bp=${breakpoint}`)
+        return this.contentSection ?
+            this.contentSection.clientWidth / maxVisibleItems + 'px':
+            'none';
     }
 
     render() {
@@ -172,7 +161,7 @@ class ProductGroup extends React.Component {
                             key={index}
                             className={classes.groupItemOverride}
                             style={{
-                                maxHeight: `${this.state.childrenHeight}px`
+                                maxHeight: `${this.calcItemsHeght(uiStore.getBreakpoint)}`
                             }}
                         >
                             {product}

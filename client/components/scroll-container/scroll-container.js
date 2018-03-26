@@ -76,11 +76,15 @@ class ScrollContainer extends React.Component {
         window.removeEventListener('resize', () => this.handleResize());
     }
 
-    handleMouseWheel(event) {
+    handleMouseWheel(event, ...rest) {
         //this.setState({eventType: event.type})
         //console.log({event: event.target});
         //event.preventDefault();
         //event.stopPropagation();
+        if (event && event.target.onsroll){
+            onscroll(e, ...rest);
+        }
+        console.log({target:event.target})
         this.props.handleMouseWheel(event)
     }
 

@@ -8,7 +8,7 @@ class UiStore {
 
     @action
     setBreakpoint(breakpoint) {
-        if (this.screenBreakpoint != breakpoint) {
+        if (this.getBreakpoint !== breakpoint) {
             this.screenBreakpoint = breakpoint;
         }
     }
