@@ -72,6 +72,7 @@ const stores = {
     // ...other stores
 };
 import {API_ROOT} from '../api-config';
+console.log({API_ROOT})
 const client = new ApolloClient({
     // By default, this client will send queries to the
     //  `/graphql` endpoint on the same host

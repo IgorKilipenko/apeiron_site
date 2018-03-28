@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { inject, observer } from 'mobx-react';
-import ButtonBase from 'material-ui/ButtonBase';
 import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom';
-import Divider from 'material-ui/Divider';
 import classNames from 'classnames';
 
 const styles = theme => ({
