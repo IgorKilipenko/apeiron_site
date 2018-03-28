@@ -18,8 +18,8 @@ import { Scrollbars } from 'react-custom-scrollbars';
 //import './product-item-animation.css';
 import doorIcon from '../../public/imgs/doors.png';
 
-const headerBlockHeght = 80,
-    maxVisibleItems = 4;
+const headerBlockHeght = 100,
+    maxVisibleItems = 5;
 
 const styles = theme => ({
     root: {
@@ -43,8 +43,8 @@ const styles = theme => ({
         },
         [theme.breakpoints.down('xs')]: {
             width: '100%',
-            height: '50%',
-        },
+            height: '50%'
+        }
     },
     content: {
         //height: '100%',
@@ -60,6 +60,8 @@ const styles = theme => ({
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'center'
+        //justifyContent: 'center'
         //        border: '1px solid #e5e5e5',
         //borderBottom: `1px solid ${theme.customValues.borderColor}`,
     },
@@ -70,9 +72,7 @@ const styles = theme => ({
         flexDirection: 'row-reverse'
     },
     title: {
-        top: '50%',
-        transform: 'translateY(-50%)',
-        position: 'absolute',
+        position: 'relative',
         color: theme.palette.text.primary,
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit *
             4}px ${theme.spacing.unit + 6}px`,
@@ -104,9 +104,9 @@ const styles = theme => ({
         left: 0
     },
     coloredRoot: {
-        backgroundColor: '#ff7f00',
+        backgroundColor: '#ff7f00'
     },
-    groupItemOverride: {
+    itemContainer: {
         //height: `${100 / maxVisibleItems}%`,
         width: `${100 / maxVisibleItems}%`,
         //borderRight: `1px solid ${theme.palette.divider}`,
@@ -116,13 +116,12 @@ const styles = theme => ({
             height: '50%'
         },*/
         '&$smallScreen': {
-            width: `${100/3}%`,
+            width: `${100 / 3}%`
             //height: `${100/2}%`
-        }
+        },
+        overflow: 'hidden'
     },
-    smallScreen: {
-
-    }
+    smallScreen: {}
 });
 
 @inject('uiStore')
@@ -130,29 +129,31 @@ const styles = theme => ({
 class ProductGroup extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {};
     }
-
-    calcItemsHeght = (breakpoint) => {
-        //console.log(`resize itens, bp=${breakpoint}`)
-        const count = breakpoint === 'sm' || breakpoint === 'xs' ? 2 : maxVisibleItems
-        return this.contentSection ?
-            this.contentSection.clientWidth / count + 'px':
-            'none';
-    }
-    setSection = section => {
-        this.contentSection = section;
-        //console.log({section});
-    }
-
+    handleScroll = e => {
+        //console.log({e});
+        this.setState({
+                scrollHeight: e.scrollHeight,
+                scrollTop: e.scrollTop,
+                clientHeight: e.clientHeight
+        });
+    };
     render() {
-        const { classes, revers = false, colored = false, title, uiStore } = this.props;
+        const {
+            classes,
+            revers = false,
+            colored = false,
+            title,
+            uiStore
+        } = this.props;
         const breakpoint = uiStore.getBreakpoint;
         const smallScreen = breakpoint === 'sm' || breakpoint === 'xs';
         return (
             <section
                 className={classNames(
                     classes.root,
-                    { [classes.reversColumn]: revers },
+                    { [classes.reversColumn]: revers && breakpoint !== 'xs' },
                     { [classes.coloredRoot]: colored }
                 )}
             >
@@ -164,30 +165,31 @@ class ProductGroup extends React.Component {
                 >
                     <Typography
                         component="span"
-                        variant={smallScreen ? 'body1': "headline"}
+                        variant={smallScreen ? 'title' : 'headline'}
                         color="inherit"
                         className={classes.title}
                     >
                         {title}
                     </Typography>
                 </article>
-                <Scrollbars>
-                <section
-                    className={classNames(classes.content)}
-                    ref={section => this.setSection(section) }
+                <Scrollbars
+                    //onScroll={e => this.handleScroll(e)}
+                    onUpdate={el => this.handleScroll(el)}
                 >
-                    {this.props.children && this.props.children.map((product, index) => (
-                        <article
-                            key={index}
-                            className={classNames(classes.groupItemOverride, {[classes.smallScreen]: smallScreen})}
-                            //style={{
-                            //    height: `${this.calcItemsHeght(breakpoint)}`
-                            //}}
-                        >
-                            {product}
-                        </article>
-                    ))}
-                </section>
+                    <section className={classNames(classes.content)}>
+                        {this.props.children &&
+                            this.props.children.map((product, index) => (
+                                <article
+                                    key={index}
+                                    className={classNames(
+                                        classes.itemContainer,
+                                        { [classes.smallScreen]: smallScreen }
+                                    )}
+                                >
+                                    {React.cloneElement(product, {scrollHeight: this.state.scrollHeight, scrollTop: this.state.scrollTop, clientHeight: this.state.clientHeight})}
+                                </article>
+                            ))}
+                    </section>
                 </Scrollbars>
             </section>
         );
@@ -198,7 +200,7 @@ ProductGroup.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
     revers: PropTypes.bool,
-    colored: PropTypes.bool,
+    colored: PropTypes.bool
 };
 
 export default withStyles(styles, { withTheme: true })(ProductGroup);

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { inject, observer } from 'mobx-react';
@@ -6,9 +7,10 @@ import ButtonBase from 'material-ui/ButtonBase';
 import Typography from 'material-ui/Typography';
 import { Link } from 'react-router-dom';
 import Divider from 'material-ui/Divider';
+import classNames from 'classnames';
 
 const styles = theme => ({
-    image: {
+    root: {
         boxSizing: 'border-box',
         position: 'relative',
         height: '100%',
@@ -16,6 +18,7 @@ const styles = theme => ({
         display: 'flex',
         flexFlow: 'column',
         overflow: 'hidden',
+        cursor: 'pointer',
         /*height: `calc(${100 / 3}% - 0px)`,
         width: `calc(${100 / 3}% - 0px)`,
         [theme.breakpoints.down('xs')]: {
@@ -28,7 +31,10 @@ const styles = theme => ({
         '&:hover $imageBackdrop': {
             opacity: 0.15,
             transform: 'translateX(0)'
-        }
+        },
+        opacity: 1,
+        transform: 'translateY(0%)',
+        transition: theme.transitions.create(['opacity', 'transform']),
     },
     imageSrc: {
         position: 'relative',
@@ -73,27 +79,55 @@ const styles = theme => ({
         //[theme.breakpoints.down('xs')]: {
         //    display: 'none'
         //},
+    },
+    fadeAnnimation:{
+        transform: 'translateY(100%)',
+        opacity: 0
     }
 });
 
 @inject('uiStore')
 @observer
 class ProductItem extends React.Component {
+    constructor(props, ...rest){
+        super(props);
+        this.state = {};
+        this.instace ={};
+    }
+    componentDidMount = () => {
+        this.instace = ReactDOM.findDOMNode(this)
+        setTimeout(() => {
+            this.setState({offsetTop: this.instace.offsetTop, clientHeight: this.instace.clientHeight})
+        }, 0);
+        
+    }
+    componentWillReceiveProps = (nextProps) => {
+        //this.instace = ReactDOM.findDOMNode(this)
+        //this.rect = this.instace.getBoundingClientRect()
+    }
+    componentDidUpdate = (prevProps, prevState) => {
+        this.instace = ReactDOM.findDOMNode(this)
+    }
     render() {
         const {
             to: toComponent,
             classes,
             imgUrl,
             title,
-            uiStore
+            uiStore,
+            scrollTop,
+            scrollHeight,
+            clientHeight
         } = this.props;
+        const bottom = scrollTop + clientHeight;
+        const currCenter = this.instace.offsetTop + this.instace.clientHeight / 2
         return (
-            <ButtonBase
-                focusRipple
-                className={classes.image}
-                component={props => (
-                    <Link to={toComponent ? toComponent : ''} {...props}/>
-                )}
+            <Link to={toComponent ? toComponent : ''}
+                //focusRipple
+                className={classNames(classes.root, {[classes.fadeAnnimation]: currCenter > bottom})}
+                //component={props => (
+                //    <Link to={toComponent ? toComponent : ''} {...props}/>
+                //)}
             >
                 <span
                     className={classes.imageSrc}
@@ -102,16 +136,15 @@ class ProductItem extends React.Component {
                     }}
                 />
                 <span className={classes.imageBackdrop} />
-                <Divider />
                 <Typography
                     className={classes.productTitle}
-                    variant="body2"
+                    variant= {this.props.uiStore.getBreakpoints === 'xs' ? 'body1' : 'body2'}
                     gutterBottom
                     align="center"
                 >
                     <span>{title}</span>
                 </Typography>
-            </ButtonBase>
+            </Link>
         );
     }
 }

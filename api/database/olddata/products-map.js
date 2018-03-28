@@ -5,7 +5,48 @@ const productsMap = [
         id: 16,
         connectedId: 1,
         title: 'Петля дверная АПП-2',
-        image: 'Petlya-dvernaya-APP-2.png'
+        image: 'Petlya-dvernaya-APP-2.png',
+        content: [
+            {
+                contentType: 'document',
+                value: 'pat1.jpg',
+                title: 'Петля шарнирная'
+            },
+            {
+                contentType: 'document',
+                value: 'pat2.jpg',
+                title: 'Сухарь для крепления оконного или дверного шарнира'
+            },
+            {
+                contentType: 'document',
+                value: 'sert1.jpg',
+                title: 'Сертификат'
+            },
+            {
+                contentType: 'document',
+                value: 'sert2.jpg',
+                title: 'Сертификат'
+            },
+            {
+                contentType: 'document',
+                docType: 'pdf',
+                value: 'petli.pdf',
+                title: 'Техническая информация'
+            },
+            {
+                contentType: 'image',
+                value: [
+                    'app2 chertej.png',
+                    'app2 shema.png',
+                    'app___1.png'
+                ]
+            },
+            {
+                contentType: 'video',
+                value: 'https://youtu.be/KtSGLrXbET8',
+                
+            }
+        ]
     },
     {
         id: 22,

@@ -84,7 +84,7 @@ class ScrollContainer extends React.Component {
         if (event && event.target.onsroll){
             onscroll(e, ...rest);
         }
-        console.log({target:event.target})
+        //console.log({target:event.target})
         this.props.handleMouseWheel(event)
     }
 

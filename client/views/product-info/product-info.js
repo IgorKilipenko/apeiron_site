@@ -54,23 +54,22 @@ const styles = theme => ({
             transform: 'translateX(0)'
         }
     },
-    video: {
-    },
-    videoIframe:{
-        width:'100%',
+    video: {},
+    videoIframe: {
+        width: '100%',
         margin: '0px auto',
-        '& $video':{
+        '& $video': {
             position: 'relative',
             paddingBottom: '75%',
             height: 0,
-            width:'100% !important',
-            '& iframe':{
+            width: '100% !important',
+            '& iframe': {
                 position: 'absolute',
                 top: 0,
                 left: 0,
                 width: '100%',
                 height: '100%'
-            } 
+            }
         }
     }
 });
@@ -128,12 +127,13 @@ class ProductInfo extends React.Component {
                                     {product.content}
                                 </Typography>
                             ))}
-                            {product.details &&
-                                product.details
-                                    .filter(c => c.contentType === 'video')
-                                    .map(content => {
-                                        return (
-                                            <div className={classes.videoIframe}> 
+                        </article>
+                        {product.details &&
+                            product.details
+                                .filter(c => c.contentType === 'video')
+                                .map(content => {
+                                    return (
+                                        <div className={classes.videoIframe}>
                                             <YouTubePlayer
                                                 key={content.id}
                                                 className={classes.video}
@@ -141,11 +141,9 @@ class ProductInfo extends React.Component {
                                                 controls={true}
                                                 url={content.value}
                                             />
-                                            </div>
-
-                                        );
-                                    })}
-                        </article>
+                                        </div>
+                                    );
+                                })}
                     </Scrollbars>
                 </div>
             </section>
