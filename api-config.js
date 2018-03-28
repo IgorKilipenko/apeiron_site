@@ -4,9 +4,9 @@ const apiVersion = 'v0';
 const hostname = window && window.location && window.location.hostname;
 
 if(hostname.match(/localhost(:[0-9])*/ig)) {
-  backendHost = 'http://localhost:3300';
+  backendHost = 'localhost:3300';
 } else {
-  backendHost = 'http://' + hostname;
+  backendHost = hostname;
 }
 
-export const API_ROOT = `${backendHost}/graphql`;
+export const API_ROOT = `'http://'${backendHost}/graphql`;
