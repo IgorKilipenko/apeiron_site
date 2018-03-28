@@ -9,4 +9,4 @@ if(hostname.match(/localhost(:[0-9])*/ig)) {
   backendHost = hostname;
 }
 
-export const API_ROOT = `'http://'${backendHost}/graphql`;
+export const API_ROOT = `http://${backendHost}/graphql`;
