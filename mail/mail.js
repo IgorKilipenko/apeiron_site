@@ -8,6 +8,8 @@ const transporter = nodemailer.createTransport({
     //host: 'smtp.gmail.com',
     //port: 465,
     //secure: true,
+    //scope : "https://mail.google.com/",
+    scope : "https://www.googleapis.com/auth/gmail.send",
     auth: {
         type: 'OAuth2',
         ...(config.auth),
@@ -15,14 +17,14 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-//transporter.set('oauth2_provision_cb', (user, renew, callback)=>{
-//    let accessToken = userTokens[user];
-//    if(!accessToken){
-//        return callback(new Error('Unknown user'));
-//    }else{
-//        return callback(null, accessToken);
-//    }
-//});
+transporter.set('oauth2_provision_cb', (user, renew, callback)=>{
+    let accessToken = userTokens[user];
+    if(!accessToken){
+        return callback(new Error('Unknown user'));
+    }else{
+        return callback(null, accessToken);
+    }
+});
 
 export const validateMail = mail => {
     if (!mail || typeof mail !== 'string' || mail.length < 1) {
