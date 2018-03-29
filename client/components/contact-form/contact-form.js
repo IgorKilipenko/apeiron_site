@@ -11,7 +11,6 @@ import Button from 'material-ui/Button';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactDOM from 'react-dom';
 
-
 const styles = theme => ({
     root: {
         margin: theme.spacing.unit,
@@ -36,13 +35,13 @@ const styles = theme => ({
 
 class ContactsForm extends React.Component {
     state = {
-        name: {value:''},
-        mail: {value:''},
-        message: {value:''}
+        name: { value: '' },
+        mail: { value: '' },
+        message: { value: '' }
     };
     componentDidMount = () => {
-        console.log({msg:this.msgField});
-    }
+        console.log({ msg: this.msgField });
+    };
     handleChange = (name, maxLemgth) => event => {
         let value = event.target.value;
         let error = null;
@@ -52,14 +51,39 @@ class ContactsForm extends React.Component {
         }
         this.setState({ [name]: { value, error } });
     };
-    handleScrollRoute = (e) => {
-        e.stopPropagation()
-    }
+    handleScrollRoute = e => {
+        e.stopPropagation();
+    };
+    handleSubmit = e => {
+        fetch('/sendmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: this.state.name.value,
+                email: this.state.mail.value,
+                message: this.state.message.value
+            })
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            console.log({json})
+        }).catch(err => {
+            console.log({err})
+        });
+        console.log('send mail');
+        event.preventDefault();
+    };
     render() {
         const { classes } = this.props;
         return (
             <React.Fragment>
-                <form className={classes.root} noValidate autoComplete="off">
+                <form
+                    className={classes.root}
+                    noValidate
+                    autoComplete="off" /*onSubmit={}*/
+                >
                     <TextField
                         id="input-name"
                         label="Имя"
@@ -83,7 +107,9 @@ class ContactsForm extends React.Component {
                         aria-describedby="message-input-area"
                         error={this.state.message.error ? true : false}
                     >
-                        <InputLabel htmlFor="message-input">Сообщение</InputLabel>
+                        <InputLabel htmlFor="message-input">
+                            Сообщение
+                        </InputLabel>
                         <Input
                             id="message-input"
                             value={this.state.message.value}
@@ -94,19 +120,25 @@ class ContactsForm extends React.Component {
                             rowsMax={3}
                             onWheel={e => this.handleScrollRoute(e)}
                             onChange={this.handleChange('message', 500)}
-                            inputRef={msg => this.msgField = msg }
-                            inputProps={{onWheel:e => this.handleScrollRoute(e)}}
+                            inputRef={msg => (this.msgField = msg)}
+                            //inputProps={{
+                            //    onWheel: e => this.handleScrollRoute(e)
+                            //}}
                             //inputComponent={props => (<address {...props}><Textarea {...props} /></address>)}
                         />
                         <FormHelperText id="message-input-area">
-                            {`${this.state.message.value.length || 0} из 500 символов`}
+                            {`${this.state.message.value.length ||
+                                0} из 500 символов`}
                         </FormHelperText>
                     </FormControl>
                     <Button
                         color="default"
                         className={classes.sendButton}
                         data-sitekey="6LerLE4UAAAAAK2gLHGJoWFGG9EtyT9HEHImWPoo"
-                        data-callback="YourOnSubmitFn"
+                        //data-callback='onClick'
+                        onClick={this.handleSubmit}
+                        //onSubmit={this.handleSubmit}
+                        data-size="invisible"
                     >
                         Отправить
                         <Send className={classes.rightIcon} />

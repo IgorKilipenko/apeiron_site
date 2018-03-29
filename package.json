@@ -4,7 +4,7 @@
   "description": "\"# apeiron_site\"",
   "main": "index.js",
   "scripts": {
-    "build-dev": "SET NODE_ENV=development&& babel-node server.js",
+    "build-dev": "SET NODE_ENV=development&& nodemon server.js --exec babel-node",
     "build-prod": "SET NODE_ENV=production&& webpack && babel-node server.js",
     "build-dev-lnx": "export NODE_ENV=development&& babel-node server.js",
     "build-prod-lnx": "export NODE_ENV=production&& webpack && babel-node server.js",
@@ -80,6 +80,7 @@
     "mobx-react-router": "^4.0.1",
     "mongoose": "^5.0.9",
     "mysql": "^2.15.0",
+    "nodemailer": "^4.6.3",
     "normalize.css": "^8.0.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
@@ -92,7 +93,8 @@
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "typeface-roboto": "0.0.54",
-    "unfetch": "^3.0.0"
+    "unfetch": "^3.0.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
