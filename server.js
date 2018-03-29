@@ -39,17 +39,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/sendmail', async (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
+    //res.setHeader('Content-Type', 'application/json');
     try {
-      console.log('start send')
-      console.log({body: req.body})
-        const { name, email, message } = req.body;
-        await sendMail(email, name, `Сообщение от ${name}`, message);
-
-        res.status(200).send(JSON.stringify({ mail: { status: 'success' } }));
-    } catch (error) {
-      console.log({error})
-        res.status(400).send(JSON.stringify({ mail: { status: 'error', message: error } }));
+        console.log('start send');
+        console.log({ body: req.body });
+        const { name, email, message, response } = req.body;
+        console.log({response})
+        try{
+            await sendMail(email, name, `Сообщение от ${name}`, message, req);
+        }catch (err) {
+            console.log('Send message error', err);
+            res.status(400).json({mail: { status: 'error', message: err }})
+            return;
+        }
+        res.status(200).json({ mail: { status: 'success' } });
+    } catch (err) {
+        console.log({ err });
+        res
+            .status(400)
+            .json(
+                { mail: { status: 'error', message: err } }
+            );
     }
 });
 

@@ -35,10 +35,12 @@ const styles = theme => ({
         width: '100%',
         display: 'flex',
         flexFlow: 'row',
-        position: 'inherit'
+        position: 'inherit',
+        minHeight: 300
     },
     mapContainer: {
         height: '60%',
+        minHeight: 200,
         width: '100%',
         position: 'relative',
         boxShadow: theme.shadows[10],

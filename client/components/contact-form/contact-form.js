@@ -9,7 +9,8 @@ import { Helmet } from 'react-helmet';
 import Send from 'material-ui-icons/Send';
 import Button from 'material-ui/Button';
 import { Scrollbars } from 'react-custom-scrollbars';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
+import Recaptcha from 'react-recaptcha';
 
 const styles = theme => ({
     root: {
@@ -34,13 +35,18 @@ const styles = theme => ({
 });
 
 class ContactsForm extends React.Component {
-    state = {
-        name: { value: '' },
-        mail: { value: '' },
-        message: { value: '' }
-    };
+    constructor(props, ...rest){
+        super(props);
+        this.state = {
+            name: { value: '' },
+            mail: { value: '' },
+            message: { value: '' }
+        };
+        this.recaptchaInstance = null;
+    }
+    
     componentDidMount = () => {
-        console.log({ msg: this.msgField });
+        //console.log({ msg: window.grecaptcha });
     };
     handleChange = (name, maxLemgth) => event => {
         let value = event.target.value;
@@ -54,7 +60,13 @@ class ContactsForm extends React.Component {
     handleScrollRoute = e => {
         e.stopPropagation();
     };
-    handleSubmit = e => {
+
+    executeCaptcha = (e) =>{
+        this.recaptchaInstance && this.recaptchaInstance.execute();
+        event.preventDefault();
+    }
+    verifyCallback= response => {
+        console.log({captcha: response})
         fetch('/sendmail', {
             method: 'POST',
             headers: {
@@ -63,18 +75,27 @@ class ContactsForm extends React.Component {
             body: JSON.stringify({
                 name: this.state.name.value,
                 email: this.state.mail.value,
-                message: this.state.message.value
+                message: this.state.message.value,
+                response: response
             })
         }).then(res => {
             return res.json();
         }).then(json => {
-            console.log({json})
+            if (!json.mail.status === 'success'){
+                this.success()
+            }
         }).catch(err => {
             console.log({err})
         });
         console.log('send mail');
-        event.preventDefault();
-    };
+    }
+    success = () =>{
+        this.setState({
+            name: { value: '' },
+            mail: { value: '' },
+            message: { value: '' }
+        })
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -132,18 +153,26 @@ class ContactsForm extends React.Component {
                         </FormHelperText>
                     </FormControl>
                     <Button
+                        //id={this.captchaId}
                         color="default"
-                        className={classes.sendButton}
-                        data-sitekey="6LerLE4UAAAAAK2gLHGJoWFGG9EtyT9HEHImWPoo"
+                        //className={classes.sendButton}
+                        //data-sitekey="6LerLE4UAAAAAK2gLHGJoWFGG9EtyT9HEHImWPoo"
                         //data-callback='onClick'
-                        onClick={this.handleSubmit}
+                        onClick={this.executeCaptcha}
                         //onSubmit={this.handleSubmit}
-                        data-size="invisible"
+                        //data-size="invisible"
                     >
                         Отправить
                         <Send className={classes.rightIcon} />
                     </Button>
+                    <Recaptcha
+                        ref={e => this.recaptchaInstance = e}
+                        sitekey="6LerLE4UAAAAAK2gLHGJoWFGG9EtyT9HEHImWPoo"
+                        size="invisible"
+                        verifyCallback={r => this.verifyCallback(r)}
+                    />
                 </form>
+
             </React.Fragment>
         );
     }

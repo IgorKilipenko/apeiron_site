@@ -177,10 +177,10 @@ class App extends React.Component {
                 <Helmet>
                     <meta charSet="utf-8" />
                     <title>Апейрон</title>
-                    {<meta
+                    <meta
                         name="viewport"
                         content="width=device-width, initial-scale=1.0"
-                    />}
+                    />
                     <link
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
@@ -189,7 +189,7 @@ class App extends React.Component {
                         href="https://fonts.googleapis.com/css?family=Montserrat+Alternates:300,300i,400,400i,500,500i,600,600i&amp;subset=cyrillic" 
                         rel="stylesheet"
                     />
-                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                    
                 </Helmet>
                 <Logo opened={this.state.menuOpened}/>
                 <div className={classes.root}>
