@@ -49,16 +49,16 @@ app.post('/sendmail', async (req, res) => {
             await sendMail(email, name, `Сообщение от ${name}`, message, req);
         }catch (err) {
             console.log('Send message error', err);
-            res.status(400).json({mail: { status: 'error', message: err }})
+            res.status(400).json({ status: 'error', message: err })
             return;
         }
-        res.status(200).json({ mail: { status: 'success' } });
+        res.status(200).json({ status: 'success' } );
     } catch (err) {
         console.log({ err });
         res
             .status(400)
             .json(
-                { mail: { status: 'error', message: err } }
+                { status: 'error', message: err } 
             );
     }
 });

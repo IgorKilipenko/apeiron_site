@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import { inject, observer } from 'mobx-react';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import MapComponent from '../../components/map-component/map-component';
 import ContactForm from '../../components/contact-form/contact-form';
@@ -22,13 +23,22 @@ const styles = theme => ({
         height: '100%',
         width: '50%',
         padding: '1em',
-        position: 'inherit'
+        position: 'inherit',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+            height:'auto'
+        }
     },
     contactForm: {
         height: '100%',
         maxWidth: '50%',
         width: 400,
-        padding: '1em'
+        padding: '1em',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+            height: 'auto',
+            maxWidth: 'none'
+        }
     },
     contactContainer: {
         height: '40%',
@@ -36,7 +46,11 @@ const styles = theme => ({
         display: 'flex',
         flexFlow: 'row',
         position: 'inherit',
-        minHeight: 300
+        minHeight: 300,
+        [theme.breakpoints.down('sm')]: {
+            minHeight: 600,
+            flexFlow: 'column',
+        }
     },
     mapContainer: {
         height: '60%',
@@ -60,6 +74,7 @@ const styles = theme => ({
 });
 
 @inject('routing')
+@inject('uiStore')
 @observer
 class Contacts extends React.Component {
     componentWillMount = () => {
@@ -67,7 +82,7 @@ class Contacts extends React.Component {
         routing.update(route, /*branch*/);
         console.log({routeMount: route})
     }
-    render() {
+    renderComponent() {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
@@ -89,6 +104,18 @@ class Contacts extends React.Component {
                 </div>
             </div>
         );
+    }
+    render(){
+        const breakpoint = this.props.uiStore.getBreakpoint;
+        if (breakpoint === 'sm' || breakpoint === 'xs'){
+            return (
+                <Scrollbars>
+                    {this.renderComponent()}
+                </Scrollbars>
+            )
+        }else{
+            return this.renderComponent();
+        }
     }
 }
 

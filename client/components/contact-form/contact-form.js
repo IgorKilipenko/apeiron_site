@@ -79,9 +79,11 @@ class ContactsForm extends React.Component {
                 response: response
             })
         }).then(res => {
+            //console.log({res:res.json()})
             return res.json();
         }).then(json => {
-            if (!json.mail.status === 'success'){
+            if (json.status === 'success'){
+                console.log('success')
                 this.success()
             }
         }).catch(err => {
@@ -170,6 +172,7 @@ class ContactsForm extends React.Component {
                         sitekey="6LerLE4UAAAAAK2gLHGJoWFGG9EtyT9HEHImWPoo"
                         size="invisible"
                         verifyCallback={r => this.verifyCallback(r)}
+                        hl='ru'
                     />
                 </form>
 

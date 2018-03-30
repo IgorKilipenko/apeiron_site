@@ -20,20 +20,27 @@ const styles = theme => ({
         }
     },
     container: {
-        height: '100%',
-        width: '50%',
         position: 'inherit',
         overflow: 'hidden',
+    },
+    view: {
+        backgroundColor: 'white',
+        height: '100%',
+        width: '50%',
         [theme.breakpoints.down('xs')]: {
+            height: '35%',
             width: '100%'
         }
     },
-    view: {
-        backgroundColor: 'white'
-    },
     info: {
         paddingLeft: '10px',
-        position: 'relative'
+        position: 'relative',
+        height: '100%',
+        width: '50%',
+        [theme.breakpoints.down('xs')]: {
+            height: '65%',
+            width: '100%'
+        }
     },
     loaded: {},
     loading: {},
