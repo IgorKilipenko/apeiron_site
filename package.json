@@ -96,7 +96,8 @@
     "request": "^2.85.0",
     "typeface-roboto": "0.0.54",
     "unfetch": "^3.0.0",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "xoauth2": "^1.2.0"
   },
   "eslintConfig": {
     "parser": "babel-eslint",

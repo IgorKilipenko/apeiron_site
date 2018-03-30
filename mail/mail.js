@@ -1,21 +1,22 @@
 import mailConfig from '../user.config';
 import nodemailer from 'nodemailer';
 import request from 'request';
+import xoauth2 from 'xoauth2';
 
 const config = mailConfig.mail; 
 const recaptcha = mailConfig.recaptcha;
 
 const transporter = nodemailer.createTransport({
-    service: config.service,
-    //host: 'smtp.gmail.com',
-    //port: 465,
-    //secure: true,
+    //service: config.service,
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     scope : "https://mail.google.com/",
     //scope : "https://www.googleapis.com/auth/gmail.send",
     auth: {
         type: 'OAuth2',
         ...config.auth,
-        //expires: 1484314697598
+        expires: 1484314697598
     }
 });
 transporter.on('token', token => {
