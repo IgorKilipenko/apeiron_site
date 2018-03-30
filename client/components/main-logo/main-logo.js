@@ -17,6 +17,9 @@ const styles = theme => ({
         }),
         '&$opened': {
             transform: 'scaleX(1)'
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: theme.customValues.drawerWidth * 0.7,
         }
     },
     opened: {
@@ -83,7 +86,10 @@ const styles = theme => ({
         top: '50%',
         left: '50%',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%) rotate(-90deg)'
+        transform: 'translate(-50%, -50%) rotate(-90deg)',
+        '@media screen and (max-height: 400px)':{
+            display: 'none'
+        }
     },
     menuIcon: {
         position: 'absolute',

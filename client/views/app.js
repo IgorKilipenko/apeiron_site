@@ -12,7 +12,6 @@ import { Helmet } from 'react-helmet';
 import { renderRoutes } from 'react-router-config';
 
 import Menu from '../components/menu/menu';
-import TopBar from '../components/app-bar/app-bar';
 import ScrollContainer from '../components/scroll-container/scroll-container';
 import ProductList from '../components/products/product-list';
 import ProductItem from '../components/products/product-item';
@@ -44,10 +43,10 @@ const styles = theme => ({
         },
         a: {
             textDecoration: 'none'
-        }
+        },
     },
     root:{
-        width: `calc(100% - ${theme.customValues.drawerWidth}px)`,
+        width: '100%', //`calc(100% - ${theme.customValues.drawerWidth}px)`,
         height: '100%',
         position: 'relative',
         overflow: 'hidden'

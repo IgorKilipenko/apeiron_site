@@ -64,7 +64,7 @@ const styles = theme => ({
 class Contacts extends React.Component {
     componentWillMount = () => {
         const {route, branch, routing} = this.props;
-        routing.update(route, branch);
+        routing.update(route, /*branch*/);
         console.log({routeMount: route})
     }
     render() {

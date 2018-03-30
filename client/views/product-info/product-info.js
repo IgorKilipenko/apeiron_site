@@ -11,16 +11,22 @@ import YouTubePlayer from 'react-player/lib/players/YouTube';
 const styles = theme => ({
     root: {
         display: 'flex',
-        flexFlow: 'row no-wrap',
+        flexFlow: 'row',
         height: '100%',
         width: '100%',
-        position: 'relative'
+        position: 'relative',
+        [theme.breakpoints.down('xs')]: {
+            flexFlow: 'column',
+        }
     },
     container: {
         height: '100%',
         width: '50%',
         position: 'inherit',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        [theme.breakpoints.down('xs')]: {
+            width: '100%'
+        }
     },
     view: {
         backgroundColor: 'white'
@@ -87,7 +93,7 @@ class ProductInfo extends React.Component {
     };
     componentWillMount = () => {
         const { route, routing, routes } = this.props;
-        routing.update(route, { routes });
+        routing.update(route, /*{ routes }*/);
         console.log({ routeMount: route });
     };
     render() {
