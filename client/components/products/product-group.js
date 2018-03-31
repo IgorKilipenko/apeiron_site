@@ -2,21 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import { NavLink } from 'react-router-dom';
-import { menuUrls } from '../menu/menu';
-import ButtonBase from 'material-ui/ButtonBase';
 import { inject, observer } from 'mobx-react';
-import Toolbar from 'material-ui/Toolbar';
-import MenuIcon from 'material-ui-icons/Menu';
-import IconButton from 'material-ui/IconButton';
 import classNames from 'classnames';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-//import './product-item-animation.css';
-import doorIcon from '../../public/imgs/doors.png';
 
 const headerBlockHeght = 100,
     maxVisibleItems = 5;

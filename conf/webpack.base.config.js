@@ -28,7 +28,15 @@ export default new Config().merge({
                 loader: require.resolve('url-loader'),
                 options: {
                     limit: 8000,
-                    name: '[name].[hash:8].[ext]'
+                    name: 'images/[name].[hash:8].[ext]'
+                }
+            },
+            {
+                test: [/\.pdf$/],
+                loader: require.resolve('url-loader'),
+                options: {
+                    limit: 8000,
+                    name: 'docs/[name].[hash:8].[ext]'
                 }
             },
             {
@@ -46,7 +54,7 @@ export default new Config().merge({
                         loader: require.resolve('url-loader'),
                         options: {
                             limit: 8000,
-                            name: '[path][name].[hash:8].[ext]'
+                            name: 'images/[name].[hash:8].[ext]'
                         }
                     }
                 ]

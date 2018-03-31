@@ -69,7 +69,7 @@ const setDataAsync = async db => {
                             return productDetails;
                         })
                         productDetailsArray;
-                        console.log({productDetailsArray});
+                        //console.log({productDetailsArray});
                     }
 
 

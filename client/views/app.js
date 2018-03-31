@@ -92,6 +92,7 @@ class App extends React.Component {
 
     handleResize() {
         this.props.uiStore.setBreakpoint(this._getBreakpoint(document.body.clientWidth));
+        console.log({resize:document.body.clientWidth})
     }
 
     _getBreakpoint = (width) => {

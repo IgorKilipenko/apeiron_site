@@ -28,8 +28,7 @@ const productsMap = [
                 title: 'Сертификат'
             },
             {
-                contentType: 'document',
-                docType: 'pdf',
+                contentType: 'document-pdf',
                 value: 'petli.pdf',
                 title: 'Техническая информация'
             },
@@ -51,7 +50,29 @@ const productsMap = [
     {
         id: 22,
         title: 'Петля дверная АПВ-2',
-        image: 'Petlya-dvernaya-APP-2.png'
+        image: 'Petlya-dvernaya-APP-2.png',
+        content: [
+            {
+                contentType: 'document',
+                title: 'Сертификат соответствия на оконные и дверные петли Апейрон',
+                value:'Sertifikat_sootvetstviya_Apeiron_petli.jpg'
+            },
+            {
+                contentType: 'document',
+                title: 'Приложение к сертификату соответствия на оконные и дверные петли Апейрон',
+                value:'Sertifikat_sootvetstviya_Apeiron_petli_prilozhenie.jpg'
+            },
+            {
+                contentType: 'document',
+                title: 'Протокол испытаний, оконные и дверные петли Апейрон',
+                value:'Protokol_ispytanii_Apeiron_petli.jpg'
+            },
+            {
+                contentType: 'document',
+                title: 'Протокол испытаний, оконные и дверные петли Апейрон, приложение',
+                value:'Protokol_ispytanii_Apeiron_petli_prilozhenie.jpg'
+            },
+        ]
     },
     {
         id: 17,

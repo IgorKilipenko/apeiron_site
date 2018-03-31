@@ -11,6 +11,11 @@ import Button from 'material-ui/Button';
 import { Scrollbars } from 'react-custom-scrollbars';
 //import ReactDOM from 'react-dom';
 import Recaptcha from 'react-recaptcha';
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogTitle
+} from 'material-ui/Dialog';
 
 const styles = theme => ({
     root: {
@@ -35,16 +40,17 @@ const styles = theme => ({
 });
 
 class ContactsForm extends React.Component {
-    constructor(props, ...rest){
+    constructor(props, ...rest) {
         super(props);
         this.state = {
             name: { value: '' },
             mail: { value: '' },
-            message: { value: '' }
+            message: { value: '' },
+            successSended: null
         };
         this.recaptchaInstance = null;
     }
-    
+
     componentDidMount = () => {
         //console.log({ msg: window.grecaptcha });
     };
@@ -61,42 +67,58 @@ class ContactsForm extends React.Component {
         e.stopPropagation();
     };
 
-    executeCaptcha = (e) =>{
+    executeCaptcha = e => {
         this.recaptchaInstance && this.recaptchaInstance.execute();
         event.preventDefault();
-    }
-    verifyCallback= response => {
-        console.log({captcha: response})
-        fetch('/sendmail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: this.state.name.value,
-                email: this.state.mail.value,
-                message: this.state.message.value,
-                response: response
-            })
-        }).then(res => {
-            //console.log({res:res.json()})
-            return res.json();
-        }).then(json => {
-            if (json.status === 'success'){
-                console.log('success')
-                this.success()
+    };
+    verifyCallback = async response => {
+        //console.log({ captcha: response });
+        try{
+            const response = await fetch('/sendmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: this.state.name.value,
+                    email: this.state.mail.value,
+                    message: this.state.message.value,
+                    response: response
+                })
+            });
+            const json = await response.json();
+            if (json.status === 'success') {
+                console.log('success', {json});
+                this.success();
             }
-        }).catch(err => {
-            console.log({err})
-        });
+        }catch (err){
+            console.log({ err });
+        }finally {
+            this.resetRecaptcha();
+        }
         console.log('send mail');
-    }
-    success = () =>{
+    };
+    success = () => {
         this.setState({
-            name: { value: '' },
-            mail: { value: '' },
-            message: { value: '' }
-        })
+            message: { value: '' },
+            successSended: true
+        });
+        setTimeout(() => {
+            if (this.state.successSended) {
+                this.setState({ successSended: null });
+            }
+        }, 5000);
+    };
+    handleCloseDialog = () => {
+        if (this.state.successSended) {
+            this.setState({ successSended: null });
+        }
+    };
+    resetRecaptcha = () => {
+        this.recaptchaInstance.reset();
+    }
+    expiredCallback =() => {
+        this.resetRecaptcha();
     }
     render() {
         const { classes } = this.props;
@@ -168,14 +190,30 @@ class ContactsForm extends React.Component {
                         <Send className={classes.rightIcon} />
                     </Button>
                     <Recaptcha
-                        ref={e => this.recaptchaInstance = e}
+                        ref={e => (this.recaptchaInstance = e)}
                         sitekey="6LerLE4UAAAAAK2gLHGJoWFGG9EtyT9HEHImWPoo"
                         size="invisible"
                         verifyCallback={r => this.verifyCallback(r)}
-                        hl='ru'
+                        expiredCallback={this.expiredCallback}
+                        hl="ru"
                     />
                 </form>
-
+                <Dialog
+                        open={this.state.successSended || false}
+                        onClose={this.handleCloseDialog}
+                    >
+                        <DialogTitle>Сообщение отправлено</DialogTitle>
+                        <DialogContent>
+                            Спасибо! {this.state.name.value.toString()}. Ваше сообщение успешно
+                            отправлено. Наши сотрудники ответят Вам в ближайшее
+                            время.
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleCloseDialog} color="primary">
+                                Ok
+                            </Button>
+                        </DialogActions>
+                </Dialog>
             </React.Fragment>
         );
     }
