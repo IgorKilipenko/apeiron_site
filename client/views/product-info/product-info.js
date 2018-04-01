@@ -36,7 +36,7 @@ const styles = theme => ({
         }
     },
     info: {
-        paddingLeft: '10px',
+        //paddingLeft: '10px',
         position: 'relative',
         height: '100%',
         width: '50%',
@@ -92,9 +92,20 @@ const styles = theme => ({
         height: 'auto',
         width: '100%'
     },
-    image:{
-        width:'100%',
+    image: {
+        width: '100%',
         height: 'auto'
+    },
+    text:{
+        paddingLeft: '0.5em'
+    },
+    documentPreview:{
+        width:'100%',
+        height:'auto'
+    },
+    block:{
+        paddingTop: '1em',
+        paddingBottom: '1em'
     }
 });
 
@@ -131,7 +142,7 @@ class ProductInfo extends React.Component {
     renderVideo = content => {
         const { classes } = this.props;
         return (
-            <div key={`video_${content.id}`} className={classes.videoIframe}>
+            <div key={`video_${content.id}`} className={classNames(classes.videoIframe, classes.block)}>
                 <YouTubePlayer
                     className={classes.video}
                     playing={false}
@@ -147,6 +158,7 @@ class ProductInfo extends React.Component {
         return (
             <React.Fragment>
                 <Document
+                    className={classes.documentPreview}
                     file={require('../products/media-content/documents/' +
                         content.value)}
                     onLoadSuccess={this.handleDocumentLoadSuccess}
@@ -170,7 +182,8 @@ class ProductInfo extends React.Component {
         const { classes } = this.props;
         return (
             <React.Fragment>
-                <img className={classes.image}
+                <img
+                    className={classes.image}
                     src={require(`../products/media-content/${
                         content.contentType.match(/^document/gi)
                             ? 'documents/'
@@ -185,7 +198,7 @@ class ProductInfo extends React.Component {
     renderImgesGride = details => {
         const { classes } = this.props;
         return (
-            <div>
+            <div className={classes.block}>
                 <GridList cellHeight={280}>
                     <GridListTile
                         key="Subheader"
@@ -243,19 +256,17 @@ class ProductInfo extends React.Component {
                                 [classes.loaded]: this.state.loaded
                             })}
                         >
-                            <Typography gutterBottom={true} variant="title">
+                            <Typography gutterBottom={true} variant="title" classes={{root: classes.text}}>
                                 {product.title}
                                 <span>{' ' + product.description}</span>
                             </Typography>
-                            {[...Array(50).keys()].map(key => (
-                                <Typography
-                                    key={`par_${key}`}
-                                    paragraph={true}
-                                    variant="body1"
-                                >
-                                    {product.content}
-                                </Typography>
-                            ))}
+                            <Typography
+                                paragraph={true}
+                                variant="body1"
+                                classes={{root: classes.text}}
+                            >
+                                {product.content}
+                            </Typography>
                         </article>
                         {product.details &&
                             product.details

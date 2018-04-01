@@ -42,7 +42,7 @@ const productsMap = [
             },
             {
                 contentType: 'video',
-                value: 'https://youtu.be/KtSGLrXbET8',
+                value: 'http://youtu.be/KtSGLrXbET8',
                 
             }
         ]
@@ -198,7 +198,7 @@ const productsMap = [
             },
             {
                 contentType: 'video',
-                value: 'https://youtu.be/m9kJYYr_pu0',
+                value: 'http://youtu.be/m9kJYYr_pu0',
                 
             }
         ]

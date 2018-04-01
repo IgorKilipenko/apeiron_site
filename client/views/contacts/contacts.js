@@ -4,12 +4,13 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import { inject, observer } from 'mobx-react';
 import { Scrollbars } from 'react-custom-scrollbars';
+import Avatar from 'material-ui/Avatar';
+import avatar from './media/images/аватар_контакты.png';
 
 import MapComponent from '../../components/map-component/map-component';
 import ContactForm from '../../components/contact-form/contact-form';
 import ContactInfo from '../../components/contact-form/contact-info';
 import Slider from '../../components/image-slider/image-slider';
-import { auto } from 'async';
 
 const styles = theme => ({
     root: {
@@ -26,7 +27,7 @@ const styles = theme => ({
         position: 'inherit',
         [theme.breakpoints.down('sm')]: {
             width: '100%',
-            height:'auto'
+            height: 'auto'
         }
     },
     contactForm: {
@@ -49,7 +50,7 @@ const styles = theme => ({
         minHeight: 300,
         [theme.breakpoints.down('sm')]: {
             minHeight: 600,
-            flexFlow: 'column',
+            flexFlow: 'column'
         }
     },
     mapContainer: {
@@ -70,6 +71,18 @@ const styles = theme => ({
         top: 'auto'
         //boxShadow: theme.shadows[10],
         //zIndex: theme.zIndex.appBar
+    },
+    formHeader:{
+        display:'flex',
+        flexFlow:'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
+    },
+    avatar: {
+        margin: 5,
+        width: 60,
+        height: 60,
+        backgroundColor: 'wheat'
     }
 });
 
@@ -78,24 +91,33 @@ const styles = theme => ({
 @observer
 class Contacts extends React.Component {
     componentWillMount = () => {
-        const {route, branch, routing} = this.props;
-        routing.update(route, /*branch*/);
-        console.log({routeMount: route})
-    }
+        const { route, branch, routing } = this.props;
+        routing.update(route /*branch*/);
+        console.log({ routeMount: route });
+    };
     renderComponent() {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <div className={classes.contactContainer}>
                     <div className={classes.contactInfo}>
-
                         <ContactInfo />
                         {/*<div className={classes.sliderContainer}>
                             <Slider backgroundSize='cover'/>
                         </div>*/}
                     </div>
                     <div className={classes.contactForm}>
-                        <Typography variant="headline">Напишите нам</Typography>
+                        <div className={classes.formHeader}>
+                            <Avatar
+                                alt="Adelle Charles"
+                                src={avatar}
+                                className={classNames(
+                                    classes.avatar,
+                                    classes.bigAvatar
+                                )}
+                            />
+                            <Typography variant="headline">Напишите нам</Typography>
+                        </div>
                         <ContactForm />
                     </div>
                 </div>
@@ -105,15 +127,12 @@ class Contacts extends React.Component {
             </div>
         );
     }
-    render(){
+    render() {
+        const { classes } = this.props;
         const breakpoint = this.props.uiStore.getBreakpoint;
-        if (breakpoint === 'sm' || breakpoint === 'xs'){
-            return (
-                <Scrollbars>
-                    {this.renderComponent()}
-                </Scrollbars>
-            )
-        }else{
+        if (breakpoint === 'sm' || breakpoint === 'xs') {
+            return <Scrollbars>{this.renderComponent()}</Scrollbars>;
+        } else {
             return this.renderComponent();
         }
     }

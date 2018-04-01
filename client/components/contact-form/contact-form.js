@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Input, { InputLabel } from 'material-ui/Input';
 import Textarea from 'material-ui/Input/Textarea';
 import { FormControl, FormHelperText } from 'material-ui/Form';
@@ -16,6 +17,7 @@ import Dialog, {
     DialogContent,
     DialogTitle
 } from 'material-ui/Dialog';
+
 
 const styles = theme => ({
     root: {
@@ -36,7 +38,8 @@ const styles = theme => ({
         width: '100%',
         //marginTop: 0
         position: 'relative'
-    }
+    },
+
 });
 
 class ContactsForm extends React.Component {
@@ -73,7 +76,7 @@ class ContactsForm extends React.Component {
     };
     verifyCallback = async response => {
         //console.log({ captcha: response });
-        try{
+        try {
             const response = await fetch('/sendmail', {
                 method: 'POST',
                 headers: {
@@ -88,12 +91,12 @@ class ContactsForm extends React.Component {
             });
             const json = await response.json();
             if (json.status === 'success') {
-                console.log('success', {json});
+                console.log('success', { json });
                 this.success();
             }
-        }catch (err){
+        } catch (err) {
             console.log({ err });
-        }finally {
+        } finally {
             this.resetRecaptcha();
         }
         console.log('send mail');
@@ -116,10 +119,10 @@ class ContactsForm extends React.Component {
     };
     resetRecaptcha = () => {
         this.recaptchaInstance.reset();
-    }
-    expiredCallback =() => {
+    };
+    expiredCallback = () => {
         this.resetRecaptcha();
-    }
+    };
     render() {
         const { classes } = this.props;
         return (
@@ -199,20 +202,23 @@ class ContactsForm extends React.Component {
                     />
                 </form>
                 <Dialog
-                        open={this.state.successSended || false}
-                        onClose={this.handleCloseDialog}
-                    >
-                        <DialogTitle>Сообщение отправлено</DialogTitle>
-                        <DialogContent>
-                            Спасибо! {this.state.name.value.toString()}. Ваше сообщение успешно
-                            отправлено. Наши сотрудники ответят Вам в ближайшее
-                            время.
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.handleCloseDialog} color="primary">
-                                Ok
-                            </Button>
-                        </DialogActions>
+                    open={this.state.successSended || false}
+                    onClose={this.handleCloseDialog}
+                >
+                    <DialogTitle>Сообщение отправлено</DialogTitle>
+                    <DialogContent>
+                        Спасибо! {this.state.name.value.toString()}. Ваше
+                        сообщение успешно отправлено. Наши сотрудники ответят
+                        Вам в ближайшее время.
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={this.handleCloseDialog}
+                            color="primary"
+                        >
+                            Ok
+                        </Button>
+                    </DialogActions>
                 </Dialog>
             </React.Fragment>
         );

@@ -29,7 +29,7 @@ catalog.categories.forEach(cat => {
 
 const _clearHtml = text => {
     const reg = /<[^>]*>/gi;
-    return text.replace(reg, '');
+    return text.replace(reg, '').replace(/&nbsp/ig, '');
 };
 
 console.log('Start init data');
