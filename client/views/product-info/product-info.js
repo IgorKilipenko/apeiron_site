@@ -91,6 +91,10 @@ const styles = theme => ({
     documentContainer: {
         height: 'auto',
         width: '100%'
+    },
+    image:{
+        width:'100%',
+        height: 'auto'
     }
 });
 
@@ -166,7 +170,7 @@ class ProductInfo extends React.Component {
         const { classes } = this.props;
         return (
             <React.Fragment>
-                <img
+                <img className={classes.image}
                     src={require(`../products/media-content/${
                         content.contentType.match(/^document/gi)
                             ? 'documents/'
@@ -182,7 +186,7 @@ class ProductInfo extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <GridList cellHeight={180}>
+                <GridList cellHeight={280}>
                     <GridListTile
                         key="Subheader"
                         cols={2}

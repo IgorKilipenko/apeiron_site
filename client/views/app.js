@@ -76,7 +76,8 @@ const styles = theme => ({
         transform: 'translateX(100%)',
         //zIndex:0
         transition: theme.transitions.create(['opacity', 'transform'])
-    }
+    },
+
 
 });
 
@@ -93,7 +94,7 @@ class App extends React.Component {
     handleResize() {
         this.props.uiStore.setBreakpoint(this._getBreakpoint(window.innerWidth/*document.body.clientWidth*/));
         console.log({resize:window.innerWidth/*document.body.clientWidth*/})
-        alert(window.innerWidth);
+        //alert(window.innerWidth);
     }
 
     _getBreakpoint = (width) => {
