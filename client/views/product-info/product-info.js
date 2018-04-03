@@ -10,6 +10,7 @@ import YouTubePlayer from 'react-player/lib/players/YouTube';
 import { Document, Page, setOptions } from 'react-pdf/dist/entry.webpack';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Subheader from 'material-ui/List/ListSubheader';
+import Dialog, { DialogTitle } from 'material-ui/Dialog';
 
 const styles = theme => ({
     root: {
@@ -96,16 +97,23 @@ const styles = theme => ({
         width: '100%',
         height: 'auto'
     },
-    text:{
+    text: {
         paddingLeft: '0.5em'
     },
-    documentPreview:{
-        width:'100%',
-        height:'auto'
+    documentPreview: {
+        width: '100%',
+        height: 'auto'
     },
-    block:{
+    block: {
         paddingTop: '1em',
         paddingBottom: '1em'
+    },
+    mediaItem: {
+        cursor: 'pointer'
+    },
+    fullMedia: {
+        height: '100%',
+        width: '100%'
     }
 });
 
@@ -119,7 +127,8 @@ class ProductInfo extends React.Component {
         this.state = {
             loaded: false,
             numPages: null,
-            pageNumber: 1
+            pageNumber: 1,
+            mediaOpen: false
         };
     }
 
@@ -138,11 +147,21 @@ class ProductInfo extends React.Component {
             numPages
         });
     };
+    handleMediaItemClick = (e, name) => {
+        e.preventDefault();
+        this.setState({ mediaOpen: name });
+    };
+    handleMediaItemClose = () => {
+        this.setState({ mediaOpen: false });
+    };
 
     renderVideo = content => {
         const { classes } = this.props;
         return (
-            <div key={`video_${content.id}`} className={classNames(classes.videoIframe, classes.block)}>
+            <div
+                key={`video_${content.id}`}
+                className={classNames(classes.videoIframe, classes.block)}
+            >
                 <YouTubePlayer
                     className={classes.video}
                     playing={false}
@@ -155,43 +174,78 @@ class ProductInfo extends React.Component {
 
     renderDocument = content => {
         const { classes } = this.props;
+        const src = require('../products/media-content/documents/' +
+            content.value);
         return (
             <React.Fragment>
-                <Document
-                    className={classes.documentPreview}
-                    file={require('../products/media-content/documents/' +
-                        content.value)}
-                    onLoadSuccess={this.handleDocumentLoadSuccess}
-                >
-                    <Page pageNumber={this.state.pageNumber} />
-                </Document>
-                <GridListTileBar
-                    title={content.title}
-                    subtitle={
-                        <span>
-                            {`Страница ${this.state.pageNumber} из ${
-                                this.state.numPages
-                            }`}
-                        </span>
+                <div className={classes.mediaItem} onClick={e => this.handleMediaItemClick(e, content.title)}>
+                    <Document
+                        className={classes.documentPreview}
+                        file={src}
+                        onLoadSuccess={this.handleDocumentLoadSuccess}
+                    >
+                        <Page pageNumber={this.state.pageNumber} />
+                    </Document>
+                    <GridListTileBar
+                        title={content.title}
+                        subtitle={
+                            <span>
+                                {`Страница ${this.state.pageNumber} из ${
+                                    this.state.numPages
+                                }`}
+                            </span>
+                        }
+                    />
+                </div>
+                <Dialog
+                    open={
+                        this.state.mediaOpen &&
+                        this.state.mediaOpen === content.title
                     }
-                />
+                    onClose={this.handleMediaItemClose}
+                >
+                    <Document
+                        className={classes.documentPreview}
+                        file={src}
+                        onLoadSuccess={this.handleDocumentLoadSuccess}
+                    >
+                        <Page pageNumber={this.state.pageNumber} />
+                    </Document>
+                </Dialog>
             </React.Fragment>
         );
     };
     renderImage = content => {
         const { classes } = this.props;
+        const src = require(`../products/media-content/${
+            content.contentType.match(/^document/gi) ? 'documents/' : 'images/'
+        }` + content.value.split(/,/)[0]);
         return (
             <React.Fragment>
-                <img
-                    className={classes.image}
-                    src={require(`../products/media-content/${
-                        content.contentType.match(/^document/gi)
-                            ? 'documents/'
-                            : 'images/'
-                    }` + content.value.split(/,/)[0])}
-                    alt={content.title}
-                />
-                <GridListTileBar title={content.title} />
+                <div
+                    className={classes.mediaItem}
+                    onClick={e => this.handleMediaItemClick(e, content.title)}
+                >
+                    <img
+                        className={classes.image}
+                        src={src}
+                        alt={content.title}
+                    />
+                    <GridListTileBar title={content.title} />
+                </div>
+                <Dialog
+                    open={
+                        this.state.mediaOpen &&
+                        this.state.mediaOpen === content.title
+                    }
+                    onClose={this.handleMediaItemClose}
+                >
+                    <img
+                        className={classes.fullMedia}
+                        src={src}
+                        alt={content.title}
+                    />
+                </Dialog>
             </React.Fragment>
         );
     };
@@ -256,14 +310,18 @@ class ProductInfo extends React.Component {
                                 [classes.loaded]: this.state.loaded
                             })}
                         >
-                            <Typography gutterBottom={true} variant="title" classes={{root: classes.text}}>
+                            <Typography
+                                gutterBottom={true}
+                                variant="title"
+                                classes={{ root: classes.text }}
+                            >
                                 {product.title}
                                 <span>{' ' + product.description}</span>
                             </Typography>
                             <Typography
                                 paragraph={true}
                                 variant="body1"
-                                classes={{root: classes.text}}
+                                classes={{ root: classes.text }}
                             >
                                 {product.content}
                             </Typography>

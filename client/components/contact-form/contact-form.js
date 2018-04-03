@@ -12,12 +12,7 @@ import Button from 'material-ui/Button';
 import { Scrollbars } from 'react-custom-scrollbars';
 //import ReactDOM from 'react-dom';
 import Recaptcha from 'react-recaptcha';
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogTitle
-} from 'material-ui/Dialog';
-
+import Snackbar from 'material-ui/Snackbar';
 
 const styles = theme => ({
     root: {
@@ -38,8 +33,7 @@ const styles = theme => ({
         width: '100%',
         //marginTop: 0
         position: 'relative'
-    },
-
+    }
 });
 
 class ContactsForm extends React.Component {
@@ -201,25 +195,21 @@ class ContactsForm extends React.Component {
                         hl="ru"
                     />
                 </form>
-                <Dialog
+                <Snackbar
+                    anchorOrigin={{ vertical:'bottom', horizontal:'right' }}
                     open={this.state.successSended || false}
                     onClose={this.handleCloseDialog}
-                >
-                    <DialogTitle>Сообщение отправлено</DialogTitle>
-                    <DialogContent>
-                        Спасибо! {this.state.name.value.toString()}. Ваше
-                        сообщение успешно отправлено. Наши сотрудники ответят
-                        Вам в ближайшее время.
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            onClick={this.handleCloseDialog}
-                            color="primary"
-                        >
-                            Ok
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                    SnackbarContentProps={{
+                        'aria-describedby': 'message-id'
+                    }}
+                    message={
+                        <span id="message-id">
+                            Спасибо! {this.state.name.value.toString()}. Ваше
+                            сообщение успешно отправлено. Наши сотрудники ответят
+                            Вам в ближайшее время.
+                        </span>
+                    }
+                />
             </React.Fragment>
         );
     }
