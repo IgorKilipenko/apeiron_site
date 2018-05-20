@@ -47,7 +47,7 @@ const styles = theme => ({
         display: 'flex',
         flexFlow: 'row',
         position: 'inherit',
-        minHeight: 300,
+        minHeight: 350,
         [theme.breakpoints.down('sm')]: {
             minHeight: 600,
             flexFlow: 'column'

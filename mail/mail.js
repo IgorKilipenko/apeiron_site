@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import request from 'request';
 import xoauth2 from 'xoauth2';
 
-const config = mailConfig.mail; 
+const config = mailConfig.mail;
 const recaptcha = mailConfig.recaptcha;
 
 const transporter = nodemailer.createTransport({
@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
-    scope : "https://mail.google.com/",
+    scope: "https://mail.google.com/",
     //scope : "https://www.googleapis.com/auth/gmail.send",
     auth: {
         type: 'OAuth2',
@@ -51,37 +51,41 @@ export const validateMessage = message => {
 };
 
 const validateCaptcha = async (req) => {
-    const {response} = req.body;
+    const { response } = req.body;
     if (!response || response.length == 0) {
         return false
     }
     const verificationUR = recaptcha.url + `?secret=${recaptcha.secret}&response=${response}&remoteip=${req.connection.remoteAddress}`
     console.log(verificationUR);
     let result = false;
-    request (verificationUR, (err, response, body) => {
-        if(body.success !== undefined && !body.success){
+    request(verificationUR, (err, response, body) => {
+        if (body.success !== undefined && !body.success) {
             console.log('Failed captcha verification');
-            result = false ;
+            result = false;
             return result;
         }
         console.log('success');
-        result = true ;
+        result = true;
         return result;
     })
     return result;
 };
 
-export const sendMail = (from, name ,subject, message, req) => {
+export const sendMail = (from, name, subject, message, req) => {
     return new Promise((resolve, reject) => {
         if (!validateMail(from)) {
             reject(new Error('Почта имеет неверный формат.'));
+            return;
         }
         if (!validateMessage(message)) {
             reject(new Error('Сообщение не должно быть пустым.'));
+            return;
         }
-        if (!validateCaptcha(req)){
+        if (!validateCaptcha(req)) {
             reject(new Error('Проверка не пройдена.'));
+            return;
         }
+
         message = message.replace(/[\\/]gi/, '');
 
         transporter.sendMail(
@@ -100,6 +104,7 @@ export const sendMail = (from, name ,subject, message, req) => {
                 }
             }
         );
+
     });
 };
 

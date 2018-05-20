@@ -19,9 +19,9 @@ const styles = theme => ({
 const Map = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
     defaultZoom={17}
-    defaultCenter={{ lat: 54.993425, lng: 82.976490 }}
+    defaultCenter={{ lat: 54.992822, lng: 82.980441 }}
   >
-    {props.isMarkerShown && <Marker position={{ lat: 54.993425, lng: 82.976490 }} />}
+    {props.isMarkerShown && <Marker position={{ lat: 54.992822, lng: 82.980441 }} />}
   </GoogleMap>
 ))
 

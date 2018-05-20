@@ -16,6 +16,7 @@ import ScrollContainer from '../components/scroll-container/scroll-container';
 import ProductList from '../components/products/product-list';
 import ProductItem from '../components/products/product-item';
 import Logo from '../components/main-logo/main-logo';
+import favicon from '../components/main-logo/logo-menu.svg';
 
 //import './global.css';
 import prodItemImg from '../public/imgs/products/ruch.png';
@@ -179,6 +180,9 @@ class App extends React.Component {
                 <Helmet>
                     <meta charSet="utf-8" />
                     <title>Апейрон</title>
+                    <link rel="icon" href={favicon}/>
+                    <meta name="msapplication-TileImage" content={favicon}/>
+                    <meta name="theme-color" content="#9CC2CE"/>
                     <meta
                         name="viewport"
                         content="width=device-width, initial-scale=1.0"
