@@ -1,0 +1,17 @@
+import merge from 'webpack-merge';
+import common from './webpack.common.babel';
+import path from 'path';
+import webpack from 'webpack';
+
+const config = merge(common, {
+    mode: 'production',
+    devtool: 'source-map',
+    output: {
+        filename: 'bundle.min.js'
+    },
+    plugins: [
+        new webpack.NamedModulesPlugin(),
+    ]
+});
+
+export default config;

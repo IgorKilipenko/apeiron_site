@@ -11,7 +11,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 if (isDevelopment) {
     const webpack = require('webpack');
-    const webpackConfig = require('./webpack.config.babel').default;
+    const webpackConfig = require('./webpack.dev.babel').default;
     const compiler = webpack(webpackConfig);
     console.log(webpackConfig.entry);
     //console.log(webpackConfig.output.publicPath);
