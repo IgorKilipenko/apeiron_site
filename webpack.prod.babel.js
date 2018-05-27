@@ -11,7 +11,7 @@ const config = merge(common, {
         filename: 'bundle.min.js'
     },
     plugins: [
-        new webpack.NamedModulesPlugin(),
+        //new webpack.NamedModulesPlugin(),
         new CleanWebpackPlugin(['./public']),
     ]
 });
