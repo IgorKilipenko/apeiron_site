@@ -6,13 +6,13 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const config = merge(common, {
     mode: 'production',
-    devtool: 'source-map',
+    //devtool: 'source-map',
     output: {
         filename: 'bundle.min.js'
     },
     plugins: [
-        //new webpack.NamedModulesPlugin(),
-        //new CleanWebpackPlugin(['./public']),
+        new webpack.NamedModulesPlugin(),
+        new CleanWebpackPlugin(['./public']),
     ]
 });
 
