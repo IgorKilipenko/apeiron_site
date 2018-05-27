@@ -84,7 +84,7 @@ export default  {
             //filename: 'index.html',
             inject: 'body'
         }),
-        new CleanWebpackPlugin(['./public']),
+        //new CleanWebpackPlugin(['./public']),
         //new webpack.LoaderOptionsPlugin({ options: { postcss: [precss, autoprefixer] } }),
     ]
 };

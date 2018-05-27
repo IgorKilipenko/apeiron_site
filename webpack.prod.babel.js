@@ -2,6 +2,7 @@ import merge from 'webpack-merge';
 import common from './webpack.common.babel';
 import path from 'path';
 import webpack from 'webpack';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const config = merge(common, {
     mode: 'production',
@@ -11,6 +12,7 @@ const config = merge(common, {
     },
     plugins: [
         new webpack.NamedModulesPlugin(),
+        new CleanWebpackPlugin(['./public']),
     ]
 });
 
