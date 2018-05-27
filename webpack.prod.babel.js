@@ -5,8 +5,9 @@ import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const config = merge(common, {
-    mode: 'production',
-    //devtool: 'source-map',
+    //mode: 'production',
+    mode: 'none',
+    devtool: 'source-map',
     output: {
         filename: 'bundle.min.js'
     },
