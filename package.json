@@ -7,7 +7,7 @@
     "build-dev": "SET NODE_ENV=development&& nodemon --ignore client/ --ignore  api/ server.js --exec babel-node",
     "build-prod": "SET NODE_ENV=production&& webpack --mode=production --config webpack.prod.babel.js && babel-node server.js",
     "build-dev-lnx": "export NODE_ENV=development&& nodemon --ignore client/ --ignore  api/ server.js --exec babel-node",
-    "build-prod-lnx": "webpack --mode=production --config webpack.prod.babel.js && babel-node server.js",
+    "build-prod-lnx": "export NODE_ENV=production&& webpack --mode=production --config webpack.prod.babel.js && babel-node server.js",
     "api": "babel-node ./api/api.js",
     "api-dev": "SET NODE_ENV=development&& nodemon --watch api ./api/api.js --exec babel-node",
     "init-data": "babel-node ./api/database/initialize-db.js"
