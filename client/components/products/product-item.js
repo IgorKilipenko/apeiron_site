@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { inject, observer } from 'mobx-react';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 

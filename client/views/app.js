@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import List from 'material-ui/List';
-import { MenuItem } from 'material-ui/Menu';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
+import List from '@material-ui/core/List';
+import { MenuItem } from '@material-ui/core/Menu';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import { Helmet } from 'react-helmet';
 import { renderRoutes } from 'react-router-config';
 

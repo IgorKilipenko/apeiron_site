@@ -1,7 +1,7 @@
 import React from 'react';
 import apeironLogoUrl, { ReactComponent as Logo } from './logo-menu.svg';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import MenuIcon from '../menu/menu-icon';

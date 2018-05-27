@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { inject, observer } from 'mobx-react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import Avatar from 'material-ui/Avatar';
+import Avatar from '@material-ui/core/Avatar';
 import avatar from './media/images/аватар_контакты.png';
 
 import MapComponent from '../../components/map-component/map-component';

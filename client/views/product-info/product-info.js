@@ -1,6 +1,6 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
@@ -8,9 +8,9 @@ import { products } from '../../stores/products-store';
 import { Scrollbars } from 'react-custom-scrollbars';
 import YouTubePlayer from 'react-player/lib/players/YouTube';
 import { Document, Page, setOptions } from 'react-pdf/dist/entry.webpack';
-import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
-import Subheader from 'material-ui/List/ListSubheader';
-import Dialog, { DialogTitle } from 'material-ui/Dialog';
+import GridList, { GridListTile, GridListTileBar } from '@material-ui/core/GridList';
+import Subheader from '@material-ui/core/ListSubheader';
+import Dialog, { DialogTitle } from '@material-ui/core/Dialog';
 
 const styles = theme => ({
     root: {

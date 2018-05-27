@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import config from '../../../user.config';
 
 const styles = theme => ({

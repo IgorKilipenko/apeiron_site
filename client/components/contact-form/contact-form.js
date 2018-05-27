@@ -1,18 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
-import Input, { InputLabel } from 'material-ui/Input';
-import Textarea from 'material-ui/Input/Textarea';
-import { FormControl, FormHelperText } from 'material-ui/Form';
-import TextField from 'material-ui/TextField';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import Input, { InputLabel } from '@material-ui/core/Input';
+import Textarea from '@material-ui/core/Input/Textarea';
+import { FormControl, FormHelperText } from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { Helmet } from 'react-helmet';
-import Send from 'material-ui-icons/Send';
-import Button from 'material-ui/Button';
+import Send from '@material-ui/icons/Send';
+import Button from '@material-ui/core/Button';
 import { Scrollbars } from 'react-custom-scrollbars';
 //import ReactDOM from 'react-dom';
 import Recaptcha from 'react-recaptcha';
-import Snackbar from 'material-ui/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const styles = theme => ({
     root: {

@@ -1,6 +1,6 @@
 import React from 'react';
-import withStyles from 'material-ui/styles';
-import Modal from 'material-ui/Modal'
+import withStyles from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal'
 
 
 const styles = theme => ({

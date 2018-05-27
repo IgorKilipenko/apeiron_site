@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 

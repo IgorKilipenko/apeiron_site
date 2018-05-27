@@ -9,8 +9,8 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { renderRoutes } from 'react-router-config'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import CssBaseline from 'material-ui/CssBaseline';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 import { ApolloClient } from 'apollo-client';
@@ -22,7 +22,7 @@ import fetch from 'unfetch'
 //import 'typeface-roboto';
 import App from './views/app';
 import Index from './views/home/index';
-import withTheme from 'material-ui';
+import withTheme from '@material-ui/core';
 import ScrollRouterStore from './stores/scroll-router-store';
 import UiStore from './stores/ui-store';
 
