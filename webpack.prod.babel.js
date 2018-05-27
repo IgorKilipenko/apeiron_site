@@ -12,7 +12,7 @@ const config = merge(common, {
     },
     plugins: [
         //new webpack.NamedModulesPlugin(),
-        new CleanWebpackPlugin(['./public']),
+        //new CleanWebpackPlugin(['./public']),
     ]
 });
 
