@@ -8,7 +8,10 @@ import { products } from '../../stores/products-store';
 import { Scrollbars } from 'react-custom-scrollbars';
 import YouTubePlayer from 'react-player/lib/players/YouTube';
 import { Document, Page, setOptions } from 'react-pdf/dist/entry.webpack';
-import GridList, { GridListTile, GridListTileBar } from '@material-ui/core/GridList';
+//import GridList, { GridListTile, GridListTileBar } from '@material-ui/core/GridList';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Subheader from '@material-ui/core/ListSubheader';
 import Dialog, { DialogTitle } from '@material-ui/core/Dialog';
 
@@ -303,7 +306,6 @@ class ProductInfo extends React.Component {
                     />
                 </div>
                 <div className={classNames(classes.container, classes.info)}>
-                    {/*match.params.id*/}
                     <Scrollbars onWheel={e => e.stopPropagation()}>
                         <article
                             className={classNames(classes.title, {
@@ -333,7 +335,7 @@ class ProductInfo extends React.Component {
                         {product.details &&
                             this.renderImgesGride(product.details)}
                     </Scrollbars>
-                </div>
+                </div>*
             </section>
         );
     }

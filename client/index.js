@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { Provider } from 'mobx-react';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
-import { Router } from 'react-router';
-import { Route, Switch } from 'react-router-dom';
+//import { Router } from 'react-router';
+import {Router, Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { renderRoutes } from 'react-router-config'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
