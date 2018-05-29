@@ -13,7 +13,9 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Subheader from '@material-ui/core/ListSubheader';
-import Dialog, { DialogTitle } from '@material-ui/core/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
 
 const styles = theme => ({
     root: {
@@ -152,10 +154,22 @@ class ProductInfo extends React.Component {
     };
     handleMediaItemClick = (e, name) => {
         e.preventDefault();
-        this.setState({ mediaOpen: name });
+        console.log(`Dialog open - ${name}`);
+        this.setState((prevState) => {
+            if (prevState.mediaOpen != name) {
+                return { mediaOpen: name }
+            }
+            return {};
+        },
+            () => {
+                console.log(`Dialog open - ${this.state.mediaOpen}`)
+                console.log(`Dialog open - ${this.state.mediaOpen && this.state.mediaOpen == name}`)
+            });
+
     };
     handleMediaItemClose = () => {
         this.setState({ mediaOpen: false });
+        console.log('Dialog close');
     };
 
     renderVideo = content => {
@@ -179,6 +193,7 @@ class ProductInfo extends React.Component {
         const { classes } = this.props;
         const src = require('../products/media-content/documents/' +
             content.value);
+        let open = this.state.mediaOpen && this.state.mediaOpen === content.title;
         return (
             <React.Fragment>
                 <div className={classes.mediaItem} onClick={e => this.handleMediaItemClick(e, content.title)}>
@@ -195,26 +210,29 @@ class ProductInfo extends React.Component {
                             <span>
                                 {`Страница ${this.state.pageNumber} из ${
                                     this.state.numPages
-                                }`}
+                                    }`}
                             </span>
                         }
                     />
                 </div>
-                <Dialog
-                    open={
-                        this.state.mediaOpen &&
-                        this.state.mediaOpen === content.title
-                    }
-                    onClose={this.handleMediaItemClose}
-                >
-                    <Document
-                        className={classes.documentPreview}
-                        file={src}
-                        onLoadSuccess={this.handleDocumentLoadSuccess}
+                {open ?
+                    <Dialog
+                        open={
+                            this.state.mediaOpen &&
+                            this.state.mediaOpen == content.title
+                        }
+                        onClose={this.handleMediaItemClose}
                     >
-                        <Page pageNumber={this.state.pageNumber} />
-                    </Document>
-                </Dialog>
+                        <Document
+                            className={classes.documentPreview}
+                            file={src}
+                            onLoadSuccess={this.handleDocumentLoadSuccess}
+                        >
+                            <Page pageNumber={this.state.pageNumber} />
+                        </Document>
+                    </Dialog>
+                    : null
+                }
             </React.Fragment>
         );
     };
@@ -222,7 +240,8 @@ class ProductInfo extends React.Component {
         const { classes } = this.props;
         const src = require(`../products/media-content/${
             content.contentType.match(/^document/gi) ? 'documents/' : 'images/'
-        }` + content.value.split(/,/)[0]);
+            }` + content.value.split(/,/)[0]);
+        let open = this.state.mediaOpen && this.state.mediaOpen === content.title;
         return (
             <React.Fragment>
                 <div
@@ -234,21 +253,22 @@ class ProductInfo extends React.Component {
                         src={src}
                         alt={content.title}
                     />
-                    <GridListTileBar title={content.title} />
+                    <GridListTileBar title={`open - ${open}${content.title}`} />
                 </div>
-                <Dialog
-                    open={
-                        this.state.mediaOpen &&
-                        this.state.mediaOpen === content.title
-                    }
-                    onClose={this.handleMediaItemClose}
-                >
-                    <img
-                        className={classes.fullMedia}
-                        src={src}
-                        alt={content.title}
-                    />
-                </Dialog>
+                {open ?
+                    <Dialog
+                        open={open}
+                        onClose={this.handleMediaItemClose}
+                    >
+                        <div>{open}</div>
+                        <img
+                            className={classes.fullMedia}
+                            src={src}
+                            alt={content.title}
+                        />
+                    </Dialog>
+                    : null
+                }
             </React.Fragment>
         );
     };
