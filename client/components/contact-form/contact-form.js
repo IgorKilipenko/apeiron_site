@@ -1,8 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import Input, { InputLabel } from '@material-ui/core/Input';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import Textarea from '@material-ui/core/Input/Textarea';
-import { FormControl, FormHelperText } from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -199,7 +201,7 @@ class ContactsForm extends React.Component {
                     anchorOrigin={{ vertical:'bottom', horizontal:'right' }}
                     open={this.state.successSended || false}
                     onClose={this.handleCloseDialog}
-                    SnackbarContentProps={{
+                    ContentProps={{
                         'aria-describedby': 'message-id'
                     }}
                     message={
